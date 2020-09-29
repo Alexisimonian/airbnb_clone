@@ -18,5 +18,9 @@
   "homepage": "https://github.com/Alexisimonian/airbnb_clone#readme",
   "devDependencies": {
     "jest": "^26.4.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
   }
 }
