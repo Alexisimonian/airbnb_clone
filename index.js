@@ -8,8 +8,14 @@ if (port == null || port == "") {
 }
 
 app.use(express.static("public")).use(cors());
-app.listen(port, () => {});
+app.listen(port, () => {
+  console.log(`listening on port: ${port}`);
+});
 
 app.get("/", (req, res) => {
-  res.sendFile("login.html");
+  res.sendFile("index.html");
+});
+
+app.get("/login", (req, res) => {
+  res.sendFile(__dirname + "/public/login.html");
 });
