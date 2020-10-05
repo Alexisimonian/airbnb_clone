@@ -7,13 +7,13 @@ if (port == null || port == "") {
   port = 3000;
 }
 
-app.use(express.static("public")).use(cors());
+app.use(express.static("./")).use(cors());
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);
 });
 
 app.get("/", (req, res) => {
-  res.sendFile("index.html");
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 app.get("/login", (req, res) => {

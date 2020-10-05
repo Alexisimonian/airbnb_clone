@@ -12,3 +12,4 @@ class Offer {
     return this.description;
   }
 }
+module.exports = { Offer };
