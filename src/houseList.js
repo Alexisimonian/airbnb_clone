@@ -11,4 +11,3 @@ class List {
     this.accumulator += 1;
   }
 }
-module.exports = { List };

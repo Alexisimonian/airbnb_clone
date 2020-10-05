@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="../src/houseList.js"></script>
     <script src="../src/houseOffer.js"></script>
+    <script src="../src/houseList.js"></script>
+    <script src="../src/feed.js"></script>
+    <script src="../src/view.js"></script>
     <title>Document</title>
   </head>
+
   <body>
-    <p>hello world</p>
     <button type="button">
       <a href="/login">login</a>
     </button>
+
+    <section id="content"></section>
+
     <script>
-      let list = new List();
+      let feed = new Feed();
+      feed.init();
+      feed.view();
     </script>
   </body>
 </html>
