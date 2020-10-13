@@ -30,7 +30,7 @@ class Feed {
         "20/09/2020 to 03/11/2020",
         `<img src="../public/images/${
           this.images[Math.floor(Math.random() * this.images.length)]
-        }"/>`
+        }" alt="cabinImage"/>`
       );
     }
   }
