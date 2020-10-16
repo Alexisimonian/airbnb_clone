@@ -1,4 +1,4 @@
-class Feed {
+export class Feed {
   constructor() {
     this.list = new List();
     this.images = [

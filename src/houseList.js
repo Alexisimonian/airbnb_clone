@@ -1,4 +1,4 @@
-class List {
+export class List {
   constructor() {
     this.houseList = [];
     this.accumulator = 0;

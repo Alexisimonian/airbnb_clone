@@ -1,4 +1,4 @@
-class Offer {
+export class Offer {
   constructor(title, price, description, availability, image) {
     this.title = title;
     this.price = price;

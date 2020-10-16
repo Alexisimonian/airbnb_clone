@@ -1,4 +1,4 @@
-class User {
+export class User {
   constructor() {
     this.username = undefined;
     this.email = undefined;
