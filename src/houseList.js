@@ -1,3 +1,5 @@
+import Offer from "./houseOffer";
+
 export default class List {
   constructor() {
     this.houseList = [];
