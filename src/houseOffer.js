@@ -5,10 +5,7 @@ class Offer {
     this.description = description;
     this.availability = availability;
     this.image = image;
+    this.address = address;
     this.id = undefined;
-  }
-
-  showDescription() {
-    return this.description;
   }
 }
