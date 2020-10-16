@@ -1,4 +1,6 @@
-export class Feed {
+import List from "./houseList";
+
+export default class Feed {
   constructor() {
     this.list = new List();
     this.images = [

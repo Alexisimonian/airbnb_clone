@@ -1,4 +1,4 @@
-const { User } = require("../src/user.js");
+import User from "../src/user.js";
 
 test("email passwords and username are first undefined", () => {
   const user = new User();
