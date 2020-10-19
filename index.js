@@ -20,6 +20,10 @@ app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/public/login.html");
 });
 
+app.post("/listing", (req, res) => {
+  res.sendFile(__dirname + "/public/listing.html");
+});
+
 app.get("/listing", (req, res) => {
   res.sendFile(__dirname + "/public/listing.html");
 });
