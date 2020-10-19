@@ -1,5 +1,9 @@
 const express = require("express");
+const session = require("expres-session");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+const path = require("path");
+const mysql = require("mysql");
 const app = express();
 
 let port = process.env.PORT;
@@ -21,6 +25,8 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/listing", (req, res) => {
+  let email = req.body.email;
+  let password = req.body.psw;
   res.sendFile(__dirname + "/public/listing.html");
 });
 
