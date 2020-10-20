@@ -1,11 +1,9 @@
 const dbId = require("./src/dbInfos.js");
-//import User from "./src/user.js";
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
-const { request } = require("express");
 const app = express();
 
 let port = process.env.PORT;
@@ -50,20 +48,17 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  let username = req.body.username;
   let email = req.body.email;
-  let password = req.body.psw;
-  if (username && email && password) {
+  let password = req.body.password;
+  if (email && password) {
     connection.query(
-      `SELECT * FROM users WHERE name = '${username}' AND password = '${password}'`,
+      `SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`,
       function (err, result, fields) {
         if (result.length > 0) {
           req.session.loggedin = true;
           res.redirect("/listing");
         } else {
-          res.send(
-            "Incorrect email and/or password.<br> If you do not have an account please sign up."
-          );
+          res.send("Incorrect email and/or password.");
         }
         res.end();
       }
@@ -74,8 +69,6 @@ app.post("/login", (req, res) => {
 app.get("/signup", (req, res) => {
   res.sendFile(__dirname + "/public/signup.html");
 });
-
-app.post("/signup", (req, res) => {});
 
 app.get("/listing", (req, res) => {
   res.sendFile(__dirname + "/public/listing.html");
