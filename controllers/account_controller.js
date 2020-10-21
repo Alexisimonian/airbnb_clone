@@ -5,8 +5,8 @@ const path = require("path");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 const mysql = require("mysql");
-const dbId = require("./src/dbInfos.js");
-const { User } = require("./src/users");
+const dbId = require("../src/dbInfos.js");
+const { User } = require("../src/users");
 
 const accountRoutes = express.Router();
 

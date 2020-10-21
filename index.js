@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const app = express();
 
-const AccountRoutes = require("./account_controller");
+const AccountRoutes = require("./controllers/account_controller");
 
 let port = process.env.PORT || 3000;
 
