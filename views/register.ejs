@@ -5,7 +5,7 @@
   </head>
   <body>
     <div>
-      <form class="loginForm" action="/signup" method="post">
+      <form class="loginForm" action="/register" method="post">
         <!-- <label for="username">Username :</label> -->
         <input type="text" placeholder="username" name="username" required />
         <!-- <label for="email">Email :</label> -->
@@ -38,10 +38,9 @@
         <button type="submit" id="subBtn">login</button>
       </form>
     </div>
+    <%= errors %>
     <div>
       <p>Already an account? Please <a href="/login">login</a></p>
     </div>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="../src/view/signupInterface.js"></script>
   </body>
 </html>
