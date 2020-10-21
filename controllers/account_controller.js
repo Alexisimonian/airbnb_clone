@@ -27,24 +27,28 @@ accountRoutes.get("/register", (req, res) => {
 accountRoutes.post("/register", (req, res) => {
   let username = req.body.username;
   let email = req.body.email;
-  connection.query(
-    `SELECT * FROM users WHERE name='${username}' OR email='${email}'`,
-    function (err, result, field) {
-      if (result.length > 0) {
-        res.render("register", { errors: "Username or email already used" });
-      } else {
-        const passwordHash = bcrypt.hashSync(req.body.password, 10);
-        req.session.loggedin = true;
-        req.session.username = username;
-        connection.query(
-          `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${passwordHash}')`,
-          function (err, result, field) {
-            res.redirect("/");
-          }
-        );
+  if (req.body.password != req.body.confirm_password) {
+    res.render("register", { errors: "Passwords must match" });
+  } else {
+    connection.query(
+      `SELECT * FROM users WHERE name='${username}' OR email='${email}'`,
+      function (err, result, field) {
+        if (result.length > 0) {
+          res.render("register", { errors: "Username or email already used" });
+        } else {
+          const passwordHash = bcrypt.hashSync(req.body.password, 10);
+          req.session.loggedin = true;
+          req.session.username = username;
+          connection.query(
+            `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${passwordHash}')`,
+            function (err, result, field) {
+              res.redirect("/");
+            }
+          );
+        }
       }
-    }
-  );
+    );
+  }
 });
 
 accountRoutes.post("/login", (req, res) => {
