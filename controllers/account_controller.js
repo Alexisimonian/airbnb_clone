@@ -16,15 +16,9 @@ let connection = mysql.createConnection({
   password: dbId.password,
   database: "Airbnb_clone_test",
 });
-connection.connect(function (err) {
-  if (err) {
-    return console.log("error:" + err.message);
-  }
-  console.log("Connected to mysql server");
-});
 
 accountRoutes.get("/login", (req, res) => {
-  res.render("login");
+  res.render("login", { errors: "" });
 });
 
 accountRoutes.get("/register", (req, res) => {
@@ -34,47 +28,45 @@ accountRoutes.get("/register", (req, res) => {
 accountRoutes.post("/register", (req, res) => {
   let username = req.body.username;
   let email = req.body.email;
-  if (username && email) {
-    connection.query(
-      `SELECT * FROM users WHERE name='${username}' OR email='${email}'`,
-      function (err, result, field) {
-        if (result.length > 0) {
-          res.render("register", { errors: "Username or email already used" });
-        } else {
-          const passwordHash = bcrypt.hashSync(req.body.password, 10);
-          user = new User(username, email, passwordHash);
-          req.session.loggedin = true;
-          req.session.username = username;
-          connection.query(
-            `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${passwordHash}')`,
-            function (err, result, field) {
-              if (err) throw err;
-              res.redirect("/");
-            }
-          );
-        }
-        res.end();
+  connection.query(
+    `SELECT * FROM users WHERE name='${username}' OR email='${email}'`,
+    function (err, result, field) {
+      if (result.length > 0) {
+        res.render("register", { errors: "Username or email already used" });
+      } else {
+        const passwordHash = bcrypt.hashSync(req.body.password, 10);
+        req.session.loggedin = true;
+        req.session.username = username;
+        connection.query(
+          `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${passwordHash}')`,
+          function (err, result, field) {
+            res.redirect("/");
+          }
+        );
       }
-    );
-  } else {
-    res.render("register", {
-      errors: "Please enter username, email and password",
-    });
-    res.end();
-  }
+    }
+  );
 });
 
-accountRoutes.post("./login", (req, res) => {
-  let email = req.body.username;
+accountRoutes.post("/login", (req, res) => {
+  let email = req.body.email;
   let password = req.body.password;
-  if (email && password) {
-    connection.query(`SELECT * FROM users WHERE email='${email}'`, function (
-      err,
-      result,
-      field
-    ) {
-      console.log(result);
-    });
-  }
+  connection.query(`SELECT * FROM users WHERE email='${email}'`, function (
+    err,
+    result,
+    field
+  ) {
+    if (result.length > 0) {
+      if (bcrypt.compareSync(password, result[0].password)) {
+        req.session.username = result[0].name;
+        res.redirect("/");
+      } else {
+        res.render("login", { errors: "Password incorrect" });
+      }
+    } else {
+      res.render("login", { errors: "Email incorrect" });
+    }
+  });
 });
+
 module.exports = { AccountRoutes: accountRoutes };
