@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const app = express();
 
+const HomeRoutes = require("./controllers/home_controller");
 const AccountRoutes = require("./controllers/account_controller");
 
 let port = process.env.PORT || 3000;
@@ -17,5 +18,6 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use("/", HomeRoutes.HomeRoutes);
 app.use("/", AccountRoutes.AccountRoutes);
 app.listen(port);

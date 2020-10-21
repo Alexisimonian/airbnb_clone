@@ -6,7 +6,6 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 const mysql = require("mysql");
 const dbId = require("../src/dbInfos.js");
-const { User } = require("../src/users");
 
 const accountRoutes = express.Router();
 
@@ -58,13 +57,14 @@ accountRoutes.post("/login", (req, res) => {
   ) {
     if (result.length > 0) {
       if (bcrypt.compareSync(password, result[0].password)) {
+        req.session.loggedin = true;
         req.session.username = result[0].name;
         res.redirect("/");
       } else {
-        res.render("login", { errors: "Password incorrect" });
+        res.render("login", { errors: "Incorrect password" });
       }
     } else {
-      res.render("login", { errors: "Email incorrect" });
+      res.render("login", { errors: "No account with this email." });
     }
   });
 });
