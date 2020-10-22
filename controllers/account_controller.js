@@ -73,4 +73,9 @@ accountRoutes.post("/login", (req, res) => {
   });
 });
 
+accountRoutes.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
+});
+
 module.exports = { AccountRoutes: accountRoutes };
