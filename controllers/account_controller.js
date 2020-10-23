@@ -33,6 +33,7 @@ accountRoutes.post("/register", (req, res) => {
           req.session.loggedin = true;
           req.session.username = username;
           user.saveUser(username, email, passwordHash);
+          res.redirect("/");
         } else {
           res.render("register", { errors: "Email already taken" });
         }
