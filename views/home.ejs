@@ -9,10 +9,13 @@
     <%= welcome_msg %>
     <button type="button">
       <% if (loggedin) { %>
-      <a href="/logout">logout</a>
+      <a href="/logout">Logout</a>
       <% } else { %>
-      <a href="/login">login</a>
+      <a href="/login">Login</a>
       <% } %>
+    </button>
+    <button type="button">
+      <a href="/register">Sign-Up</a>
     </button>
     <button type="button">
       <a href="/listing">Houses</a>
