@@ -25,10 +25,10 @@ accountRoutes.post("/register", (req, res) => {
     res.render("register", { errors: "Passwords must match" });
   } else {
     (async () => {
-      let unusedUsername = await user.unusedUsername(username);
-      let unusedEmail = await user.unusedEmail(email);
-      if (unusedUsername.length == 0) {
-        if (unusedEmail.length == 0) {
+      let existingUsernames = await user.existingUsernames(username);
+      let existingEmails = await user.existingEmails(email);
+      if (existingUsernames.length == 0) {
+        if (existingEmails.length == 0) {
           const passwordHash = bcrypt.hashSync(req.body.password, 10);
           req.session.loggedin = true;
           req.session.username = username;

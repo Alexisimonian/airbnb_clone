@@ -1,12 +1,12 @@
 const { dbQuery } = require("./db");
 
 class User {
-  unusedEmail(email) {
+  existingEmails(email) {
     let query = dbQuery(`SELECT * FROM users WHERE email='${email}'`);
     return query;
   }
 
-  unusedUsername(name) {
+  existingUsernames(name) {
     let query = dbQuery(`SELECT * FROM users WHERE name='${name}'`);
     return query;
   }
