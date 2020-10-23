@@ -21,3 +21,4 @@ function dbQuery(request) {
 }
 
 module.exports.dbQuery = dbQuery;
+module.exports = connection;
