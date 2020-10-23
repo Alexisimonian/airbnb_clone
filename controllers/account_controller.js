@@ -4,17 +4,11 @@ const ejs = require("ejs");
 const path = require("path");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
-const mysql = require("mysql");
-const dbId = require("../src/dbInfos.js");
+const { User } = require("../src/user");
+
+const user = new User();
 
 const accountRoutes = express.Router();
-
-let connection = mysql.createConnection({
-  host: "localhost",
-  user: dbId.username,
-  password: dbId.password,
-  database: "Airbnb_clone_test",
-});
 
 accountRoutes.get("/login", (req, res) => {
   res.render("login", { errors: "" });
@@ -30,39 +24,34 @@ accountRoutes.post("/register", (req, res) => {
   if (req.body.password != req.body.confirm_password) {
     res.render("register", { errors: "Passwords must match" });
   } else {
-    connection.query(
-      `SELECT * FROM users WHERE name='${username}' OR email='${email}'`,
-      function (err, result, field) {
-        if (result.length > 0) {
-          res.render("register", { errors: "Username or email already used" });
-        } else {
+    (async () => {
+      let validUsername = await user.unusedUsername(username);
+      let validEmail = await user.unusedEmail(email);
+      if (validUsername.length == 0) {
+        if (validEmail.length == 0) {
           const passwordHash = bcrypt.hashSync(req.body.password, 10);
           req.session.loggedin = true;
           req.session.username = username;
-          connection.query(
-            `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${passwordHash}')`,
-            function (err, result, field) {
-              res.redirect("/");
-            }
-          );
+          user.saveUser(username, email, passwordHash);
+        } else {
+          res.render("register", { errors: "Email already taken" });
         }
+      } else {
+        res.render("register", { errors: "Username already taken" });
       }
-    );
+    })();
   }
 });
 
 accountRoutes.post("/login", (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
-  connection.query(`SELECT * FROM users WHERE email='${email}'`, function (
-    err,
-    result,
-    field
-  ) {
-    if (result.length > 0) {
-      if (bcrypt.compareSync(password, result[0].password)) {
+  (async () => {
+    let verifiedUser = await user.verifyThroughEmail(email);
+    if (verifiedUser.length > 0) {
+      if (bcrypt.compareSync(password, verifiedUser[0].password)) {
         req.session.loggedin = true;
-        req.session.username = result[0].name;
+        req.session.username = verifiedUser[0].name;
         res.redirect("/");
       } else {
         res.render("login", { errors: "Incorrect password" });
@@ -70,7 +59,7 @@ accountRoutes.post("/login", (req, res) => {
     } else {
       res.render("login", { errors: "No account with this email." });
     }
-  });
+  })();
 });
 
 accountRoutes.get("/logout", (req, res) => {
