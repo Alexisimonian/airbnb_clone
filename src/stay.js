@@ -8,3 +8,4 @@ class Stay {
     this.description = description;
   }
 }
+module.exports = { Stay };
