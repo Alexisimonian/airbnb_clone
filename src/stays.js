@@ -34,3 +34,4 @@ class Stays {
     return this.houses;
   }
 }
+module.exports = { Stays };

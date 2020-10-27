@@ -4,7 +4,7 @@ const session = require("express-session");
 const app = express();
 
 const HomeRoutes = require("./controllers/home_controller");
-const ListingRoutes = require("./controllers/listing_controller");
+const StaysRoutes = require("./controllers/stays_controller");
 const AccountRoutes = require("./controllers/account_controller");
 
 let port = process.env.PORT || 3000;
@@ -20,6 +20,6 @@ app.use(
   })
 );
 app.use("/", HomeRoutes.HomeRoutes);
-app.use("/", ListingRoutes.ListingRoutes);
+app.use("/", StaysRoutes.StaysRoutes);
 app.use("/", AccountRoutes.AccountRoutes);
 app.listen(port);
