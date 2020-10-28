@@ -1,10 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const { Stays } = require("../src/stays");
+
+const stays = new Stays();
 
 const staysRoutes = express.Router();
 
 staysRoutes.get("/stays", function (req, res) {
-  res.render("stays");
+  (async () => {
+    let listing = await stays.listingStays();
+    res.render("stays", { listings: listing });
+  })();
 });
+
 module.exports = { StaysRoutes: staysRoutes };
