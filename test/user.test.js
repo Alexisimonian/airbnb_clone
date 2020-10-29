@@ -7,7 +7,7 @@ beforeEach(() => {
   dbQuery.mockClear();
 });
 
-it("sends data to db file", () => {
+it("calls dbquery", () => {
   let user = new User();
   user.verifyThroughEmail("test@test.com");
   user.existingEmails("test@test.com");

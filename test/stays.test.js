@@ -9,7 +9,7 @@ beforeEach(() => {
   dbQuery.mockClear();
 });
 
-it("calls db", () => {
+it("calls dbquery", () => {
   let stays = new Stays();
   let stay = new Stay();
   stays.createStay("test", "test", "test", "test", "test", "test");
