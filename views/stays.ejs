@@ -12,6 +12,14 @@
       <a href="/">Home</a>
     </button>
 
-    <section id="content"></section>
+    <section id="content">
+      <div> 
+        <ul>
+          <% for(let i=0; i<listings.length; i++){ %>
+            <li><%= listings[i].description%></li>
+          <% } %>
+      </ul>
+      </div>
+    </section>
   </body>
 </html>
