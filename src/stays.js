@@ -25,6 +25,7 @@ class Stays {
           query[i].id,
           query[i].user,
           query[i].address,
+          query[i].price,
           query[i].availability,
           query[i].images,
           query[i].description

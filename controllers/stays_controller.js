@@ -10,6 +10,7 @@ const staysRoutes = express.Router();
 staysRoutes.get("/stays", function (req, res) {
   (async () => {
     let listing = await stays.listingStays();
+    console.log(listing);
     res.render("stays", { listings: listing });
   })();
 });
