@@ -17,9 +17,14 @@
 
     <section id="content">
       <div> 
-        <ul>
+        <ul style='list-style-type:none;'>
           <% for(let i=0; i<listings.length; i++){ %>
-            <li><%= listings[i].images%></li>
+            <li><%=listing[i].user></li>
+            <li><%=listing[i].title></li>
+            <li><%=listing[i].price></li>
+            <li> Available from: <%=listing[i].availableFrom> to <%=listing[i].availableTo></li>
+            <li><%=listing[i].description></li>
+            <li><%=listings[i].images%></li>
           <% } %>
       </ul>
       </div>

@@ -17,7 +17,7 @@ class Stays {
     description
   ) {
     dbQuery(
-      `INSERT INTO stays (user, title, address, price, availability, images, description) 
+      `INSERT INTO stays (user, title, address, price, availablefrom, availableto, images, description) 
       VALUES ('${user}','${title}' '${address}', '${price}', '${availableFrom}', '${availableTo}', '${images}', '${description}')`
     );
   }
