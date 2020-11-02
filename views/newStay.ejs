@@ -7,13 +7,34 @@
   </head>
   <body>
     <form class="newStayForm" action="/stays" method="POST">
-      <input type="text" name="title" />
-      <input type="text" name="address" />
-      <input type="number" step="any" name="price" />
-      <input type="date" id="startDate" name="startDate" />
-      <input type="date" id="endDate" name="endDate" />
-      <input type="text" name="description" />
-      <input type="image" name="imageFile" />
+      <input type="text" name="title" placeholder="title" required /><br />
+      <input type="text" name="address" placeholder="address" required /><br />
+      <input
+        type="number"
+        step="any"
+        name="price"
+        placeholder="price"
+        maxlength="5"
+        size="5"
+        required
+      />€/night<br />
+      <label for="startDate">Availability:</label><br />
+      <input type="date" id="startDate" name="startDate" required /><br />
+      <input type="date" id="endDate" name="endDate" required /><br />
+      <input
+        type="text"
+        id="description"
+        name="description"
+        placeholder="description"
+        required
+      /><br />
+      <input
+        type="file"
+        name="imageFile"
+        accept="image/png, image/jpeg"
+        required
+      /><br />
+      <button type="submit">Save House</button>
     </form>
   </body>
 </html>

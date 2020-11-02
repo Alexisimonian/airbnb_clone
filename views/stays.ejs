@@ -12,7 +12,7 @@
       <a href="/">Home</a>
     </button>
     <button type="button">
-      <a href='/stays/new'>Post a House</a>
+      <a href='/stays/new'>Become a host</a>
     </button>
 
     <section id="content">
@@ -20,10 +20,10 @@
         <% for(let i=0; i<listings.length; i++){ %>
           <a href='/'>
           <div id='offer'>
-            <li><%=listing[i].user></li>
-            <li><%=listing[i].title></li>
-            <li><%=listing[i].price></li>
-            <li> Available from: <%=listing[i].availableFrom> to <%=listing[i].availableTo></li>
+            <li><%=listing[i].user%></li>
+            <li><%=listing[i].title%></li>
+            <li><%=listing[i].price%></li>
+            <li> Available from: <%=listing[i].availableFrom%> to <%=listing[i].availableTo%></li>
             <li><%=listings[i].images%></li>
           </div>
           <br>
