@@ -16,22 +16,20 @@
     </button>
 
     <section id="content">
-      <div> 
-        <ul style='list-style-type:none;'>
-          <% for(let i=0; i<listings.length; i++){ %>
-            <a href='/'>
-            <div id='offer'>
-              <li><%=listing[i].user></li>
-              <li><%=listing[i].title></li>
-              <li><%=listing[i].price></li>
-              <li> Available from: <%=listing[i].availableFrom> to <%=listing[i].availableTo></li>
-              <li><%=listings[i].images%></li>
-            </div>
+      <ul style='list-style-type:none;'>
+        <% for(let i=0; i<listings.length; i++){ %>
+          <a href='/'>
+          <div id='offer'>
+            <li><%=listing[i].user></li>
+            <li><%=listing[i].title></li>
+            <li><%=listing[i].price></li>
+            <li> Available from: <%=listing[i].availableFrom> to <%=listing[i].availableTo></li>
+            <li><%=listings[i].images%></li>
+          </div>
           <br>
-        </a>
-          <% } %>
+          </a>
+        <% } %>
       </ul>
-      </div>
     </section>
   </body>
 </html>
