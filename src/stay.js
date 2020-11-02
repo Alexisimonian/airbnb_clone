@@ -1,10 +1,22 @@
 class Stay {
-  constructor(id, user, address, price, availability, images, description) {
+  constructor(
+    id,
+    user,
+    title,
+    address,
+    price,
+    availableFrom,
+    availableTo,
+    images,
+    description
+  ) {
     this.id = id;
     this.user = user;
+    this.title = title;
     this.address = address;
     this.price = price;
-    this.availability = availability;
+    this.availableFrom = availableFrom;
+    this.availableTo = availableTo;
     this.images = images;
     this.description = description;
   }

@@ -10,9 +10,12 @@ const staysRoutes = express.Router();
 staysRoutes.get("/stays", function (req, res) {
   (async () => {
     let listing = await stays.listingStays();
-    console.log(listing);
     res.render("stays", { listings: listing });
   })();
+});
+
+staysRoutes.get("/stays/new", function (req, res) {
+  res.render("newStay", { errors: "" });
 });
 
 module.exports = { StaysRoutes: staysRoutes };

@@ -6,10 +6,19 @@ class Stays {
     this.houses = [];
   }
 
-  createStay(user, address, price, availability, images, description) {
+  createStay(
+    user,
+    title,
+    address,
+    price,
+    availableFrom,
+    availableTo,
+    images,
+    description
+  ) {
     dbQuery(
-      `INSERT INTO stays (user, address, price, availability, images, description) 
-      VALUES ('${user}', '${address}', '${price}', '${availability}', '${images}', '${description}')`
+      `INSERT INTO stays (user, title, address, price, availability, images, description) 
+      VALUES ('${user}','${title}' '${address}', '${price}', '${availableFrom}', '${availableTo}', '${images}', '${description}')`
     );
   }
 
@@ -24,9 +33,11 @@ class Stays {
         new Stay(
           query[i].id,
           query[i].user,
+          query[i].title,
           query[i].address,
           query[i].price,
-          query[i].availability,
+          query[i].availableFrom,
+          query[i].availableTo,
           query[i].images,
           query[i].description
         )

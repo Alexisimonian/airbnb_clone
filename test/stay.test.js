@@ -6,7 +6,8 @@ it("stores correct informations", () => {
     "user",
     "address",
     "price",
-    "availability",
+    "availableFrom",
+    "availableTo",
     "images",
     "description"
   );
@@ -15,7 +16,8 @@ it("stores correct informations", () => {
   expect(stay.user).toBe("user");
   expect(stay.address).toBe("address");
   expect(stay.price).toBe("price");
-  expect(stay.availability).toBe("availability");
+  expect(stay.availableFrom).toBe("availableFrom");
+  expect(stay.availableTo).toBe("availableTo");
   expect(stay.images).toBe("images");
   expect(stay.description).toBe("description");
 });
