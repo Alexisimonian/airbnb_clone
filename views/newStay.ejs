@@ -6,7 +6,12 @@
     <title>New Stay</title>
   </head>
   <body>
-    <form class="newStayForm" action="/stays" method="POST">
+    <form
+      class="newStayForm"
+      enctype="multipart/form-data"
+      action="/stays"
+      method="POST"
+    >
       <input type="text" name="title" placeholder="title" required /><br />
       <input type="text" name="address" placeholder="address" required /><br />
       <input
