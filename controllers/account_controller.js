@@ -22,7 +22,7 @@ accountRoutes.post("/register", (req, res) => {
   let username = req.body.username;
   let email = req.body.email;
   if (req.body.password != req.body.confirm_password) {
-    res.render("register", { errors: "Passwords must match" });
+    res.send("Passwords must match");
   } else {
     (async () => {
       let existingUsernames = await user.existingUsernames(username);
@@ -30,8 +30,11 @@ accountRoutes.post("/register", (req, res) => {
       if (existingUsernames.length == 0) {
         if (existingEmails.length == 0) {
           const passwordHash = bcrypt.hashSync(req.body.password, 10);
-          user.saveUser(username, email, passwordHash);
-          res.redirect("/login");
+          await user.saveUser(username, email, passwordHash);
+          req.session.loggedin = true;
+          req.session.username = username;
+          req.session.userId = await user.getID(username);
+          res.redirect("/");
         } else {
           res.send("Email already taken");
         }

@@ -6,14 +6,8 @@
     <title>Welcome to Airbnb</title>
   </head>
   <body>
-    <%= welcome_msg %>
-    <button type="button">
-      <% if (loggedin) { %>
-      <a href="/logout">Logout</a>
-      <% } else { %>
-      <a href="/login">Login</a>
-      <% } %>
-    </button>
+    <p id="welcomeMsg"></p>
+    <button type="button" id="login-out-btn"></button>
     <button type="button">
       <a href="/register">Sign-Up</a>
     </button>

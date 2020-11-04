@@ -16,15 +16,17 @@ class User {
     return query;
   }
 
-  getID(username) {
-    let query = dbQuery(`SELECT * FROM users WHERE name='${username}'`);
+  saveUser(username, email, password) {
+    let query = dbQuery(
+      `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${password}')`
+    );
     return query;
   }
 
-  saveUser(username, email, password) {
-    return dbQuery(
-      `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${password}')`
-    );
+  async getID(username) {
+    let query = await dbQuery(`SELECT id FROM users WHERE name='${username}'`);
+    return query[0].id;
   }
 }
+
 module.exports = { User };
