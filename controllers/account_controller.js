@@ -11,11 +11,11 @@ const user = new User();
 const accountRoutes = express.Router();
 
 accountRoutes.get("/login", (req, res) => {
-  res.render("login", { errors: "" });
+  res.sendFile("login.html", { root: "public" });
 });
 
 accountRoutes.get("/register", (req, res) => {
-  res.render("register", { errors: "" });
+  res.sendFile("register.html", { root: "public" });
 });
 
 accountRoutes.post("/register", (req, res) => {
@@ -33,10 +33,10 @@ accountRoutes.post("/register", (req, res) => {
           user.saveUser(username, email, passwordHash);
           res.redirect("/login");
         } else {
-          res.render("register", { errors: "Email already taken" });
+          res.send("Email already taken");
         }
       } else {
-        res.render("register", { errors: "Username already taken" });
+        res.send("Username already taken");
       }
     })();
   }
@@ -52,13 +52,12 @@ accountRoutes.post("/login", (req, res) => {
         req.session.loggedin = true;
         req.session.username = verifiedUser[0].name;
         req.session.userId = verifiedUser[0].id;
-        // res.redirect("/");
+        res.redirect("/");
       } else {
-        // res.render("login", { errors: "Incorrect password" });
         res.send("Incorect password");
       }
     } else {
-      // res.render("login", { errors: "No account with this email." });
+      res.send("No account with this email.");
     }
   })();
 });
