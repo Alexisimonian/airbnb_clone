@@ -16,8 +16,13 @@ class User {
     return query;
   }
 
+  getID(username) {
+    let query = dbQuery(`SELECT * FROM users WHERE name='${username}'`);
+    return query;
+  }
+
   saveUser(username, email, password) {
-    dbQuery(
+    return dbQuery(
       `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${password}')`
     );
   }

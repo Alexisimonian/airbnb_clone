@@ -30,10 +30,8 @@ accountRoutes.post("/register", (req, res) => {
       if (existingUsernames.length == 0) {
         if (existingEmails.length == 0) {
           const passwordHash = bcrypt.hashSync(req.body.password, 10);
-          req.session.loggedin = true;
-          req.session.username = username;
           user.saveUser(username, email, passwordHash);
-          res.redirect("/");
+          res.redirect("/login");
         } else {
           res.render("register", { errors: "Email already taken" });
         }
@@ -53,12 +51,14 @@ accountRoutes.post("/login", (req, res) => {
       if (bcrypt.compareSync(password, verifiedUser[0].password)) {
         req.session.loggedin = true;
         req.session.username = verifiedUser[0].name;
-        res.redirect("/");
+        req.session.userId = verifiedUser[0].id;
+        // res.redirect("/");
       } else {
-        res.render("login", { errors: "Incorrect password" });
+        // res.render("login", { errors: "Incorrect password" });
+        res.send("Incorect password");
       }
     } else {
-      res.render("login", { errors: "No account with this email." });
+      // res.render("login", { errors: "No account with this email." });
     }
   })();
 });

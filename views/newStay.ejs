@@ -9,7 +9,7 @@
     <form
       class="newStayForm"
       enctype="multipart/form-data"
-      action="/stays"
+      action="/stays/upload"
       method="POST"
     >
       <input type="text" name="title" placeholder="title" required /><br />
@@ -41,5 +41,6 @@
       /><br />
       <button type="submit">Save House</button>
     </form>
+    <%= errors %>
   </body>
 </html>
