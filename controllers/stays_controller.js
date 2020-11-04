@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
