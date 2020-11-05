@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
@@ -16,22 +15,19 @@ const staysRoutes = express.Router();
 staysRoutes.get("/stays", function (req, res) {
   (async () => {
     let listing = await stays.listingStays();
-    res.render("stays", { listings: listing });
+    res.sendFile("stays;html", { root: "public" });
   })();
 });
 
 staysRoutes.get("/stays/new", function (req, res) {
   if (req.session.loggedin) {
-    res.render("newStay", { errors: "" });
+    res.sendFile("newStay.html", { root: "public" });
   } else {
-    res.render("login", { errors: "You must be loggedin to continue" });
+    res.send("You must be loggedin to continue");
   }
 });
 
-staysRoutes.post("/stays/upload", upload.single("imageFile"), function (
-  req,
-  res
-) {
+staysRoutes.post("/upload", upload.single("imageFile"), function (req, res) {
   let userID = req.session.userId;
   let title = req.body.title;
   let address = req.body.address;
@@ -45,7 +41,7 @@ staysRoutes.post("/stays/upload", upload.single("imageFile"), function (
   let targetPath = path.join(__dirname, `../public/images/${image}`);
   fs.rename(tempPath, targetPath, (err) => {
     if (err) {
-      res.render("newStay", { errors: "Oops something went wrong" });
+      res.send("Oops Something went wrong");
     } else {
       stays.createStay(
         userID,

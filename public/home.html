@@ -6,19 +6,15 @@
     <title>Welcome to Airbnb</title>
   </head>
   <body>
-    <%= welcome_msg %>
-    <button type="button">
-      <% if (loggedin) { %>
-      <a href="/logout">Logout</a>
-      <% } else { %>
-      <a href="/login">Login</a>
-      <% } %>
-    </button>
+    <h1 id="welcomeMsg"></h1>
+    <button type="button" id="logbtn"></button>
     <button type="button">
       <a href="/register">Sign-Up</a>
     </button>
     <button type="button">
       <a href="/stays">Houses</a>
     </button>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="home.js"></script>
   </body>
 </html>

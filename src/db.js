@@ -19,5 +19,5 @@ function dbQuery(request) {
     });
   });
 }
-module.exports = { connection };
+
 module.exports.dbQuery = dbQuery;

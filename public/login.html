@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Airbnb: Sign-Up</title>
+    <title>Airbnb: Login</title>
   </head>
   <body>
     <div>
-      <form class="registerForm" action="/register" method="post">
-        <!-- <label for="username">Username :</label> -->
-        <input type="text" placeholder="username" name="username" required />
+      <form id="loginForm" action="/login" method="post">
         <!-- <label for="email">Email :</label> -->
         <input
           type="text"
-          placeholder="Email"
+          placeholder="email"
           name="email"
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           title="Must be a valid email address."
@@ -20,27 +18,20 @@
         <!-- <label for="password">Password :</label> -->
         <input
           type="password"
-          id="password"
-          placeholder="Password"
+          placeholder="password"
           name="password"
           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
           title="Must contain at least one number, one uppercase and lowercase letter, and be at least 8 characters or more."
           required
         />
-        <input
-          type="password"
-          id="confirm_password"
-          placeholder="Confirm Password"
-          name="confirm_password"
-          required
-        />
-        <span id="message"></span>
-        <button type="submit" id="subBtn">login</button>
+        <button type="submit">login</button>
       </form>
     </div>
-    <%= errors %>
     <div>
-      <p>Already an account? Please <a href="/login">login</a></p>
+      <p>Don't have an account? Please <a href="/register">sign-up</a></p>
     </div>
+    <p id="errors"></p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="login.js"></script>
   </body>
 </html>

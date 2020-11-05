@@ -1,17 +1,27 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
 
 const homeRoutes = express.Router();
 
 homeRoutes.get("/", function (req, res) {
   if (req.session.loggedin) {
-    res.render("home", {
-      welcome_msg: `Welcome back ${req.session.username}`,
-      loggedin: true,
-    });
+    let options = {
+      root: "public",
+      headers: {
+        logbtn: "logout",
+        welcomeMsg: "Welcome" + req.session.username,
+      },
+    };
+    res.sendFile("home.html", options);
   } else {
-    res.render("home", { welcome_msg: "", loggedin: false });
+    let options = {
+      root: "public",
+      headers: {
+        logbtn: "login",
+        welcomeMsg: "Welcome to Airbnb",
+      },
+    };
+    res.sendFile("home.html", options);
   }
 });
 module.exports = { HomeRoutes: homeRoutes };

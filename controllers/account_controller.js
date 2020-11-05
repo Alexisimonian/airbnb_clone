@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
 const path = require("path");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
@@ -11,18 +10,18 @@ const user = new User();
 const accountRoutes = express.Router();
 
 accountRoutes.get("/login", (req, res) => {
-  res.render("login", { errors: "" });
+  res.sendFile("login.html", { root: "public" });
 });
 
 accountRoutes.get("/register", (req, res) => {
-  res.render("register", { errors: "" });
+  res.sendFile("register.html", { root: "public" });
 });
 
 accountRoutes.post("/register", (req, res) => {
   let username = req.body.username;
   let email = req.body.email;
   if (req.body.password != req.body.confirm_password) {
-    res.render("register", { errors: "Passwords must match" });
+    res.send("Passwords must match");
   } else {
     (async () => {
       let existingUsernames = await user.existingUsernames(username);
@@ -30,13 +29,16 @@ accountRoutes.post("/register", (req, res) => {
       if (existingUsernames.length == 0) {
         if (existingEmails.length == 0) {
           const passwordHash = bcrypt.hashSync(req.body.password, 10);
-          user.saveUser(username, email, passwordHash);
-          res.redirect("/login");
+          await user.saveUser(username, email, passwordHash);
+          req.session.loggedin = true;
+          req.session.username = username;
+          req.session.userId = await user.getID(username);
+          res.redirect("/");
         } else {
-          res.render("register", { errors: "Email already taken" });
+          res.send("Email already taken");
         }
       } else {
-        res.render("register", { errors: "Username already taken" });
+        res.send("Username already taken");
       }
     })();
   }
@@ -52,13 +54,12 @@ accountRoutes.post("/login", (req, res) => {
         req.session.loggedin = true;
         req.session.username = verifiedUser[0].name;
         req.session.userId = verifiedUser[0].id;
-        // res.redirect("/");
+        res.redirect("/");
       } else {
-        // res.render("login", { errors: "Incorrect password" });
-        res.send("Incorect password");
+        res.status(400).send("Incorect password");
       }
     } else {
-      // res.render("login", { errors: "No account with this email." });
+      res.send("No account with this email.");
     }
   })();
 });

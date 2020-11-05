@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $("#loginForm").on("submit", function (e) {
+  $("#registerForm").on("submit", function (e) {
     e.preventDefault();
     let data = $(this).serialize();
     $.ajax({
