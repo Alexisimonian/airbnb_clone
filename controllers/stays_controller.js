@@ -21,7 +21,7 @@ staysRoutes.get("/stays", function (req, res) {
         listing: listing,
       },
     };
-    res.sendFile("stays.html", options);
+    res.sendFile("listStays.html", options);
   })();
 });
 
@@ -29,7 +29,7 @@ staysRoutes.get("/stays/new", function (req, res) {
   if (req.session.loggedin) {
     res.sendFile("newStay.html", { root: "public" });
   } else {
-    res.status(400).send("you must be loggedin to continue");
+    res.status(422).send("you must be loggedin to continue");
   }
 });
 
@@ -47,7 +47,7 @@ staysRoutes.post("/upload", upload.single("imageFile"), function (req, res) {
   let targetPath = path.join(__dirname, `../public/images/${image}`);
   fs.rename(tempPath, targetPath, (err) => {
     if (err) {
-      res.status(400).send("Oops Something went wrong downloading your image");
+      res.status(422).send("Oops Something went wrong downloading your image");
     } else {
       stays.createStay(
         userID,

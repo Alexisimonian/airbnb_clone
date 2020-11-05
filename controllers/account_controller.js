@@ -21,7 +21,7 @@ accountRoutes.post("/register", (req, res) => {
   let username = req.body.username;
   let email = req.body.email;
   if (req.body.password != req.body.confirm_password) {
-    res.status(400).send("passwords must match");
+    res.status(422).send("passwords must match");
   } else {
     (async () => {
       let existingUsernames = await user.existingUsernames(username);
@@ -35,10 +35,10 @@ accountRoutes.post("/register", (req, res) => {
           req.session.userId = await user.getID(username);
           res.redirect("/");
         } else {
-          res.status(400).send("email already taken");
+          res.status(422).send("email already taken");
         }
       } else {
-        res.status(400).send("username already taken");
+        res.status(422).send("username already taken");
       }
     })();
   }
@@ -56,10 +56,10 @@ accountRoutes.post("/login", (req, res) => {
         req.session.userId = verifiedUser[0].id;
         res.redirect("/");
       } else {
-        res.status(400).send("incorect password");
+        res.status(422).send("incorect password");
       }
     } else {
-      res.status(400).send("no account with this email.");
+      res.status(422).send("no account with this email.");
     }
   })();
 });
