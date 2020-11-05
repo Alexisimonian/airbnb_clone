@@ -5,17 +5,23 @@ const homeRoutes = express.Router();
 
 homeRoutes.get("/", function (req, res) {
   if (req.session.loggedin) {
-    let data = JSON.stringify({
-      welcomeMsg: "Welcome " + req.session.username,
-      loggedin: true,
-    });
-    res.send(data);
+    let options = {
+      root: "public",
+      headers: {
+        logbtn: "logout",
+        welcomeMsg: "Welcome" + req.session.username,
+      },
+    };
+    res.sendFile("home.html", options);
   } else {
-    let data = JSON.stringify({
-      welcomeMsg: "Welcome to Airbnb",
-      loggedin: false,
-    });
-    res.send(data);
+    let options = {
+      root: "public",
+      headers: {
+        logbtn: "login",
+        welcomeMsg: "Welcome to Airbnb",
+      },
+    };
+    res.sendFile("home.html", options);
   }
 });
 module.exports = { HomeRoutes: homeRoutes };

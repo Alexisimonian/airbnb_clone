@@ -56,7 +56,7 @@ accountRoutes.post("/login", (req, res) => {
         req.session.userId = verifiedUser[0].id;
         res.redirect("/");
       } else {
-        res.send("Incorect password");
+        res.status(400).send("Incorect password");
       }
     } else {
       res.send("No account with this email.");

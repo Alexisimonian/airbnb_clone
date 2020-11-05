@@ -7,8 +7,12 @@ $(document).ready(function () {
       url: "/login",
       data: data,
       dataType: "text",
-    }).done(function (data) {
-      $("#errors").text(data);
+      success: function (data) {
+        e.target.submit();
+      },
+      error: function (data) {
+        $("#errors").text(data.responseText);
+      },
     });
   });
 });
