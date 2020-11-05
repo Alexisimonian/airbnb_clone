@@ -7,7 +7,7 @@ $(document).ready(function () {
       url: "/login",
       data: data,
       dataType: "text",
-      success: function (data) {
+      success: function () {
         e.target.submit();
       },
       error: function (data) {

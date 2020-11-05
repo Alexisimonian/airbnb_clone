@@ -15,7 +15,13 @@ const staysRoutes = express.Router();
 staysRoutes.get("/stays", function (req, res) {
   (async () => {
     let listing = await stays.listingStays();
-    res.sendFile("stays;html", { root: "public" });
+    let options = {
+      root: "public",
+      headers: {
+        listing: listing,
+      },
+    };
+    res.sendFile("stays.html", options);
   })();
 });
 
@@ -23,7 +29,7 @@ staysRoutes.get("/stays/new", function (req, res) {
   if (req.session.loggedin) {
     res.sendFile("newStay.html", { root: "public" });
   } else {
-    res.send("You must be loggedin to continue");
+    res.status(400).send("you must be loggedin to continue");
   }
 });
 
@@ -41,7 +47,7 @@ staysRoutes.post("/upload", upload.single("imageFile"), function (req, res) {
   let targetPath = path.join(__dirname, `../public/images/${image}`);
   fs.rename(tempPath, targetPath, (err) => {
     if (err) {
-      res.send("Oops Something went wrong");
+      res.status(400).send("Oops Something went wrong downloading your image");
     } else {
       stays.createStay(
         userID,

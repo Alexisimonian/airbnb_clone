@@ -9,7 +9,7 @@ homeRoutes.get("/", function (req, res) {
       root: "public",
       headers: {
         logbtn: "logout",
-        welcomeMsg: "Welcome" + req.session.username,
+        welcomeMsg: "Welcome " + req.session.username,
       },
     };
     res.sendFile("home.html", options);
