@@ -1,6 +1,6 @@
 $(document).ready(function () {
-  $("#registerForm").on("submit", function (e) {
-    e.preventDefault();
+  $("#registerForm").on("submit", function (ev) {
+    ev.preventDefault();
     let data = $(this).serialize();
     $.ajax({
       type: "post",
@@ -8,7 +8,7 @@ $(document).ready(function () {
       data: data,
       dataType: "text",
       success: function () {
-        e.target.submit();
+        ev.target.submit();
       },
       error: function (data) {
         $("#errors").text(data.responseText);
