@@ -11,4 +11,17 @@ $(document).ready(function () {
       });
     },
   });
+  $("#createHome").click(function (e) {
+    $.ajax({
+      type: "get",
+      url: "/stays",
+      complete: function (xhr) {
+        if (xhr.getResponseHeader("logbtn") == "logout") {
+          window.location.href = window.location.href + "/new";
+        } else {
+          $("#warning").text("you must login to continue");
+        }
+      },
+    });
+  });
 });
