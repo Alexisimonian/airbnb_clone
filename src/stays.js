@@ -27,6 +27,7 @@ class Stays {
   }
 
   async listingStays() {
+    this.houses = [];
     let query = await dbQuery("SELECT * FROM stays");
     for (let i = 0; i < query.length; i++) {
       this.houses.push(

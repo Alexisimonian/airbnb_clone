@@ -3,8 +3,10 @@ $(document).ready(function () {
     type: "get",
     url: "/stays",
     complete: function (xhr) {
-      let data = xhr.getResponseHeader("listing");
-      jQuery.each(data, function (index, value) {
+      let logbtn = xhr.getResponseHeader("logbtn");
+      $("#logbtn").html(`<a href='/${logbtn}'>${logbtn}</a>`);
+      let homesList = xhr.getResponseHeader("listing");
+      jQuery.each(homesList, function (index, value) {
         alert(value);
       });
     },

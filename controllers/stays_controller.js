@@ -14,10 +14,15 @@ const staysRoutes = express.Router();
 
 staysRoutes.get("/stays", function (req, res) {
   (async () => {
+    let logbtn = "login";
+    if (req.session.loggedin == true) {
+      logbtn = "logout";
+    }
     let listing = await stays.listingStays();
     let options = {
       root: "public",
       headers: {
+        logbtn: logbtn,
         listing: listing,
       },
     };
