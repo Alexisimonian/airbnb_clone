@@ -36,7 +36,7 @@ staysRoutes.get("/stays/new", function (req, res) {
   }
 });
 
-staysRoutes.post("/upload", upload.single("imageFile"), function (req, res) {
+staysRoutes.post("/upload", upload.array("imageFiles", 5), function (req, res) {
   let userID = req.session.userId;
   let title = req.body.title;
   let address = req.body.address;
@@ -50,7 +50,7 @@ staysRoutes.post("/upload", upload.single("imageFile"), function (req, res) {
   let targetPath = path.join(__dirname, `../public/images/${image}`);
   fs.rename(tempPath, targetPath, (err) => {
     if (err) {
-      res.status(422).send("Oops Something went wrong downloading your image");
+      res.status(422).send("Oops Something went wrong");
     } else {
       stays.createStay(
         userID,
@@ -62,7 +62,7 @@ staysRoutes.post("/upload", upload.single("imageFile"), function (req, res) {
         image,
         description
       );
-      res.redirect("/stays");
+      res.status(200).end();
     }
   });
 });
