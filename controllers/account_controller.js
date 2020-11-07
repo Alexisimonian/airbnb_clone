@@ -33,7 +33,7 @@ accountRoutes.post("/register", (req, res) => {
           req.session.loggedin = true;
           req.session.username = username;
           req.session.userId = await user.getID(username);
-          res.redirect("/");
+          res.status(200).end();
         } else {
           res.status(422).send("email already taken");
         }
@@ -54,12 +54,12 @@ accountRoutes.post("/login", (req, res) => {
         req.session.loggedin = true;
         req.session.username = verifiedUser[0].name;
         req.session.userId = verifiedUser[0].id;
-        res.redirect("/");
+        res.status(200).end();
       } else {
         res.status(422).send("incorect password");
       }
     } else {
-      res.status(422).send("no account with this email.");
+      res.status(422).send("no account with this email");
     }
   })();
 });

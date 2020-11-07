@@ -8,7 +8,7 @@ $(document).ready(function () {
       data: data,
       dataType: "text",
       success: function () {
-        e.target.submit();
+        window.location.href = "http://localhost:3000/";
       },
       error: function (data) {
         $("#errors").text(data.responseText);

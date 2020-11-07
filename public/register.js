@@ -4,11 +4,11 @@ $(document).ready(function () {
     let data = $(this).serialize();
     $.ajax({
       type: "post",
-      url: "/login",
+      url: "/register",
       data: data,
       dataType: "text",
       success: function () {
-        e.target.submit();
+        window.location.href = "http://localhost:3000/";
       },
       error: function (data) {
         $("#errors").text(data.responseText);

@@ -33,8 +33,6 @@ staysRoutes.get("/stays", function (req, res) {
 staysRoutes.get("/stays/new", function (req, res) {
   if (req.session.loggedin) {
     res.sendFile("newStay.html", { root: "public" });
-  } else {
-    res.status(422).send("you must be loggedin to continue");
   }
 });
 
