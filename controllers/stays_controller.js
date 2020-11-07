@@ -1,15 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const path = require("path");
 const fs = require("fs");
-const multer = require("multer");
-
-const upload = multer({ dest: "../public/images/" });
-
+const upload = require("../src/upload");
 const { Stays } = require("../src/stays");
 
 const stays = new Stays();
-
 const staysRoutes = express.Router();
 
 staysRoutes.get("/stays", function (req, res) {
@@ -30,41 +25,42 @@ staysRoutes.get("/stays", function (req, res) {
   })();
 });
 
-staysRoutes.get("/stays/new", function (req, res) {
+staysRoutes.get("/stays/new", (req, res) => {
   if (req.session.loggedin) {
     res.sendFile("newStay.html", { root: "public" });
   }
 });
 
-staysRoutes.post("/upload", upload.array("imageFiles", 5), function (req, res) {
-  let userID = req.session.userId;
-  let title = req.body.title;
-  let address = req.body.address;
-  let price = req.body.price;
-  let avaibilityFrom = req.body.startDate;
-  let avaibilityTo = req.body.endDate;
-  let description = req.body.description;
-
-  let image = req.file.originalname;
-  let tempPath = req.file.path;
-  let targetPath = path.join(__dirname, `../public/images/${image}`);
-  fs.rename(tempPath, targetPath, (err) => {
-    if (err) {
-      res.status(422).send("Oops Something went wrong");
-    } else {
-      stays.createStay(
-        userID,
-        title,
-        address,
-        price,
-        avaibilityFrom,
-        avaibilityTo,
-        image,
-        description
-      );
-      res.status(200).end();
+staysRoutes.post("/upload", async (req, res) => {
+  try {
+    await upload(req, res);
+    if (req.files.length <= 0) {
+      res.status(422).send("you must select at least one file");
     }
-  });
+    let userID = req.session.userId;
+    let title = req.body.title;
+    let address = req.body.address;
+    let price = req.body.price;
+    let avaibilityFrom = req.body.startDate;
+    let avaibilityTo = req.body.endDate;
+    let description = req.body.description;
+    let images = req.files;
+    stays.createStay(
+      userID,
+      title,
+      address,
+      price,
+      avaibilityFrom,
+      avaibilityTo,
+      description,
+      images
+    );
+  } catch (error) {
+    if (error.code === "LIMIT_UNEXPECTED_FILE") {
+      res.status(422).send("too many files to upload");
+    }
+    res.status(422).send(`error trying to upload your file(s): ${error}`);
+  }
 });
 
 module.exports = { StaysRoutes: staysRoutes };
