@@ -26,8 +26,10 @@ staysRoutes.get("/stays", function (req, res) {
 });
 
 staysRoutes.get("/stays/new", (req, res) => {
-  if (req.session.loggedin) {
+  if (req.session.loggedin === true) {
     res.sendFile("newStay.html", { root: "public" });
+  } else {
+    res.redirect("/login");
   }
 });
 
@@ -38,21 +40,16 @@ staysRoutes.post("/upload", async (req, res) => {
       res.status(422).send("you must select at least one file");
     }
     let userID = req.session.userId;
-    console.log(userID);
     let title = req.body.title;
-    console.log(title);
     let address = req.body.address;
-    console.log(address);
     let price = req.body.price;
-    console.log(price);
     let avaibilityFrom = req.body.startDate;
-    console.log(avaibilityFrom);
     let avaibilityTo = req.body.endDate;
-    console.log(avaibilityTo);
     let description = req.body.description;
-    console.log(description);
-    let images = req.files;
-    console.log(images);
+    let images = [];
+    for (let i = 0; i < req.files.length; i++) {
+      images.push(req.files[i].filename);
+    }
     stays.createStay(
       userID,
       title,
