@@ -25,7 +25,7 @@ staysRoutes.get("/stays", function (req, res) {
   })();
 });
 
-staysRoutes.get("/stays/new", (req, res) => {
+staysRoutes.get("/newstay", (req, res) => {
   if (req.session.loggedin === true) {
     res.sendFile("newStay.html", { root: "public" });
   } else {

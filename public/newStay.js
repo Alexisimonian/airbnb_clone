@@ -1,3 +1,5 @@
 $(document).ready(function () {
-  alert("hello");
+  $("#newStayForm").on("submit", function (e) {
+    alert("ok");
+  });
 });
