@@ -38,13 +38,21 @@ staysRoutes.post("/upload", async (req, res) => {
       res.status(422).send("you must select at least one file");
     }
     let userID = req.session.userId;
+    console.log(userID);
     let title = req.body.title;
+    console.log(title);
     let address = req.body.address;
+    console.log(address);
     let price = req.body.price;
+    console.log(price);
     let avaibilityFrom = req.body.startDate;
+    console.log(avaibilityFrom);
     let avaibilityTo = req.body.endDate;
+    console.log(avaibilityTo);
     let description = req.body.description;
+    console.log(description);
     let images = req.files;
+    console.log(images);
     stays.createStay(
       userID,
       title,
@@ -52,8 +60,8 @@ staysRoutes.post("/upload", async (req, res) => {
       price,
       avaibilityFrom,
       avaibilityTo,
-      description,
-      images
+      images,
+      description
     );
   } catch (error) {
     if (error.code === "LIMIT_UNEXPECTED_FILE") {

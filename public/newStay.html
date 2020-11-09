@@ -7,7 +7,7 @@
   </head>
   <body>
     <form
-      class="newStayForm"
+      id="newStayForm"
       enctype="multipart/form-data"
       action="/upload"
       method="POST"
@@ -35,12 +35,14 @@
       /><br />
       <input
         type="file"
+        multiple
         name="imageFiles"
         accept="image/png, image/jpeg"
-        multiple
         required
       /><br />
       <button type="submit">Save House</button>
     </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="newStay.js"></script>
   </body>
 </html>
