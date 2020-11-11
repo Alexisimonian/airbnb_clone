@@ -42,7 +42,6 @@ staysRoutes.post("/upload", async (req, res) => {
     }
     let userID = req.session.userId;
     let title = req.body.title;
-    console.log(title);
     let address = req.body.address;
     let price = req.body.price;
     let avaibilityFrom = req.body.startDate;
@@ -62,6 +61,7 @@ staysRoutes.post("/upload", async (req, res) => {
       images,
       description
     );
+    res.status(200).end();
   } catch (error) {
     if (error.code === "LIMIT_UNEXPECTED_FILE") {
       console.log(error);
