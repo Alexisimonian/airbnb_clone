@@ -1,31 +1,34 @@
 $(document).ready(function () {
-  let imagesPreview = function (input, placeToPreview) {
-    if (input.files) {
-      let filesAmount = input.files.length;
-      for (i = 0; i > filesAmount; i++) {
-        let reader = new FileReader();
-        reader.onload = function (event) {
-          $($.parseHTML("<img>"))
-            .attr("src", event.target.result)
-            .appendTo(placeToPreview);
-        };
-        reader.readAsDataURL(input.files[i]);
-      }
-    }
-  };
-  $("#imageFiles").on("change", function () {
-    imagesPreview(this, ".preview-images");
+  let fileCollection = new Array();
+  $("#imageFiles").on("change", function (e) {
+    let files = e.target.files;
+    $.each(files, function (i, file) {
+      fileCollection.push(file);
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function (e) {
+        let template = '<img src="' + e.target.result + '">';
+        $("#preview-images").append(template);
+      };
+    });
   });
   $("#newStayForm").on("submit", function (e) {
     e.preventDefault();
+    let formData = new FormData(this);
+    $.each(fileCollection, function (i, image) {
+      formData.append("files", fileCollection[i]);
+    });
     $.ajax({
-      type: "post",
       url: "/upload",
+      type: "post",
+      data: formData,
+      processData: false,
+      contentType: false,
       success: function () {
         window.location.href = "http://localhost:3000/stays";
       },
-      error: function (data) {
-        $("#errors").text(data.responseText);
+      error: function (xhr) {
+        $("#errors").text(xhr.responseText);
       },
     });
   });

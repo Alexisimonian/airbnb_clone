@@ -37,10 +37,12 @@ staysRoutes.post("/upload", async (req, res) => {
   try {
     await upload(req, res);
     if (req.files.length <= 0) {
+      console.log(req.files);
       res.status(422).send("you must select at least one file");
     }
     let userID = req.session.userId;
     let title = req.body.title;
+    console.log(title);
     let address = req.body.address;
     let price = req.body.price;
     let avaibilityFrom = req.body.startDate;
@@ -62,7 +64,8 @@ staysRoutes.post("/upload", async (req, res) => {
     );
   } catch (error) {
     if (error.code === "LIMIT_UNEXPECTED_FILE") {
-      res.status(422).send("too many files to upload");
+      console.log(error);
+      return res.status(422).send("too many files to upload");
     }
     res.status(422).send(`error trying to upload your file(s): ${error}`);
   }
