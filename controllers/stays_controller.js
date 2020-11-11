@@ -19,11 +19,12 @@ staysRoutes.get("/stays", function (req, res) {
       logbtn = "logout";
     }
     let listing = await stays.listingStays();
+    let fulllisting = JSON.stringify(listing);
     let options = {
       root: "public",
       headers: {
         logbtn: logbtn,
-        listing: listing,
+        listing: fulllisting,
       },
     };
     res.sendFile("listStays.html", options);
