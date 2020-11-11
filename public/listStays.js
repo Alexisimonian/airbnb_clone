@@ -17,7 +17,7 @@ $(document).ready(function () {
       url: "/stays",
       complete: function (xhr) {
         if (xhr.getResponseHeader("logbtn") == "logout") {
-          window.location.href = window.location.href + "/new";
+          window.location.href = "http://localhost:3000/stays/new";
         } else {
           $("#warning").text("you must login to continue");
         }

@@ -17,51 +17,47 @@ accountRoutes.get("/register", (req, res) => {
   res.sendFile("register.html", { root: "public" });
 });
 
-accountRoutes.post("/register", (req, res) => {
+accountRoutes.post("/register", async (req, res) => {
   let username = req.body.username;
   let email = req.body.email;
   if (req.body.password != req.body.confirm_password) {
     res.status(422).send("passwords must match");
   } else {
-    (async () => {
-      let existingUsernames = await user.existingUsernames(username);
-      let existingEmails = await user.existingEmails(email);
-      if (existingUsernames.length == 0) {
-        if (existingEmails.length == 0) {
-          const passwordHash = bcrypt.hashSync(req.body.password, 10);
-          await user.saveUser(username, email, passwordHash);
-          req.session.loggedin = true;
-          req.session.username = username;
-          req.session.userId = await user.getID(username);
-          res.status(200).end();
-        } else {
-          res.status(422).send("email already taken");
-        }
+    let existingUsernames = await user.existingUsernames(username);
+    let existingEmails = await user.existingEmails(email);
+    if (existingUsernames.length == 0) {
+      if (existingEmails.length == 0) {
+        const passwordHash = bcrypt.hashSync(req.body.password, 10);
+        await user.saveUser(username, email, passwordHash);
+        req.session.loggedin = true;
+        req.session.username = username;
+        req.session.userId = await user.getID(username);
+        res.status(200).end();
       } else {
-        res.status(422).send("username already taken");
+        res.status(422).send("email already taken");
       }
-    })();
+    } else {
+      res.status(422).send("username already taken");
+    }
   }
 });
 
-accountRoutes.post("/login", (req, res) => {
+accountRoutes.post("/login", async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
-  (async () => {
-    let verifiedUser = await user.verifyThroughEmail(email);
-    if (verifiedUser.length > 0) {
-      if (bcrypt.compareSync(password, verifiedUser[0].password)) {
-        req.session.loggedin = true;
-        req.session.username = verifiedUser[0].name;
-        req.session.userId = verifiedUser[0].id;
-        res.status(200).end();
-      } else {
-        res.status(422).send("incorect password");
-      }
+  let verifiedUser = await user.verifyThroughEmail(email);
+  if (verifiedUser.length > 0) {
+    if (bcrypt.compareSync(password, verifiedUser[0].password)) {
+      req.session.loggedin = true;
+      req.session.username = verifiedUser[0].name;
+      req.session.userId = verifiedUser[0].id;
+      res.status(200).end();
     } else {
-      res.status(422).send("no account with this email");
+      res.status(422).send("incorect password");
     }
-  })();
+  } else {
+    res.status(422).send("no account with this email");
+  }
 });
 
 accountRoutes.get("/logout", (req, res) => {
