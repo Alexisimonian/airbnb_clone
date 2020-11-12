@@ -1,11 +1,11 @@
-const dbId = require("./dbInfos.js");
+const credentials = require("./credentials.js");
 const mysql = require("mysql");
 
 let connection = mysql.createConnection({
   host: "localhost",
-  user: dbId.username,
-  password: dbId.password,
-  database: "Airbnb_clone_test",
+  user: credentials.sqlusername,
+  password: credentials.sqlpassword,
+  database: credentials.sqldb,
 });
 
 function dbQuery(request) {

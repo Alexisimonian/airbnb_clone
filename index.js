@@ -1,3 +1,4 @@
+const credentials = require("./src/credentials");
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
@@ -15,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
   session({
-    secret: "randomstringsecretsession",
+    secret: credentials.secretsess,
     resave: true,
     saveUninitialized: true,
   })
