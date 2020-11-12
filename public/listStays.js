@@ -5,8 +5,30 @@ $(document).ready(function () {
     complete: function (xhr) {
       let logbtn = xhr.getResponseHeader("logbtn");
       $("#logbtn").html(`<a href='/${logbtn}'>${logbtn}</a>`);
-      let homesList = xhr.getResponseHeader("listing");
+      let homesList = JSON.parse(xhr.getResponseHeader("listing"));
       console.log(homesList);
+      $.each(homesList, function (i, offer) {
+        $("#content").append(
+          '<div id="offer">' +
+            "<h1>" +
+            offer.title +
+            "</h1>" +
+            "<p>" +
+            offer.price +
+            "€/night</p>" +
+            "<p>" +
+            offer.availableFrom +
+            "-" +
+            offer.availableTo +
+            "</p>" +
+            "</div>"
+        );
+        $.each(offer.images, function (i, image) {
+          $("#offer").append(
+            "<img id='image' src='/images/" + offer.images[i] + "'>"
+          );
+        });
+      });
     },
   });
   $("#createHome").click(function (e) {
