@@ -7,22 +7,21 @@ const { Stays } = require("../src/stays");
 const stays = new Stays();
 const staysRoutes = express.Router();
 
-staysRoutes.get("/stays", function (req, res) {
-  (async () => {
-    let logbtn = "login";
-    if (req.session.loggedin == true) {
-      logbtn = "logout";
-    }
-    let listing = await stays.listingStays();
-    let options = {
-      root: "public",
-      headers: {
-        logbtn: logbtn,
-        listing: listing,
-      },
-    };
-    res.sendFile("listStays.html", options);
-  })();
+staysRoutes.get("/stays", async (req, res) => {
+  let logbtn = "login";
+  if (req.session.loggedin == true) {
+    logbtn = "logout";
+  }
+  let listing = await stays.listingStays();
+  let fullListing = JSON.stringify(listing);
+  let options = {
+    root: "public",
+    headers: {
+      logbtn: logbtn,
+      listing: fullListing,
+    },
+  };
+  res.sendFile("listStays.html", options);
 });
 
 staysRoutes.get("/stays/new", (req, res) => {

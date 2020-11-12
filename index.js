@@ -1,3 +1,4 @@
+const credentials = require("./src/credentials");
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
@@ -10,12 +11,12 @@ const AccountRoutes = require("./controllers/account_controller");
 
 let port = process.env.PORT || 3000;
 
-app.use(express.static("./public"));
+app.use(express.static("./public")).use(express.static("./uploads"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
   session({
-    secret: "randomstringsecretsession",
+    secret: credentials.secretsess,
     resave: true,
     saveUninitialized: true,
   })

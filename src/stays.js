@@ -1,5 +1,6 @@
 const { dbQuery } = require("./db");
 const { Stay } = require("./stay");
+const fs = require("fs");
 
 class Stays {
   constructor() {
@@ -30,6 +31,7 @@ class Stays {
     this.houses = [];
     let query = await dbQuery("SELECT * FROM stays");
     for (let i = 0; i < query.length; i++) {
+      let images = query[i].images.split(",");
       this.houses.push(
         new Stay(
           query[i].id,
@@ -37,9 +39,9 @@ class Stays {
           query[i].title,
           query[i].address,
           query[i].price,
-          query[i].availableFrom,
-          query[i].availableTo,
-          query[i].images,
+          query[i].availablefrom,
+          query[i].availableto,
+          images,
           query[i].description
         )
       );
