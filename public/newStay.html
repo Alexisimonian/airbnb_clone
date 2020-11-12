@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>New Stay</title>
+    <link rel="stylesheet" href="../newstyle.css" />
   </head>
   <body>
     <form
@@ -24,13 +25,14 @@
       <label for="startDate">Availability:</label><br />
       <input type="date" id="startDate" name="startDate" required /><br />
       <input type="date" id="endDate" name="endDate" required /><br />
-      <input
+      <textarea
         type="text"
         id="description"
         name="description"
         placeholder="description"
         required
-      /><br />
+      ></textarea
+      ><br />
       <input
         type="file"
         multiple

@@ -10,22 +10,19 @@ $(document).ready(function () {
       $.each(homesList, function (i, offer) {
         $("#content").append(
           '<div id="offer">' +
-            "<h1>" +
+            '<span id="images"></span>' +
+            "<p>" +
             offer.title +
-            "</h1>" +
+            "</p>" +
             "<p>" +
             offer.price +
-            "€/night</p>" +
+            " €/night</p>" +
             "<p>" +
-            offer.availableFrom +
-            "-" +
-            offer.availableTo +
-            "</p>" +
             "</div>"
         );
         $.each(offer.images, function (i, image) {
-          $("#offer").append(
-            "<img id='image' src='/photosOffers/" + offer.images[i] + "'>"
+          $("#images").append(
+            "<img  id='image' src='/photosOffers/" + offer.images[i] + "'>"
           );
         });
       });

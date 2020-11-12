@@ -11,7 +11,7 @@ $(document).ready(function () {
       reader.onload = function (e) {
         let template =
           '<span class= "pip">' +
-          '<img src="' +
+          '<img id="image" src="' +
           e.target.result +
           '">' +
           '<span class="remove">Remove</span>' +
