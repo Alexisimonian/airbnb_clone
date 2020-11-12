@@ -25,7 +25,7 @@ $(document).ready(function () {
         );
         $.each(offer.images, function (i, image) {
           $("#offer").append(
-            "<img id='image' src='/images/" + offer.images[i] + "'>"
+            "<img id='image' src='/photosOffers/" + offer.images[i] + "'>"
           );
         });
       });
