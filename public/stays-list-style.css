@@ -1,0 +1,11 @@
+.carousel {
+  width: 230px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.carousel-item img {
+  width: 230px;
+  height: 200px;
+  overflow: hidden;
+}

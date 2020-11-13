@@ -21,12 +21,12 @@ staysRoutes.get("/stays", async (req, res) => {
       listing: fullListing,
     },
   };
-  res.sendFile("listStays.html", options);
+  res.sendFile("stays-list.html", options);
 });
 
 staysRoutes.get("/stays/new", (req, res) => {
   if (req.session.loggedin === true) {
-    res.sendFile("newStay.html", { root: "public" });
+    res.sendFile("new-stay.html", { root: "public" });
   } else {
     res.redirect("/login");
   }
