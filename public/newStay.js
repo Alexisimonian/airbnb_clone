@@ -10,11 +10,11 @@ $(document).ready(function () {
 
       reader.onload = function (e) {
         let template =
-          '<span class= "pip">' +
-          '<img id="image" src="' +
+          "<span class= 'pip'>" +
+          "<img id='image' src='" +
           e.target.result +
-          '">' +
-          '<span class="remove">Remove</span>' +
+          "'>" +
+          "<span class='remove'>Remove</span>" +
           "</span>";
 
         $("#preview-images").append(template);

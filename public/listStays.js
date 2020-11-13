@@ -7,10 +7,12 @@ $(document).ready(function () {
       $("#logbtn").html(`<a href='/${logbtn}'>${logbtn}</a>`);
       let homesList = JSON.parse(xhr.getResponseHeader("listing"));
       console.log(homesList);
-      $.each(homesList, function (i, offer) {
+      $.each(homesList, function (index, offer) {
         $("#content").append(
-          '<div id="offer">' +
-            '<span id="images"></span>' +
+          "<div id='offer'>" +
+            "<span id='images" +
+            index +
+            "'></span>" +
             "<p>" +
             offer.title +
             "</p>" +
@@ -21,7 +23,7 @@ $(document).ready(function () {
             "</div>"
         );
         $.each(offer.images, function (i, image) {
-          $("#images").append(
+          $("#images" + index).append(
             "<img  id='image' src='/photosOffers/" + offer.images[i] + "'>"
           );
         });

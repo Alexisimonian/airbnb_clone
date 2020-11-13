@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
-const upload = require("../src/upload");
+const upload = require("../middlewares/upload");
 const { Stays } = require("../src/stays");
 
 const stays = new Stays();
