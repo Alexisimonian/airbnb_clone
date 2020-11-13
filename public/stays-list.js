@@ -69,7 +69,9 @@ $(document).ready(function () {
         if (xhr.getResponseHeader("logbtn") == "logout") {
           window.location.href = "http://localhost:3000/stays/new";
         } else {
-          $("#warning").text("you must login to continue");
+          $("#warning").html(
+            "<div class='alert alert-warning' role='alert'>You must login to continue</div>"
+          );
         }
       },
     });

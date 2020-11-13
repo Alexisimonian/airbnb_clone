@@ -19,8 +19,8 @@ accountRoutes.get("/register", (req, res) => {
 
 accountRoutes.post("/register", async (req, res) => {
   let username = req.body.username;
-  let email = req.body.email;
-  if (req.body.password != req.body.confirm_password) {
+  let email = req.body.email_input;
+  if (req.body.password_input != req.body.password_confirm) {
     res.status(422).send("passwords must match");
   } else {
     let existingUsernames = await user.existingUsernames(username);
@@ -43,8 +43,8 @@ accountRoutes.post("/register", async (req, res) => {
 });
 
 accountRoutes.post("/login", async (req, res) => {
-  let email = req.body.email;
-  let password = req.body.password;
+  let email = req.body.email_input;
+  let password = req.body.password_input;
   let verifiedUser = await user.verifyThroughEmail(email);
   if (verifiedUser.length > 0) {
     if (bcrypt.compareSync(password, verifiedUser[0].password)) {

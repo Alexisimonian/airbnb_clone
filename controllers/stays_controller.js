@@ -32,7 +32,7 @@ staysRoutes.get("/stays/new", (req, res) => {
   }
 });
 
-staysRoutes.post("/upload", async (req, res) => {
+staysRoutes.post("/stays/new", async (req, res) => {
   try {
     await upload(req, res);
     if (req.files.length <= 0) {
