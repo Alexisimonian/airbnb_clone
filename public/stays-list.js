@@ -29,6 +29,7 @@ $(document).ready(function () {
             "<span class='carousel-control-next-icon' aria-hidden='true'></span>" +
             "<span class='sr-only'>Next</span>" +
             "</a>" +
+            "</div>" +
             "</div>"
         );
         $.each(offer.images, function (i, image) {
@@ -46,6 +47,16 @@ $(document).ready(function () {
               "</div>"
           );
         });
+
+        $("#offer" + index).append(
+          "<div id='offer-text'>" +
+            "<p>" +
+            offer.title +
+            "</p>" +
+            "<p>" +
+            offer.price +
+            " € /night</p>"
+        );
       });
     },
   });
