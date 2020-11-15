@@ -2,6 +2,8 @@ class Stay {
   constructor(
     id,
     user,
+    type,
+    size,
     title,
     address,
     price,
@@ -12,6 +14,8 @@ class Stay {
   ) {
     this.id = id;
     this.user = user;
+    this.type = type;
+    this.size = size;
     this.title = title;
     this.address = address;
     this.price = price;

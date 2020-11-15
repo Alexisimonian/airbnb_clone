@@ -53,6 +53,8 @@ staysRoutes.post("/stays/new", async (req, res) => {
     stays.createStay(
       userID,
       title,
+      type,
+      size,
       address,
       price,
       avaibilityFrom,

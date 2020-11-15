@@ -42,23 +42,46 @@ accountRoutes.post("/register", async (req, res) => {
   }
 });
 
-accountRoutes.post("/login", async (req, res) => {
+accountRoutes.post("/verifying-login", async (req, res) => {
+  let is_email = undefined;
+  let is_password = undefined;
   let email = req.body.email_input;
   let password = req.body.password_input;
-  let verifiedUser = await user.verifyThroughEmail(email);
-  if (verifiedUser.length > 0) {
-    if (bcrypt.compareSync(password, verifiedUser[0].password)) {
-      req.session.loggedin = true;
-      req.session.username = verifiedUser[0].name;
-      req.session.userId = verifiedUser[0].id;
-      res.status(200).end();
-    } else {
-      res.status(422).send("incorect password");
-    }
+  let existing_email = await user.existingEmails(email);
+  if (existing_email.length > 0) {
+    is_email = true;
   } else {
-    res.status(422).send("no account with this email");
+    is_email = false;
   }
+  if (bcrypt.compareSync(password, verifyingUser[0].password)) {
+    is_password = true;
+  } else {
+    is_password = false;
+  }
+  let data = JSON.stringify({
+    is_email: is_email,
+    is_password: is_password,
+  });
+  res.send(data).end();
 });
+
+// accountRoutes.post("/login", async (req, res) => {
+//   let email = req.body.email_input;
+//   let password = req.body.password_input;
+//   let verifiedUser = await user.verifyThroughEmail(email);
+//   if (verifiedUser.length > 0) {
+//     if (bcrypt.compareSync(password, verifiedUser[0].password)) {
+//       req.session.loggedin = true;
+//       req.session.username = verifiedUser[0].name;
+//       req.session.userId = verifiedUser[0].id;
+//       res.status(200).end();
+//     } else {
+//       res.status(422).send("incorect password");
+//     }
+//   } else {
+//     res.status(422).send("no account with this email");
+//   }
+// });
 
 accountRoutes.get("/logout", (req, res) => {
   req.session.destroy();

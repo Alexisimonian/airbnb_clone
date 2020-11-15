@@ -1,4 +1,18 @@
 $(document).ready(function () {
+  $("#login-form").on("change", function (e) {
+    e.preventDefault();
+    let data = $(this).serialize();
+    $.ajax({
+      type: "post",
+      url: "/verifying-login",
+      data: data,
+      dataType: "text",
+      complete: function (data) {
+        console.log(data);
+      },
+    });
+  });
+
   $("#login-form").on("submit", function (e) {
     e.preventDefault();
     let data = $(this).serialize();
