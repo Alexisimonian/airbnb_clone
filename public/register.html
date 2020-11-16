@@ -14,7 +14,7 @@
   </head>
   <body>
     <div>
-      <form id="register-form" action="/register" method="POST">
+      <form id="register-form" action="/register" method="POST" novalidate>
         <div class="form-group">
           <label for="username">Username</label>
           <input
@@ -22,7 +22,10 @@
             class="form-control"
             id="username"
             name="username"
+            pattern=".{4,}"
+            required
           />
+          <div class="invalid-feedback">This username is not valid.</div>
         </div>
         <div class="form-group">
           <label for="email_input">Email address</label>
@@ -33,7 +36,10 @@
             name="email_input"
             aria-describedby="emailHelp"
             placeholder="name@example.com"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            required
           />
+          <div class="invalid-feedback" id="email-invalid"></div>
           <small id="emailHelp" class="form-text text-muted"
             >We'll never share your email with anyone else</small
           >
@@ -42,19 +48,27 @@
           <label for="password_input">Password</label>
           <input
             type="password"
-            class="form-control"
+            class="form-control psw"
             id="password_input"
             name="password_input"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            required
           />
+          <div class="invalid-feedback">
+            Must contain at least 8 characters, 1 number and 1 uppercase and
+            lowercase letter.
+          </div>
         </div>
         <div class="form-group">
           <label for="password_confirm">Password confirmation</label>
           <input
             type="password"
-            class="form-control"
+            class="form-control psw"
             id="password_confirm"
             name="password_confirm"
+            required
           />
+          <div class="invalid-feedback">Passwords must match.</div>
         </div>
         <button type="submit" class="btn btn-primary">Register</button>
       </form>

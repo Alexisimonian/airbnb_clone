@@ -16,7 +16,13 @@
   <body>
     <div class="new-listing">
       <p>Tell us about your place</p>
-      <form id="new-stay-form" action="/stays/new" method="POST">
+      <form
+        class="needs-validation"
+        id="new-stay-form"
+        action="/stays/new"
+        method="POST"
+        novalidate
+      >
         <div class="form-group">
           <label for="title">Title</label>
           <input
@@ -25,6 +31,7 @@
             id="title"
             name="title"
             placeholder="i.e. Nice house next to the beach"
+            required
           />
         </div>
         <label for="address">Address</label>
@@ -35,6 +42,7 @@
             id="address"
             name="address"
             placeholder="address"
+            required
           />
         </div>
         <div class="form-row">
@@ -81,6 +89,7 @@
               class="form-control"
               id="available-from"
               name="available-from"
+              required
             />
           </div>
           <div class="col">
@@ -90,6 +99,7 @@
               class="form-control"
               id="available-to"
               name="available-to"
+              required
             />
           </div>
         </div>
@@ -100,6 +110,7 @@
             class="form-control-file"
             id="image-files"
             multiple
+            required
           />
         </div>
         <div id="preview-images"></div>
