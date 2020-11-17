@@ -4,17 +4,53 @@ $(document).ready(function () {
   let secured_password = false;
   let password_confirmation = false;
 
+  //Make username box status neutral on user modification
+  $("#username").on("input", function () {
+    $(this).removeClass("is-valid is-invalid");
+  });
+
+  //Verify username validity and change input status after user input
+  $("#username").on("input", function () {
+    let input = $(this)[0];
+    let inputData = $(this);
+    if (input.checkValidity()) {
+      $.ajax({
+        type: "post",
+        url: "/username-validation",
+        data: inputData,
+        complete: function (data) {
+          if (data.responseText === "username free") {
+            correct_username = true;
+            $("#username").addClass("is-valid");
+          } else {
+            correct_username = false;
+            $("#username").addClass("is-invalid");
+            $("#invalid-username").text("Username already taken.");
+          }
+        },
+      });
+    } else {
+      correct_username = false;
+      $("#username").addClass("is-invalid");
+    }
+  });
+
+  //Make email box status neutral on user modification
   $("#email_input").on("input", function () {
     $(this).removeClass("is-valid is-invalid");
+  });
+
+  //Verify email validity and change input status after user input
+  $("#email_input").on("change", function () {
     let input = $(this)[0];
-    let data = $(this);
+    let inputData = $(this);
     if (input.checkValidity()) {
       $.ajax({
         type: "post",
         url: "/email-validation",
-        data: data,
+        data: inputData,
         complete: function (data) {
-          if (data.responseText === "ok") {
+          if (data.responseText === "email free") {
             correct_email = true;
             $("#email_input").addClass("is-valid");
           } else {
@@ -27,12 +63,16 @@ $(document).ready(function () {
     } else {
       correct_email = false;
       $(this).addClass("is-invalid");
-      $("#email-invalid").text("Must be a valid email address.");
     }
   });
 
+  //Make password box status neutral on user modification
   $("#password_input").on("input", function () {
     $(this).removeClass("is-valid is-invalid");
+  });
+
+  //Verify password validity and change input status after user input
+  $("#password_input").on("change", function () {
     let input = $(this)[0];
     if (input.checkValidity()) {
       secured_password = true;
@@ -43,22 +83,23 @@ $(document).ready(function () {
     }
   });
 
+  //Verify matching passwords on input on either one of the 2 passwords boxes
   $(".psw").on("input", function () {
     $("#password_confirm").removeClass("is-valid is-invalid");
     if ($("#password_confirm").val() != "") {
       if ($("#password_input").val() != $("#password_confirm").val()) {
-        $("#password_confirm").addClass("is-invalid");
         password_confirm = false;
+        $("#password_confirm").addClass("is-invalid");
       } else {
-        $("#password_confirm").addClass("is-valid");
         password_confirm = true;
+        $("#password_confirm").addClass("is-valid");
       }
     }
   });
 
+  //Verify all boxes filled w/ correct information and redirect registered user
   $("#register-form").submit(function (e) {
     e.preventDefault();
-    let form = $(this)[0];
     let formData = $(this).serialize();
     let is_valid =
       correct_username &&
@@ -66,18 +107,20 @@ $(document).ready(function () {
       secured_password &&
       password_confirmation;
     if (!is_valid) {
-      e.stopPropagation();
+      $(":input").each(function () {
+        if ($(this).val() == "") {
+          $(this).addClass("is-invalid");
+        }
+      });
+    } else {
+      $.ajax({
+        type: "post",
+        url: "/register",
+        data: formData,
+        success: function () {
+          window.location.href = "http://localhost:3000/";
+        },
+      });
     }
-    $.ajax({
-      type: "post",
-      url: "/register",
-      data: formData,
-      success: function () {
-        window.location.href = "http://localhost:3000/";
-      },
-      error: function (data) {
-        console.log(data);
-      },
-    });
   });
 });

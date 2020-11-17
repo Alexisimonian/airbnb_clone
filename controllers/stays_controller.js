@@ -35,10 +35,6 @@ staysRoutes.get("/stays/new", (req, res) => {
 staysRoutes.post("/stays/new", async (req, res) => {
   try {
     await upload(req, res);
-    if (req.files.length <= 0) {
-      console.log(req.files);
-      res.status(422).send("you must select at least one file");
-    }
     let userID = req.session.userId;
     let title = req.body.title;
     let address = req.body.address;

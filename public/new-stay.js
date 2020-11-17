@@ -31,26 +31,31 @@ $(document).ready(function () {
 
   $("#new-stay-form").on("submit", function (e) {
     e.preventDefault();
-    let formData = new FormData($(this)[0]);
+    let form = $(this)[0];
+    let formData = new FormData(form);
+    let is_valid = form.checkValidity();
+    form.classList.add("was-validated");
     $.each(fileCollection, function (i, image) {
       formData.append("files", fileCollection[i]);
     });
-    $.ajax({
-      type: "post",
-      url: "/stays/new",
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function () {
-        window.location.href = "http://localhost:3000/stays";
-      },
-      error: function (data) {
-        $("#errors").html(
-          "<div class='alert alert-danger' role='alert'>" +
-            data.responseText +
-            "</div>"
-        );
-      },
-    });
+    if (is_valid) {
+      $.ajax({
+        type: "post",
+        url: "/stays/new",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function () {
+          window.location.href = "http://localhost:3000/stays";
+        },
+        error: function (data) {
+          $("#errors").html(
+            "<div class='alert alert-danger' role='alert'>" +
+              data.responseText +
+              "</div>"
+          );
+        },
+      });
+    }
   });
 });
