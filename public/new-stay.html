@@ -10,6 +10,10 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+    />
     <link rel="stylesheet" href="../new-stay-style.css" />
     <title>New Stay</title>
   </head>
@@ -88,7 +92,7 @@
           <div class="col">
             <label for="available-from">Available from</label>
             <input
-              type="date"
+              type="text"
               class="form-control"
               id="available-from"
               name="available-from"
@@ -99,7 +103,7 @@
           <div class="col">
             <label for="available-to">Available until</label>
             <input
-              type="date"
+              type="text"
               class="form-control"
               id="available-to"
               name="available-to"
@@ -123,8 +127,12 @@
         <button type="submit" class="btn btn-dark">Host your home</button>
       </form>
     </div>
+
     <div id="errors"></div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../new-stay.js"></script>
   </body>

@@ -51,5 +51,12 @@ class Stays {
     }
     return this.houses;
   }
+
+  async searchStays(fromDate, toDate) {
+    this.houses = [];
+    let query = await dbQuery(
+      `SELECT * FROM stays WHERE availablefrom >= ${fromDate} AND ${toDate} <= availableto`
+    );
+  }
 }
 module.exports = { Stays };

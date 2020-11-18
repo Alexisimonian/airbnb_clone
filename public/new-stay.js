@@ -1,4 +1,38 @@
 $(document).ready(function () {
+  let now = new Date();
+  let day = String(now.getDate()).padStart(2, "0");
+  let month = String(now.getMonth() + 1).padStart(2, "0");
+  let year = now.getFullYear();
+  let today = month + "-" + day + "-" + year;
+
+  $("input[name='available-from']").daterangepicker(
+    {
+      singleDatePicker: true,
+      minDate: today,
+    },
+    function (start, end, label) {
+      from_date = start.format("MM-DD-YYYY");
+      $("input[name='available-to']").daterangepicker({
+        singleDatePicker: true,
+        minDate: from_date,
+      });
+    }
+  );
+
+  $("input[name='available-to']").daterangepicker(
+    {
+      singleDatePicker: true,
+      minDate: today,
+    },
+    function (start, end, label) {
+      to_date = start.format("MM-DD-YYYY");
+      $("input[name='available-from']").daterangepicker({
+        singleDatePicker: true,
+        maxDate: to_date,
+      });
+    }
+  );
+
   let fileCollection = new Array();
 
   $("#image-files").on("change", function (e) {

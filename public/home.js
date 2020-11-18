@@ -9,4 +9,6 @@ $(document).ready(function () {
       $("#logbtn").html(`<a href='/${logbtn}'>${logbtn}</a>`);
     },
   });
+
+  $("input[name='daterange']").daterangepicker();
 });
