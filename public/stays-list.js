@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  // Display each offers w/ corresponding images in a carousel
   $.ajax({
     type: "get",
     url: "/stays",
@@ -61,6 +62,7 @@ $(document).ready(function () {
     },
   });
 
+  // Redirect to the new-stay form
   $("#createHome").click(function (e) {
     $.ajax({
       type: "get",

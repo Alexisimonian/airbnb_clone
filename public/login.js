@@ -1,7 +1,16 @@
 $(document).ready(function () {
+  $(".form-control").on("input", function () {
+    $(this).removeClass("is-valid is-invalid");
+  });
+
   $("#login-form").on("submit", function (e) {
     e.preventDefault();
     let data = $(this).serialize();
+    $(":input").each(function () {
+      if ($(this).val() == "") {
+        $(this).addClass("is-invalid");
+      }
+    });
     $.ajax({
       type: "post",
       url: "/login",
@@ -11,11 +20,13 @@ $(document).ready(function () {
         window.location.href = "http://localhost:3000/";
       },
       error: function (data) {
-        $("#errors").html(
-          "<div class='alert alert-danger' role='alert'>" +
-            data.responseText +
-            "</div>"
-        );
+        if (data.responseText == "email incorrect") {
+          $("#email_input").addClass("is-invalid");
+          $("#invalid-email").text("No account with this email address.");
+        } else if (data.responseText == "password incorrect") {
+          $("#password_input").addClass("is-invalid");
+          $("#invalid-password").text("Password incorrect.");
+        }
       },
     });
   });

@@ -49,11 +49,7 @@ $(document).ready(function () {
           window.location.href = "http://localhost:3000/stays";
         },
         error: function (data) {
-          $("#errors").html(
-            "<div class='alert alert-danger' role='alert'>" +
-              data.responseText +
-              "</div>"
-          );
+          $("#errors").text(data.responseText);
         },
       });
     }

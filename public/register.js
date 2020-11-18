@@ -4,8 +4,8 @@ $(document).ready(function () {
   let secured_password = false;
   let password_confirmation = false;
 
-  //Make username box status neutral on user modification
-  $("#username").on("input", function () {
+  //Make box status neutral on user modification
+  $(".form-control").on("input", function () {
     $(this).removeClass("is-valid is-invalid");
   });
 
@@ -35,11 +35,6 @@ $(document).ready(function () {
     }
   });
 
-  //Make email box status neutral on user modification
-  $("#email_input").on("input", function () {
-    $(this).removeClass("is-valid is-invalid");
-  });
-
   //Verify email validity and change input status after user input
   $("#email_input").on("change", function () {
     let input = $(this)[0];
@@ -64,11 +59,6 @@ $(document).ready(function () {
       correct_email = false;
       $(this).addClass("is-invalid");
     }
-  });
-
-  //Make password box status neutral on user modification
-  $("#password_input").on("input", function () {
-    $(this).removeClass("is-valid is-invalid");
   });
 
   //Verify password validity and change input status after user input
