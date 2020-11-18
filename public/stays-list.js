@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  // Display each offers w/ corresponding images in a carousel
   $.ajax({
     type: "get",
     url: "/stays",
@@ -61,6 +62,7 @@ $(document).ready(function () {
     },
   });
 
+  // Redirect to the new-stay form
   $("#createHome").click(function (e) {
     $.ajax({
       type: "get",
@@ -69,7 +71,9 @@ $(document).ready(function () {
         if (xhr.getResponseHeader("logbtn") == "logout") {
           window.location.href = "http://localhost:3000/stays/new";
         } else {
-          $("#warning").text("you must login to continue");
+          $("#warning").html(
+            "<div class='alert alert-warning' role='alert'>You must login to continue</div>"
+          );
         }
       },
     });

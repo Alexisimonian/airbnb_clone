@@ -17,46 +17,57 @@ accountRoutes.get("/register", (req, res) => {
   res.sendFile("register.html", { root: "public" });
 });
 
-accountRoutes.post("/register", async (req, res) => {
+accountRoutes.post("/username-validation", async (req, res) => {
   let username = req.body.username;
-  let email = req.body.email;
-  if (req.body.password != req.body.confirm_password) {
-    res.status(422).send("passwords must match");
+  let existingUsernames = await user.existingUsernames(username);
+  if (existingUsernames.length == 0) {
+    res.send("username free").end();
   } else {
-    let existingUsernames = await user.existingUsernames(username);
-    let existingEmails = await user.existingEmails(email);
-    if (existingUsernames.length == 0) {
-      if (existingEmails.length == 0) {
-        const passwordHash = bcrypt.hashSync(req.body.password, 10);
-        await user.saveUser(username, email, passwordHash);
-        req.session.loggedin = true;
-        req.session.username = username;
-        req.session.userId = await user.getID(username);
-        res.status(200).end();
-      } else {
-        res.status(422).send("email already taken");
-      }
-    } else {
-      res.status(422).send("username already taken");
-    }
+    res.send("username taken").end();
+  }
+});
+
+accountRoutes.post("/email-validation", async (req, res) => {
+  let email = req.body.email_input;
+  let existingEmails = await user.existingEmails(email);
+  if (existingEmails.length == 0) {
+    res.send("email free").end();
+  } else {
+    res.send("email taken").end();
   }
 });
 
 accountRoutes.post("/login", async (req, res) => {
-  let email = req.body.email;
-  let password = req.body.password;
-  let verifiedUser = await user.verifyThroughEmail(email);
-  if (verifiedUser.length > 0) {
-    if (bcrypt.compareSync(password, verifiedUser[0].password)) {
-      req.session.loggedin = true;
-      req.session.username = verifiedUser[0].name;
-      req.session.userId = verifiedUser[0].id;
-      res.status(200).end();
+  let email = req.body.email_input;
+  let password = req.body.password_input;
+  if (email && password) {
+    let user_details = await user.existingEmails(email);
+    if (user_details.length > 0) {
+      if (bcrypt.compareSync(password, user_details[0].password)) {
+        req.session.loggedin = true;
+        req.session.username = user_details[0].name;
+        req.session.userId = user_details[0].id;
+        res.status(200).end();
+      } else {
+        res.status(422).send("password incorrect");
+      }
     } else {
-      res.status(422).send("incorect password");
+      res.status(422).send("email incorrect");
     }
-  } else {
-    res.status(422).send("no account with this email");
+  }
+});
+
+accountRoutes.post("/register", async (req, res) => {
+  let username = req.body.username;
+  let email = req.body.email_input;
+  let password = req.body.password_input;
+  if (username && email && password) {
+    const passwordHash = bcrypt.hashSync(password, 10);
+    await user.saveUser(username, email, passwordHash);
+    req.session.loggedin = true;
+    req.session.username = username;
+    req.session.userId = await user.getID(username);
+    res.status(200).end();
   }
 });
 

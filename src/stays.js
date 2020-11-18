@@ -1,6 +1,5 @@
 const { dbQuery } = require("./db");
 const { Stay } = require("./stay");
-const fs = require("fs");
 
 class Stays {
   constructor() {
@@ -9,6 +8,8 @@ class Stays {
 
   createStay(
     user,
+    type,
+    size,
     title,
     address,
     price,
@@ -18,8 +19,8 @@ class Stays {
     description
   ) {
     dbQuery(
-      `INSERT INTO stays (user, title, address, price, availablefrom, availableto, images, description) 
-      VALUES ('${user}','${title}', '${address}', '${price}', '${availableFrom}', '${availableTo}', '${images}', '${description}')`
+      `INSERT INTO stays (user, type, size, title, address, price, availablefrom, availableto, images, description) 
+      VALUES ('${user}','${type}','${size}','${title}', '${address}', '${price}', '${availableFrom}', '${availableTo}', '${images}', '${description}')`
     );
   }
 
@@ -36,6 +37,8 @@ class Stays {
         new Stay(
           query[i].id,
           query[i].user,
+          query[i].type,
+          query[i].size,
           query[i].title,
           query[i].address,
           query[i].price,

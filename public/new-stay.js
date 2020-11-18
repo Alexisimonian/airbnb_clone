@@ -1,7 +1,7 @@
 $(document).ready(function () {
   let fileCollection = new Array();
 
-  $("#imageFiles").on("change", function (e) {
+  $("#image-files").on("change", function (e) {
     let files = e.target.files;
     $.each(files, function (i, file) {
       fileCollection.push(file);
@@ -29,24 +29,29 @@ $(document).ready(function () {
     });
   });
 
-  $("#newStayForm").on("submit", function (e) {
+  $("#new-stay-form").on("submit", function (e) {
     e.preventDefault();
-    let formData = new FormData($(this)[0]);
+    let form = $(this)[0];
+    let formData = new FormData(form);
+    let is_valid = form.checkValidity();
+    form.classList.add("was-validated");
     $.each(fileCollection, function (i, image) {
       formData.append("files", fileCollection[i]);
     });
-    $.ajax({
-      url: "/upload",
-      type: "post",
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function () {
-        window.location.href = "http://localhost:3000/stays";
-      },
-      error: function (xhr) {
-        $("#errors").text(xhr.responseText);
-      },
-    });
+    if (is_valid) {
+      $.ajax({
+        type: "post",
+        url: "/stays/new",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function () {
+          window.location.href = "http://localhost:3000/stays";
+        },
+        error: function (data) {
+          $("#errors").text(data.responseText);
+        },
+      });
+    }
   });
 });

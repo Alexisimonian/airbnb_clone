@@ -11,11 +11,6 @@ class User {
     return query;
   }
 
-  verifyThroughEmail(email) {
-    let query = dbQuery(`SELECT * FROM users WHERE email='${email}'`);
-    return query;
-  }
-
   saveUser(username, email, password) {
     let query = dbQuery(
       `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${password}')`
