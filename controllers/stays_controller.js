@@ -36,6 +36,8 @@ staysRoutes.post("/stays/new", async (req, res) => {
   try {
     await upload(req, res);
     let userID = req.session.userId;
+    let type = req.body.place_type;
+    let size = req.body.place_size;
     let title = req.body.title;
     let address = req.body.street_number + " " + req.body.route;
     console.log(address);
@@ -51,15 +53,16 @@ staysRoutes.post("/stays/new", async (req, res) => {
     let avaibilityFrom = req.body.startDate;
     let avaibilityTo = req.body.endDate;
     let description = req.body.description;
+    console.log(description);
     let images = [];
     for (let i = 0; i < req.files.length; i++) {
       images.push(req.files[i].filename);
     }
     stays.createStay(
       userID,
-      title,
       type,
       size,
+      title,
       address,
       postcode,
       locality,

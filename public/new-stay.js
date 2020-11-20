@@ -154,6 +154,10 @@ $("#new-stay-form").on("submit", function (e) {
     $("#autocomplete").addClass("is-invalid");
   }
 
+  if (fileCollection.length >= 1) {
+    $("#image-files").removeClass("is-invalid");
+  }
+
   if ($(this).find(".is-invalid").length === 1) {
     $.each(fileCollection, function (i, image) {
       formData.append("files", fileCollection[i]);
