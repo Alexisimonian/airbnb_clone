@@ -12,6 +12,10 @@ class Stays {
     size,
     title,
     address,
+    postcode,
+    locality,
+    country,
+    latlng,
     price,
     availableFrom,
     availableTo,
@@ -19,8 +23,8 @@ class Stays {
     description
   ) {
     dbQuery(
-      `INSERT INTO stays (user, type, size, title, address, price, availablefrom, availableto, images, description) 
-      VALUES ('${user}','${type}','${size}','${title}', '${address}', '${price}', '${availableFrom}', '${availableTo}', '${images}', '${description}')`
+      `INSERT INTO stays (user, type, size, title, address, postcode, locality, country, latlng, price, availablefrom, availableto, images, description) 
+      VALUES ('${user}','${type}','${size}','${title}', '${address}', '${postcode}','${locality}','${country}','${latlng}', '${price}', '${availableFrom}', '${availableTo}', '${images}', '${description}')`
     );
   }
 
@@ -41,6 +45,10 @@ class Stays {
           query[i].size,
           query[i].title,
           query[i].address,
+          query[i].postcode,
+          query[i].locality,
+          query[i].country,
+          query[i].latlng,
           query[i].price,
           query[i].availablefrom,
           query[i].availableto,

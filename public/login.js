@@ -1,16 +1,17 @@
-$(document).ready(function () {
-  $(".form-control").on("input", function () {
-    $(this).removeClass("is-valid is-invalid");
+$(".form-control").on("input", function () {
+  $(this).removeClass("is-invalid");
+});
+
+$("#login-form").on("submit", function (e) {
+  e.preventDefault();
+  let data = $(this).serialize();
+  $(":input").each(function () {
+    if ($(this).val() == "") {
+      $(this).addClass("is-invalid");
+    }
   });
 
-  $("#login-form").on("submit", function (e) {
-    e.preventDefault();
-    let data = $(this).serialize();
-    $(":input").each(function () {
-      if ($(this).val() == "") {
-        $(this).addClass("is-invalid");
-      }
-    });
+  if ($(this).find(".is-invalid").length === 1) {
     $.ajax({
       type: "post",
       url: "/login",
@@ -29,5 +30,5 @@ $(document).ready(function () {
         }
       },
     });
-  });
+  }
 });

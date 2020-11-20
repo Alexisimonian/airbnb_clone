@@ -37,7 +37,16 @@ staysRoutes.post("/stays/new", async (req, res) => {
     await upload(req, res);
     let userID = req.session.userId;
     let title = req.body.title;
-    let address = req.body.address;
+    let address = req.body.street_number + " " + req.body.route;
+    console.log(address);
+    let postcode = req.body.postal_code;
+    console.log(postcode);
+    let locality = req.body.locality;
+    console.log(locality);
+    let country = req.body.country;
+    console.log(country);
+    let latlng = req.body.latitude + "," + req.body.longitude;
+    console.log(latlng);
     let price = req.body.price;
     let avaibilityFrom = req.body.startDate;
     let avaibilityTo = req.body.endDate;
@@ -52,6 +61,10 @@ staysRoutes.post("/stays/new", async (req, res) => {
       type,
       size,
       address,
+      postcode,
+      locality,
+      country,
+      latlng,
       price,
       avaibilityFrom,
       avaibilityTo,
@@ -60,10 +73,6 @@ staysRoutes.post("/stays/new", async (req, res) => {
     );
     res.status(200).end();
   } catch (error) {
-    if (error.code === "LIMIT_UNEXPECTED_FILE") {
-      console.log(error);
-      return res.status(422).send("too many files to upload");
-    }
     res.status(422).send(`error trying to upload your file(s): ${error}`);
   }
 });
