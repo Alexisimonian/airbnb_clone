@@ -47,17 +47,18 @@ staysRoutes.post("/stays/new", async (req, res) => {
     console.log(locality);
     let country = req.body.country;
     console.log(country);
-    let latlng = req.body.latitude + "," + req.body.longitude;
+    let latlng = req.body.lat + "," + req.body.lng;
     console.log(latlng);
     let price = req.body.price;
-    let avaibilityFrom = req.body.startDate;
-    let avaibilityTo = req.body.endDate;
-    let description = req.body.description;
-    console.log(description);
+    let avaibility_from = req.body.available_from;
+    let avaibility_to = req.body.available_to;
     let images = [];
     for (let i = 0; i < req.files.length; i++) {
       images.push(req.files[i].filename);
     }
+    let description = req.body.description;
+    description = description.replace("'", "\\'");
+    console.log(description);
     stays.createStay(
       userID,
       type,
@@ -69,8 +70,8 @@ staysRoutes.post("/stays/new", async (req, res) => {
       country,
       latlng,
       price,
-      avaibilityFrom,
-      avaibilityTo,
+      avaibility_from,
+      avaibility_to,
       images,
       description
     );

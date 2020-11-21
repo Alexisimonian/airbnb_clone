@@ -72,33 +72,37 @@ let now = new Date();
 let day = String(now.getDate()).padStart(2, "0");
 let month = String(now.getMonth() + 1).padStart(2, "0");
 let year = now.getFullYear();
-let today = month + "-" + day + "-" + year;
+let today = year + "-" + month + "-" + day;
 
-$("input[name='available-from']").daterangepicker(
+$("input[name='available_from']").daterangepicker(
   {
     singleDatePicker: true,
     minDate: today,
+    locale: { format: "YYYY/MM/DD" },
   },
   function (start, end, label) {
-    from_date = start.format("MM-DD-YYYY");
-    $("input[name='available-to']").daterangepicker({
+    from_date = start.format("YYYY/MM/DD");
+    $("input[name='available_to']").daterangepicker({
       singleDatePicker: true,
       minDate: from_date,
+      locale: { format: "YYYY/MM/DD" },
     });
   }
 );
 
-$("input[name='available-to']").daterangepicker(
+$("input[name='available_to']").daterangepicker(
   {
     singleDatePicker: true,
     minDate: today,
+    locale: { format: "YYYY/MM/DD" },
   },
   function (start, end, label) {
-    to_date = start.format("MM-DD-YYYY");
-    $("input[name='available-from']").daterangepicker({
+    to_date = start.format("YYYY/MM/DD");
+    $("input[name='available_from']").daterangepicker({
       singleDatePicker: true,
       minDate: today,
       maxDate: to_date,
+      locale: { format: "YYYY/MM/DD" },
     });
   }
 );
@@ -158,6 +162,7 @@ $("#new-stay-form").on("submit", function (e) {
     $("#image-files").removeClass("is-invalid");
   }
 
+  console.log($(this).find(".is-invalid"));
   if ($(this).find(".is-invalid").length === 1) {
     $.each(fileCollection, function (i, image) {
       formData.append("files", fileCollection[i]);

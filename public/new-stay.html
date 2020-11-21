@@ -54,28 +54,38 @@
         </div>
         <div id="address">
           <input
-            class="field"
+            type="hidden"
+            class="form-control"
             id="street_number"
             name="street_number"
-            disabled="true"
           />
-          <input class="field" id="route" name="route" disabled="true" />
-          <input class="field" id="locality" name="locality" disabled="true" />
+          <input type="hidden" class="form-control" id="route" name="route" />
           <input
-            class="field"
+            type="hidden"
+            class="form-control"
+            id="locality"
+            name="locality"
+          />
+          <input
+            type="hidden"
+            class="form-control"
             id="administrative_area_level_1"
             name="administrative_area_level_1"
-            disabled="true"
           />
           <input
-            class="field"
+            type="hidden"
+            class="form-control"
             id="postal_code"
             name="postal_code"
-            disabled="true"
           />
-          <input class="field" id="country" name="country" disabled="true" />
-          <input class="field" id="latitude" name="lat" disabled="true" />
-          <input class="field" id="longitude" name="lng" disabled="true" />
+          <input
+            type="hidden"
+            class="form-control"
+            id="country"
+            name="country"
+          />
+          <input type="hidden" class="form-control" id="latitude" name="lat" />
+          <input type="hidden" class="form-control" id="longitude" name="lng" />
         </div>
         <div class="form-row">
           <div class="form-group col">
@@ -123,23 +133,23 @@
         </div>
         <div class="form-row">
           <div class="col">
-            <label for="available-from">Available from</label>
+            <label for="available_from">Available from</label>
             <input
               type="text"
               class="form-control"
-              id="available-from"
-              name="available-from"
+              id="available_from"
+              name="available_from"
               required
             />
             <div class="invalid-feedback">Please enter a valid start date.</div>
           </div>
           <div class="col">
-            <label for="available-to">Available until</label>
+            <label for="available_to">Available until</label>
             <input
               type="text"
               class="form-control"
-              id="available-to"
-              name="available-to"
+              id="available_to"
+              name="available_to"
               required
             />
             <div class="invalid-feedback">Please enter a valid end date.</div>
