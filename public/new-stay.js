@@ -74,39 +74,6 @@ let month = String(now.getMonth() + 1).padStart(2, "0");
 let year = now.getFullYear();
 let today = year + "-" + month + "-" + day;
 
-$("input[name='available_from']").daterangepicker(
-  {
-    singleDatePicker: true,
-    minDate: today,
-    locale: { format: "YYYY/MM/DD" },
-  },
-  function (start, end, label) {
-    from_date = start.format("YYYY/MM/DD");
-    $("input[name='available_to']").daterangepicker({
-      singleDatePicker: true,
-      minDate: from_date,
-      locale: { format: "YYYY/MM/DD" },
-    });
-  }
-);
-
-$("input[name='available_to']").daterangepicker(
-  {
-    singleDatePicker: true,
-    minDate: today,
-    locale: { format: "YYYY/MM/DD" },
-  },
-  function (start, end, label) {
-    to_date = start.format("YYYY/MM/DD");
-    $("input[name='available_from']").daterangepicker({
-      singleDatePicker: true,
-      minDate: today,
-      maxDate: to_date,
-      locale: { format: "YYYY/MM/DD" },
-    });
-  }
-);
-
 // Preview place photos before uploading
 let fileCollection = new Array();
 

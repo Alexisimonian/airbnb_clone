@@ -40,15 +40,10 @@ staysRoutes.post("/stays/new", async (req, res) => {
     let size = req.body.place_size;
     let title = req.body.title;
     let address = req.body.street_number + " " + req.body.route;
-    console.log(address);
     let postcode = req.body.postal_code;
-    console.log(postcode);
     let locality = req.body.locality;
-    console.log(locality);
     let country = req.body.country;
-    console.log(country);
     let latlng = req.body.lat + "," + req.body.lng;
-    console.log(latlng);
     let price = req.body.price;
     let avaibility_from = req.body.available_from;
     let avaibility_to = req.body.available_to;
@@ -58,7 +53,6 @@ staysRoutes.post("/stays/new", async (req, res) => {
     }
     let description = req.body.description;
     description = description.replace("'", "\\'");
-    console.log(description);
     stays.createStay(
       userID,
       type,
