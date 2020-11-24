@@ -22,23 +22,15 @@
     <button type="button">
       <a href="/stays">stays</a>
     </button>
-    <h1 id="welcomeMsg"></h1>
+    <h1 id="welcome_msg"></h1>
     <form>
-      <button type="button" name="location">
-        <strong>Location</strong> <br />
-        Where are you going?
-      </button>
-      <input type="text" id="check_in" class="search_dates" />
-      <input type="text" id="check_out" class="search_dates" />
-      <button type="button" name="guests">
-        <strong>Guests</strong> <br />
-        Add guests
-      </button>
+      <input type="text" id="check_in" class="dates" />
+      <input type="text" id="check_out" class="dates" />
       <button type="submit" class="btn btn-dark">Search</button>
     </form>
 
-    <div class="datepicker forward"></div>
-    <div class="datepicker backward"></div>
+    <div class="datepicker check_in"></div>
+    <div class="datepicker check_out"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
