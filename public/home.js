@@ -10,6 +10,14 @@ $.ajax({
   },
 });
 
+//Wipe dates values on refresh
+$(window).on("load", function () {
+  $("#check_in").val("");
+  $("#check_out").val("");
+  setDates();
+  refreshDates();
+});
+
 //Date picker in search module
 let date_1;
 let date_2;
@@ -61,10 +69,8 @@ $(".check_in").datepicker({
     }
     $("#check_in").val(date);
     refreshDates();
-    if (!date_1 || !date_2) {
-      $(this).hide();
-      $("#check_out").click();
-    }
+    $(this).hide();
+    $("#check_out").click();
   },
 });
 
