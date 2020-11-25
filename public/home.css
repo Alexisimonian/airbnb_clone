@@ -29,3 +29,8 @@
   background: black;
   color: white;
 }
+
+#navbar-container {
+  margin: auto;
+  width: 50%;
+}

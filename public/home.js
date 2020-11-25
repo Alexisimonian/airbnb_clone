@@ -70,7 +70,7 @@ $(".check_in").datepicker({
     $("#check_in").val(date);
     refreshDates();
     $(this).hide();
-    $("#check_out").click();
+    $("#btn_check_out").click();
   },
 });
 
@@ -85,7 +85,7 @@ $(".check_out").datepicker({
     refreshDates();
     if (!date_1 || !date_2) {
       $(this).hide();
-      $("#check_in").click();
+      $("#btn_check_in").click();
     }
   },
 });
@@ -93,7 +93,7 @@ $(".check_out").datepicker({
 //Which datepicker shows up
 $(".datepicker").hide();
 
-$("#check_in").click(function () {
+$("#btn_check_in").click(function () {
   if ($(".check_out").is(":visible")) {
     $(".check_out").hide();
     $(".check_in").show();
@@ -104,7 +104,7 @@ $("#check_in").click(function () {
   }
 });
 
-$("#check_out").click(function () {
+$("#btn_check_out").click(function () {
   if ($(".check_in").is(":visible")) {
     $(".check_in").hide();
     $(".check_out").show();
@@ -168,7 +168,7 @@ $(document).on("mouseover", ".ui-state-default", function () {
   });
 });
 
-// Close datepickers when click elsewhere
+//Close datepickers when click elsewhere
 $(document).on("click", function (e) {
   var element = $(e.target);
   if (

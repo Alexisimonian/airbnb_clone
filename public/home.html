@@ -24,10 +24,42 @@
     </button>
     <h1 id="welcome_msg"></h1>
     <form>
-      <input type="text" id="check_in" class="dates" />
-      <input type="text" id="check_out" class="dates" />
-      <button type="submit" class="btn btn-dark">Search</button>
+      <input type="hidden" id="location" />
+      <input type="hidden" id="check_in" />
+      <input type="hidden" id="check_out" />
+      <input type="hidden" id="guests" />
     </form>
+
+    <div id="navbar-container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav">
+          <a href="#" class="btn btn-light" role="button">
+            <li class="nav-item">
+              <strong>Location</strong>
+              <div>Where are you going?</div>
+            </li>
+          </a>
+          <a class="btn btn-light dates" href="#" id="btn_check_in">
+            <li class="nav-item dates">
+              <strong class="dates"> Check in</strong>
+              <div class="dates">Add dates</div>
+            </li>
+          </a>
+          <a class="btn btn-light dates" href="#" id="btn_check_out">
+            <li class="nav-item dates">
+              <strong class="dates"> Check out</strong>
+              <div class="dates">Add dates</div>
+            </li>
+          </a>
+          <a class="btn btn-light" href="#">
+            <li class="nav-item">
+              <strong>Guests</strong>
+              <div>Add guests</div>
+            </li>
+          </a>
+        </ul>
+      </nav>
+    </div>
 
     <div class="datepicker check_in"></div>
     <div class="datepicker check_out"></div>
