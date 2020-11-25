@@ -44,9 +44,11 @@ $.datepicker.setDefaults({
   beforeShowDay: function (date) {
     setDates();
     if (date_1 && date.getTime() == date_1.getTime()) {
-      return [true, "ui-state-highlight"];
-    } else if (date_2 && date >= date_1 && date <= date_2) {
-      return [true, "ui-state-highlight"];
+      return [true, "dp-select"];
+    } else if (date_2 && date.getTime() == date_2.getTime()) {
+      return [true, "dp-select"];
+    } else if (date_1 && date_2 && date > date_1 && date < date_2) {
+      return [true, "dp-highlight"];
     }
     return [true, ""];
   },
@@ -54,9 +56,12 @@ $.datepicker.setDefaults({
 
 $(".check_in").datepicker({
   onSelect: function (date, inst) {
+    if (date_2 && date > $("#check_out").val()) {
+      $("#check_out").val("");
+    }
     $("#check_in").val(date);
     refreshDates();
-    if (!date_2) {
+    if (!date_1 || !date_2) {
       $(this).hide();
       $("#check_out").click();
     }
@@ -65,9 +70,14 @@ $(".check_in").datepicker({
 
 $(".check_out").datepicker({
   onSelect: function (date, inst) {
-    $("#check_out").val(date);
+    if (date_1 && date < $("#check_in").val()) {
+      $("#check_in").val(date);
+      $("#check_out").val("");
+    } else {
+      $("#check_out").val(date);
+    }
     refreshDates();
-    if (!date_1) {
+    if (!date_1 || !date_2) {
       $(this).hide();
       $("#check_in").click();
     }
@@ -99,6 +109,59 @@ $("#check_out").click(function () {
   }
 });
 
+//Highlight dates that would be inside selection
+$(document).on("mouseover", ".ui-state-default", function () {
+  //Determine hovered date
+  let hovered_day = parseInt($(this).text());
+  let hovered_month = parseInt($(this).parents("td").attr("data-month")) + 1;
+  let hovered_year = parseInt($(this).parents("td").attr("data-year"));
+  let hovered_date = hovered_year + "-" + hovered_month + "-" + hovered_day;
+  hovered_date = $.datepicker.parseDate("yy-mm-dd", hovered_date);
+
+  //Highlight dates between hovered date and check_in or check_out date
+  $("a.ui-state-default").each(function () {
+    let date_object = this;
+    let day = parseInt($(date_object).text());
+    let month = parseInt($(date_object).parents("td").attr("data-month")) + 1;
+    let year = parseInt($(date_object).parents("td").attr("data-year"));
+    let full_date = year + "-" + month + "-" + day;
+    full_date = $.datepicker.parseDate("yy-mm-dd", full_date);
+
+    // If no date_2 highlight forward
+    if (date_1 && !date_2) {
+      if (full_date < hovered_date && full_date > date_1) {
+        $(date_object).removeClass("dp-select");
+        $(date_object).addClass("dp-highlight");
+      } else if (
+        full_date > date_1 &&
+        full_date.getTime() == hovered_date.getTime()
+      ) {
+        $(date_object).removeClass("dp-highlight");
+        $(date_object).addClass("dp-select");
+      } else {
+        $(date_object).removeClass("dp-select");
+        $(date_object).removeClass("dp-highlight");
+      }
+    }
+    // If no date_1 highlight backward
+    if (date_2 && !date_1) {
+      if (full_date > hovered_date && full_date < date_2) {
+        $(date_object).removeClass("dp-select");
+        $(date_object).addClass("dp-highlight");
+      } else if (
+        full_date < date_2 &&
+        full_date.getTime() == hovered_date.getTime()
+      ) {
+        $(date_object).removeClass("dp-highlight");
+        $(date_object).addClass("dp-select");
+      } else {
+        $(date_object).removeClass("dp-select");
+        $(date_object).removeClass("dp-highlight");
+      }
+    }
+  });
+});
+
 // Close datepickers when click elsewhere
 $(document).on("click", function (e) {
   var element = $(e.target);
@@ -113,13 +176,5 @@ $(document).on("click", function (e) {
     if ($(".hasDatepicker").is(":visible")) {
       $(".datepicker").hide();
     }
-  }
-});
-
-$(".ui-state-default").on("mouseover", function () {
-  let day = $(this).text();
-  let month = $(this).parents("td").attr("data-month");
-  let year = $(this).parents("td").attr("data-year");
-  if (date_1) {
   }
 });

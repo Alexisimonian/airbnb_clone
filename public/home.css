@@ -1,1 +1,17 @@
+.ui-datepicker .dp-highlight {
+  background: #eaedf0;
+}
 
+.ui-datepicker .dp-select {
+  background: black;
+  color: white;
+}
+
+.dp-highlight .ui-state-default {
+  background: #eaedf0;
+}
+
+.dp-select .ui-state-default {
+  background: black;
+  color: white;
+}
