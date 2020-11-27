@@ -14,43 +14,59 @@ $.ajax({
 $(window).on("load", function () {
   $("#check_in").val("");
   $("#check_out").val("");
-  setDates();
   refreshDates();
 });
 
 //Date picker in search module
-let date_1;
-let date_2;
-
-function setDates() {
-  date_1 = $.datepicker.parseDate("yy-mm-dd", $("#check_in").val());
-  date_2 = $.datepicker.parseDate("yy-mm-dd", $("#check_out").val());
-}
-
-function refreshDates() {
-  $(".datepicker").datepicker("refresh");
-}
-
 let now = new Date();
 let day = String(now.getDate()).padStart(2, "0");
 let month = String(now.getMonth() + 1).padStart(2, "0");
 let year = now.getFullYear();
 let today = year + "-" + month + "-" + day;
 
+let months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "Maj",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+let date_1;
+let date_2;
+
+function shortDate(date) {
+  if (date) {
+    return date.getDate() + " " + months[date.getMonth()];
+  } else {
+    return "Add dates";
+  }
+}
+
+function setDates() {
+  date_1 = $.datepicker.parseDate("yy-mm-dd", $("#check_in").val());
+  date_2 = $.datepicker.parseDate("yy-mm-dd", $("#check_out").val());
+  $("#check_in_short_date").text(shortDate(date_1));
+  $("#check_out_short_date").text(shortDate(date_2));
+}
+
+function refreshDates() {
+  setDates();
+  $(".datepicker").datepicker("refresh");
+}
+
 $.datepicker.setDefaults({
   minDate: today,
   dateFormat: "yy-mm-dd",
   numberOfMonths: 2,
-  beforeShow: function (input, inst) {
-    setTimeout(() => {
-      inst.dpDiv.css({
-        top: 150,
-        left: 0,
-      });
-    }, 0);
-  },
   beforeShowDay: function (date) {
-    setDates();
     if (date_1 && date.getTime() == date_1.getTime()) {
       return [true, "dp-select"];
     } else if (date_2 && date.getTime() == date_2.getTime()) {
@@ -83,7 +99,7 @@ $(".check_out").datepicker({
       $("#check_out").val(date);
     }
     refreshDates();
-    if (!date_1 || !date_2) {
+    if (!date_1) {
       $(this).hide();
       $("#btn_check_in").click();
     }

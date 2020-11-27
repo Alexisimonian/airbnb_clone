@@ -30,9 +30,9 @@
       <input type="hidden" id="guests" />
     </form>
 
-    <div id="navbar-container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <ul class="navbar-nav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="navbar collapse navbar-collapse">
+        <ul class="navbar-nav m-auto">
           <a href="#" class="btn btn-light" role="button">
             <li class="nav-item">
               <strong>Location</strong>
@@ -42,13 +42,13 @@
           <a class="btn btn-light dates" href="#" id="btn_check_in">
             <li class="nav-item dates">
               <strong class="dates"> Check in</strong>
-              <div class="dates">Add dates</div>
+              <div class="dates" id="check_in_short_date">Add dates</div>
             </li>
           </a>
           <a class="btn btn-light dates" href="#" id="btn_check_out">
             <li class="nav-item dates">
               <strong class="dates"> Check out</strong>
-              <div class="dates">Add dates</div>
+              <div class="dates" id="check_out_short_date">Add dates</div>
             </li>
           </a>
           <a class="btn btn-light" href="#">
@@ -57,12 +57,19 @@
               <div>Add guests</div>
             </li>
           </a>
+          <li class="nav-item">
+            <button class="btn btn-outline-danger" type="button">Search</button>
+          </li>
         </ul>
-      </nav>
-    </div>
+      </div>
+    </nav>
 
-    <div class="datepicker check_in"></div>
-    <div class="datepicker check_out"></div>
+    <div id="datepicker-container">
+      <div id="datepicker-center">
+        <div class="datepicker check_in"></div>
+        <div class="datepicker check_out"></div>
+      </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
