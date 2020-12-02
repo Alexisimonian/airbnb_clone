@@ -42,3 +42,23 @@
   display: inline-block;
   margin: 0 auto;
 }
+
+.navbar-container {
+  margin: auto;
+  text-align: center;
+}
+
+.navbar-center {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+#welcome_msg {
+  text-align: center;
+}
+
+.dropdown-menu::before,
+.dropdown-menu::after {
+  border: none;
+  content: none;
+}

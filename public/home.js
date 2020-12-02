@@ -1,13 +1,24 @@
 //Pages's buttons and personalised messages
+let logbtn;
+
 $.ajax({
   type: "get",
   url: "/",
   complete: function (xhr) {
     let welcomeMsg = xhr.getResponseHeader("welcomeMsg");
-    let logbtn = xhr.getResponseHeader("logbtn");
+    logbtn = xhr.getResponseHeader("logbtn");
     $("#welcome_msg").text(welcomeMsg);
-    $("#logbtn").html(`<a href='/${logbtn}'>${logbtn}</a>`);
+    $("#logbtn").text(`${logbtn}`);
+    if (logbtn == "login") {
+      $("#logbtn").after(
+        "<a class='dropdown-item' href='/register'>sign up</a>"
+      );
+    }
   },
+});
+
+$("#logbtn").click(function () {
+  window.location.href = "http://localhost:3000/" + logbtn;
 });
 
 //Wipe dates values on refresh

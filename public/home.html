@@ -11,6 +11,10 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
     <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link
       rel="stylesheet"
       href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
     />
@@ -18,51 +22,82 @@
     <title>Welcome to Airbnb</title>
   </head>
   <body>
-    <button type="button" id="logbtn"></button>
-    <button type="button">
-      <a href="/stays">stays</a>
-    </button>
-    <h1 id="welcome_msg"></h1>
+    <div class="dropdown">
+      <button
+        class="btn btn-default"
+        id="logdropdown"
+        type="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <span class="fa fa-bars"></span>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="logdropdown">
+        <a class="dropdown-item" href="#" id="logbtn"></a>
+        <a class="dropdown-item" href="#"> help </a>
+      </div>
+    </div>
     <form>
       <input type="hidden" id="location" />
       <input type="hidden" id="check_in" />
       <input type="hidden" id="check_out" />
       <input type="hidden" id="guests" />
     </form>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="navbar collapse navbar-collapse">
-        <ul class="navbar-nav m-auto">
-          <a href="#" class="btn btn-light" role="button">
-            <li class="nav-item">
-              <strong>Location</strong>
-              <div>Where are you going?</div>
-            </li>
-          </a>
-          <a class="btn btn-light dates" href="#" id="btn_check_in">
-            <li class="nav-item dates">
-              <strong class="dates"> Check in</strong>
-              <div class="dates" id="check_in_short_date">Add dates</div>
-            </li>
-          </a>
-          <a class="btn btn-light dates" href="#" id="btn_check_out">
-            <li class="nav-item dates">
-              <strong class="dates"> Check out</strong>
-              <div class="dates" id="check_out_short_date">Add dates</div>
-            </li>
-          </a>
-          <a class="btn btn-light" href="#">
-            <li class="nav-item">
-              <strong>Guests</strong>
-              <div>Add guests</div>
-            </li>
-          </a>
-          <li class="nav-item">
-            <button class="btn btn-outline-danger" type="button">Search</button>
-          </li>
-        </ul>
+    <h1 id="welcome_msg"></h1>
+    <div class="navbar-container">
+      <div class="navbar-center">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="navbar collapse navbar-collapse">
+            <ul class="navbar-nav m-auto">
+              <a class="btn btn-light" role="button">
+                <li class="nav-item">
+                  <strong>Location</strong>
+                  <div>Where are you going?</div>
+                </li>
+              </a>
+              <a class="btn btn-light dates" id="btn_check_in">
+                <li class="nav-item dates">
+                  <strong class="dates"> Check in</strong>
+                  <div class="dates" id="check_in_short_date">Add dates</div>
+                </li>
+              </a>
+              <a class="btn btn-light dates" id="btn_check_out">
+                <li class="nav-item dates">
+                  <strong class="dates"> Check out</strong>
+                  <div class="dates" id="check_out_short_date">Add dates</div>
+                </li>
+              </a>
+              <div>
+                <a
+                  class="btn btn-light"
+                  data-toggle="dropdown"
+                  id="guest-select"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <li class="nav-item">
+                    <strong>Guests</strong>
+                    <div>Add guests</div>
+                  </li>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="guest-select">
+                  <a class="dropdown-item">1</a>
+                  <a class="dropdown-item">2</a>
+                  <a class="dropdown-item">3</a>
+                  <a class="dropdown-item">4</a>
+                </div>
+              </div>
+              <li class="nav-item">
+                <button class="btn btn-outline-danger" type="button">
+                  Search
+                </button>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
-    </nav>
+    </div>
 
     <div id="datepicker-container">
       <div id="datepicker-center">
