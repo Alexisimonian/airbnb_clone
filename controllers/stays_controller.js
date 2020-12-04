@@ -7,7 +7,7 @@ const { Stays } = require("../src/stays");
 const stays = new Stays();
 const staysRoutes = express.Router();
 
-staysRoutes.get("/stays", async (req, res) => {
+staysRoutes.post("/stays", async (req, res) => {
   let logbtn = "login";
   if (req.session.loggedin == true) {
     logbtn = "logout";

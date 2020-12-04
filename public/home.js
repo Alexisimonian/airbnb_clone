@@ -1,6 +1,7 @@
 //Pages's buttons and personalised messages
 let logbtn;
 
+//Determines if connected
 $.ajax({
   type: "get",
   url: "/",
@@ -30,12 +31,19 @@ $("#logbtn").click(function () {
 let placeSearch;
 let autocomplete;
 const componentForm = {
-  postal_code: "short_name",
+  locality: "short_name",
+  country: "long_name",
 };
 
 function resetAutoComplete() {
-  document.getElementById("postal_code").value = "";
+  for (const component in componentForm) {
+    document.getElementById(component).value = "";
+  }
 }
+
+$("#location").on("change", function () {
+  resetAutoComplete();
+});
 
 function initAutocomplete() {
   autocomplete = new google.maps.places.Autocomplete(
@@ -61,6 +69,11 @@ function fillInAddress() {
     }
   }
 }
+
+//Complete location even if clicked on frame button
+$("#location_button").on("click", function () {
+  $("#location").focus();
+});
 
 //Wipe dates values on refresh
 $(window).on("load", function () {
@@ -251,4 +264,18 @@ $(document).on("click", function (e) {
       $(".datepicker").hide();
     }
   }
+});
+
+$("#guest_select").on("click", function () {
+  $(".datepicker").hide();
+});
+
+//Set number of guests in search
+$(".guest_value").on("click", function () {
+  $("#nb_selected").text($(this).text());
+  document.getElementById("guests").value = $(this).text();
+});
+
+$("#submit").on("click", function () {
+  $("#search_stay").submit();
 });
