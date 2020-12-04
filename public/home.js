@@ -11,15 +11,56 @@ $.ajax({
     $("#logbtn").text(`${logbtn}`);
     if (logbtn == "login") {
       $("#logbtn").after(
-        "<a class='dropdown-item' href='/register'>sign up</a>"
+        "<a class='dropdown-item' href='/register'> Sign up </a>"
+      );
+    } else {
+      $("#logbtn").after(
+        "<div class='dropdown-divider'></div><a class='dropdown-item' href='/account'> Account </a>"
       );
     }
   },
 });
 
+//Redirect to login page
 $("#logbtn").click(function () {
   window.location.href = "http://localhost:3000/" + logbtn;
 });
+
+//Autocomplete setup
+let placeSearch;
+let autocomplete;
+const componentForm = {
+  postal_code: "short_name",
+};
+
+function resetAutoComplete() {
+  document.getElementById("postal_code").value = "";
+}
+
+function initAutocomplete() {
+  autocomplete = new google.maps.places.Autocomplete(
+    document.getElementById("location"),
+    {
+      types: ["geocode"],
+    }
+  );
+  autocomplete.setFields(["address_component"]);
+  autocomplete.addListener("place_changed", fillInAddress);
+}
+
+function fillInAddress() {
+  const place = autocomplete.getPlace();
+  resetAutoComplete();
+
+  for (const component of place.address_components) {
+    const addressType = component.types[0];
+
+    if (componentForm[addressType]) {
+      const val = component[componentForm[addressType]];
+      document.getElementById(addressType).value = val;
+    }
+  }
+}
 
 //Wipe dates values on refresh
 $(window).on("load", function () {

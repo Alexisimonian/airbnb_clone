@@ -17,6 +17,16 @@ accountRoutes.get("/register", (req, res) => {
   res.sendFile("register.html", { root: "public" });
 });
 
+accountRoutes.get("/account", (req, res) => {
+  let options = {
+    root: "public",
+    headers: {
+      username: req.session.username,
+    },
+  };
+  res.sendFile("account.html", options);
+});
+
 accountRoutes.post("/username-validation", async (req, res) => {
   let username = req.body.username;
   let existingUsernames = await user.existingUsernames(username);
