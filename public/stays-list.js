@@ -9,6 +9,7 @@ $.ajax({
       country: "",
       start_date: "",
       end_date: "",
+      guests: "",
     };
     $.each(search_infos, function (i, info) {
       let val = info.split("=");
@@ -23,10 +24,18 @@ $.ajax({
     $("#logbtn").html(`<a href='/${logbtn}'>${logbtn}</a>`);
     let homesList = JSON.parse(xhr.getResponseHeader("listing"));
     $.each(homesList, function (index, offer) {
+      //Filters according to search params
       if (
         offer.locality == search_params["locality"] &&
-        offer.country == search_params["country"]
+        offer.country == search_params["country"] &&
+        (search_params["start_date"] === "" ||
+          offer.availableFrom <= search_params["start_date"]) &&
+        (search_params["end_date"] === "" ||
+          offer.availableTo >= search_params["end_date"]) &&
+        (search_params["guests"] === "" ||
+          offer.size >= search_params["guests"])
       ) {
+        //Offer frame
         $("#content").append(
           `<div id='offer${index}'>
         <div id='carousel-nb${index}' class='carousel slide' data-interval='false' data-ride='carousel'>
@@ -43,6 +52,7 @@ $.ajax({
         </div>`
         );
 
+        //Offer image
         $.each(offer.images, function (i, image) {
           let active = "";
           if (i === 0) {
@@ -55,6 +65,7 @@ $.ajax({
           );
         });
 
+        //Offer text
         $("#offer" + index).append(
           `<div id='offer-text'>
           <h4>${offer.title}</h4>

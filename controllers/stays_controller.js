@@ -36,7 +36,7 @@ staysRoutes.post("/stays/new", async (req, res) => {
     await upload(req, res);
     let userID = req.session.userId;
     let type = req.body.place_type;
-    let size = req.body.place_size;
+    let size = req.body.place_size.split(" ")[0];
     let title = req.body.title;
     let address = req.body.street_number + " " + req.body.route;
     let postcode = req.body.postal_code;
