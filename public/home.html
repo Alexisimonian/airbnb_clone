@@ -39,12 +39,12 @@
         <a class="dropdown-item" href="#"> Help </a>
       </div>
     </div>
-    <form id="search_stay" method="POST" action="/stays">
-      <input type="hidden" id="locality" />
-      <input type="hidden" id="country" />
-      <input type="hidden" id="check_in" />
-      <input type="hidden" id="check_out" />
-      <input type="hidden" id="guests" />
+    <form id="search_stay" action="/" method="POST">
+      <input type="hidden" id="locality" name="locality" />
+      <input type="hidden" id="country" name="country" />
+      <input type="hidden" id="check_in" name="check_in" />
+      <input type="hidden" id="check_out" name="check_out" />
+      <input type="hidden" id="guests" name="guests" />
     </form>
 
     <h1 id="welcome_msg"></h1>

@@ -63,9 +63,10 @@ class Stays {
   async searchStays(locality, country) {
     this.houses = [];
     let query = await dbQuery(
-      `SELECT * FROM stays WHERE locality = ${locality} AND country = ${country}`
+      `SELECT * FROM stays WHERE locality = '${locality}' AND country = '${country}'`
     );
     for (let i = 0; i < query.length; i++) {
+      let images = query[i].images.split(",");
       this.houses.push(
         new Stay(
           query[i].id,
@@ -86,6 +87,7 @@ class Stays {
         )
       );
     }
+    return this.houses;
   }
 }
 

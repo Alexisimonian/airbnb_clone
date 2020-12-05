@@ -1,3 +1,23 @@
+//Set number of guests in search
+$(".guest_value").on("click", function () {
+  $("#nb_selected").text($(this).text());
+  document.getElementById("guests").value = $(this).text();
+});
+
+//Redirect to login page
+$("#logbtn").click(function () {
+  window.location.href = "http://localhost:3000/" + logbtn;
+});
+
+//Complete location even if clicked on frame button
+$("#location_button").on("click", function () {
+  $("#location").focus();
+});
+
+$("#submit").click(function () {
+  $("#search_stay").submit();
+});
+
 //Pages's buttons and personalised messages
 let logbtn;
 
@@ -22,17 +42,12 @@ $.ajax({
   },
 });
 
-//Redirect to login page
-$("#logbtn").click(function () {
-  window.location.href = "http://localhost:3000/" + logbtn;
-});
-
 //Autocomplete setup
 let placeSearch;
 let autocomplete;
 const componentForm = {
   locality: "short_name",
-  country: "long_name",
+  country: "short_name",
 };
 
 function resetAutoComplete() {
@@ -69,11 +84,6 @@ function fillInAddress() {
     }
   }
 }
-
-//Complete location even if clicked on frame button
-$("#location_button").on("click", function () {
-  $("#location").focus();
-});
 
 //Wipe dates values on refresh
 $(window).on("load", function () {
@@ -268,14 +278,4 @@ $(document).on("click", function (e) {
 
 $("#guest_select").on("click", function () {
   $(".datepicker").hide();
-});
-
-//Set number of guests in search
-$(".guest_value").on("click", function () {
-  $("#nb_selected").text($(this).text());
-  document.getElementById("guests").value = $(this).text();
-});
-
-$("#submit").on("click", function () {
-  $("#search_stay").submit();
 });
