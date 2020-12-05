@@ -28,7 +28,7 @@ homeRoutes.get("/", (req, res) => {
 homeRoutes.post("/", (req, res) => {
   let locality = req.body.locality;
   let country = req.body.country;
-  res.redirect("/stays" + `?loc=${locality}&country=${country}`);
+  res.redirect("/stays" + `?locality=${locality}&country=${country}`);
 });
 
 module.exports = { HomeRoutes: homeRoutes };

@@ -9,7 +9,6 @@ const componentForm = {
   street_number: "short_name",
   route: "long_name",
   locality: "long_name",
-  administrative_area_level_1: "short_name",
   country: "short_name",
   postal_code: "short_name",
 };
@@ -49,22 +48,6 @@ function fillInAddress() {
   }
   document.getElementById("latitude").value = place.geometry.location.lat();
   document.getElementById("longitude").value = place.geometry.location.lng();
-}
-
-function geolocate() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const geolocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-      const circle = new google.maps.Circle({
-        center: geolocation,
-        radius: position.coords.accuracy,
-      });
-      autocomplete.setBounds(circle.getBounds());
-    });
-  }
 }
 
 //Date restrictions
