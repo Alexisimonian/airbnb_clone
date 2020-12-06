@@ -15,7 +15,11 @@ $("#location_button").on("click", function () {
 });
 
 $("#submit").click(function () {
-  $("#search_stay").submit();
+  if ($("#locality").text() == "") {
+    $("#location").focus();
+  } else {
+    $("#search_stay").submit();
+  }
 });
 
 //Pages's buttons and personalised messages

@@ -57,6 +57,25 @@ let month = String(now.getMonth() + 1).padStart(2, "0");
 let year = now.getFullYear();
 let today = year + "-" + month + "-" + day;
 
+$.datepicker.setDefaults({
+  minDate: today,
+  dateFormat: "yy-mm-dd",
+});
+
+$("#available_from").datepicker({
+  onSelect: function (date, inst) {
+    let date_obj = $.datepicker.parseDate("yy-mm-dd", date);
+    $("#available_to").datepicker("option", "minDate", date_obj);
+  },
+});
+
+$("#available_to").datepicker({
+  onSelect: function (date, inst) {
+    let date_obj = $.datepicker.parseDate("yy-mm-dd", date);
+    $("#available_from").datepicker("option", "maxDate", date_obj);
+  },
+});
+
 // Preview place photos before uploading
 let fileCollection = new Array();
 
@@ -69,13 +88,10 @@ $("#image-files").on("change", function (e) {
       reader.readAsDataURL(file);
 
       reader.onload = function (e) {
-        let template =
-          "<span class= 'pip'>" +
-          "<img id='image' src='" +
-          e.target.result +
-          "'>" +
-          "<span class='remove'>Remove</span>" +
-          "</span>";
+        let template = `<span class= 'pip'>
+          <img id='image' src='${e.target.result}'>
+          <span class='remove'>Remove</span>
+        </span>`;
 
         $("#preview-images").append(template);
 
