@@ -6,6 +6,10 @@ class Stay {
     size,
     title,
     address,
+    postcode,
+    locality,
+    country,
+    latlng,
     price,
     availableFrom,
     availableTo,
@@ -18,6 +22,10 @@ class Stay {
     this.size = size;
     this.title = title;
     this.address = address;
+    this.postcode = postcode;
+    this.locality = locality;
+    this.country = country;
+    this.latlng = latlng;
     this.price = price;
     this.availableFrom = availableFrom;
     this.availableTo = availableTo;

@@ -10,6 +10,14 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
     <link rel="stylesheet" href="../new-stay-style.css" />
     <title>New Stay</title>
   </head>
@@ -36,16 +44,45 @@
           <div class="invalid-feedback">Please enter a title.</div>
         </div>
         <label for="address">Address</label>
-        <div class="form-group">
+        <div class="form-group" id="location-field">
           <input
             type="text"
             class="form-control"
-            id="address"
+            id="autocomplete"
             name="address"
-            placeholder="address"
+            placeholder="Enter the place's address."
             required
           />
           <div class="invalid-feedback">Please enter a valid address.</div>
+        </div>
+        <div id="address">
+          <input
+            type="hidden"
+            class="form-control field"
+            id="street_number"
+            name="street_number"
+          />
+          <input type="hidden" class="form-control" id="route" name="route" />
+          <input
+            type="hidden"
+            class="form-control field"
+            id="locality"
+            name="locality"
+          />
+          <input
+            type="hidden"
+            class="form-control field"
+            id="postal_code"
+            name="postal_code"
+          />
+          <input
+            type="hidden"
+            class="form-control field"
+            id="country"
+            name="country"
+          />
+          <input type="hidden" class="form-control" id="latitude" name="lat" />
+          <input type="hidden" class="form-control" id="longitude" name="lng" />
         </div>
         <div class="form-row">
           <div class="form-group col">
@@ -76,7 +113,14 @@
               <div class="input-group-prepend">
                 <div class="input-group-text">€</div>
               </div>
-              <input type="number" min="0" max="9999" required />
+              <input
+                class="form-control"
+                type="number"
+                name="price"
+                min="0"
+                max="9999"
+                required
+              />
               <div class="input-group-append">
                 <div class="input-group-text">per night</div>
               </div>
@@ -86,23 +130,23 @@
         </div>
         <div class="form-row">
           <div class="col">
-            <label for="available-from">Available from</label>
+            <label for="available_from">Available from</label>
             <input
-              type="date"
+              type="button"
               class="form-control"
-              id="available-from"
-              name="available-from"
+              id="available_from"
+              name="available_from"
               required
             />
             <div class="invalid-feedback">Please enter a valid start date.</div>
           </div>
           <div class="col">
-            <label for="available-to">Available until</label>
+            <label for="available_to">Available until</label>
             <input
-              type="date"
+              type="button"
               class="form-control"
-              id="available-to"
-              name="available-to"
+              id="available_to"
+              name="available_to"
               required
             />
             <div class="invalid-feedback">Please enter a valid end date.</div>
@@ -118,14 +162,32 @@
             required
           />
           <div class="invalid-feedback">Please select at least one file.</div>
+          <div id="errors"></div>
         </div>
         <div id="preview-images"></div>
+        <div class="form-group">
+          <textarea
+            class="form-control"
+            id="description"
+            name="description"
+            rows="4"
+            cols="50"
+            required
+          ></textarea>
+        </div>
         <button type="submit" class="btn btn-dark">Host your home</button>
       </form>
     </div>
-    <div id="errors"></div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZO0EQjvLYRT0XzWxy86oPieoOBRUdwpk&callback=initAutocomplete&libraries=places&v=weekly"
+      defer
+    ></script>
     <script type="text/javascript" src="../new-stay.js"></script>
   </body>
 </html>

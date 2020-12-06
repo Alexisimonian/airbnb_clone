@@ -9,3 +9,8 @@
   height: 200px;
   overflow: hidden;
 }
+
+#map {
+  width: 500px;
+  height: 400px;
+}
