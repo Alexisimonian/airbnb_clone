@@ -21,7 +21,17 @@ $.ajax({
     });
 
     let logbtn = xhr.getResponseHeader("logbtn");
-    $("#logbtn").html(`<a href='/${logbtn}'>${logbtn}</a>`);
+    $("#logbtn").text(`${logbtn}`);
+    if (logbtn == "login") {
+      $("#logbtn").after(
+        "<a class='dropdown-item' href='/register'> Sign up </a>"
+      );
+    } else {
+      $("#logbtn").after(
+        "<div class='dropdown-divider'></div><a class='dropdown-item' href='/account'> Account </a>"
+      );
+    }
+
     let homesList = JSON.parse(xhr.getResponseHeader("listing"));
     $.each(homesList, function (index, offer) {
       //Filters according to search params

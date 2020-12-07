@@ -15,7 +15,8 @@ $("#location_button").on("click", function () {
 });
 
 $("#submit").click(function () {
-  if ($("#locality").text() == "") {
+  console.log($("#locality").val());
+  if ($("#locality").val() === "") {
     $("#location").focus();
   } else {
     $("#search_stay").submit();
