@@ -11,7 +11,7 @@
 }
 
 #map {
-  height: 90vh;
+  height: 100vh;
 }
 
 #logbtn {
@@ -23,7 +23,6 @@
   width: 50%;
   overflow-x: hidden;
   position: fixed;
-  top: 70px;
 }
 
 .right {
@@ -31,6 +30,11 @@
 }
 
 .left {
+  margin-top: 10px;
   left: 0;
   text-align: center;
+}
+
+h2 {
+  font-weight: bold;
 }

@@ -22,102 +22,107 @@
     <title>Welcome to Airbnb</title>
   </head>
   <body>
-    <form id="search_stay" action="/" method="POST">
-      <input type="hidden" id="locality" name="locality" />
-      <input type="hidden" id="country" name="country" />
-      <input type="hidden" id="check_in" name="check_in" />
-      <input type="hidden" id="check_out" name="check_out" />
-      <input type="hidden" id="guests" name="guests" />
-    </form>
+    <div class="first-content">
+      <form id="search_stay" action="/" method="POST">
+        <input type="hidden" id="locality" name="locality" />
+        <input type="hidden" id="country" name="country" />
+        <input type="hidden" id="check_in" name="check_in" />
+        <input type="hidden" id="check_out" name="check_out" />
+        <input type="hidden" id="guests" name="guests" />
+      </form>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand">
-        <img
-          src="./images/logo_black.png"
-          alt="airbnb logo black"
-          width="102"
-          height="32"
-        />
-      </a>
-      <div class="dropdown ml-auto mr-5 pr-5 pl-5">
-        <button
-          class="btn btn-default p-2"
-          id="logdropdown"
-          type="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <span class="fa fa-bars"></span>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="logdropdown">
-          <a class="dropdown-item" href="#" id="logbtn"></a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"> Help </a>
-        </div>
-      </div>
-    </nav>
-
-    <div class="search">
-      <div class="search_container">
-        <a class="btn btn-light" id="location_button" role="button">
-          <strong>Location</strong>
-          <div>
-            <input
-              type="text"
-              id="location"
-              placeholder="Where are you going?"
-            />
+      <nav class="navbar navbar-expand-lg navbar-transparent">
+        <a class="navbar-brand">
+          <img
+            src="./images/logo_black.png"
+            alt="airbnb logo black"
+            width="110"
+            height="35"
+          />
+        </a>
+        <div class="dropdown ml-auto mr-5 pr-5 pl-5">
+          <button
+            class="btn btn-default p-2"
+            id="logdropdown"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <span class="fa fa-bars"></span>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="logdropdown">
+            <a class="dropdown-item" href="#" id="logbtn"></a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#"> Help </a>
           </div>
-        </a>
-
-        <a class="btn btn-light dates" id="btn_check_in">
-          <strong class="dates"> Check in</strong>
-          <div class="dates" id="check_in_short_date">Add dates</div>
-        </a>
-
-        <a class="btn btn-light dates" id="btn_check_out">
-          <strong class="dates"> Check out</strong>
-          <div class="dates" id="check_out_short_date">Add dates</div>
-        </a>
-
-        <a
-          class="btn btn-light"
-          id="guest_select"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <strong>Guests</strong>
-          <div id="nb_selected">Add guests</div>
-        </a>
-
-        <div class="dropdown-menu" aria-labelledby="guest_select">
-          <a class="dropdown-item guest_value">1</a>
-          <a class="dropdown-item guest_value">2</a>
-          <a class="dropdown-item guest_value">3</a>
-          <a class="dropdown-item guest_value">5</a>
-          <a class="dropdown-item guest_value">6</a>
-          <a class="dropdown-item guest_value">7</a>
-          <a class="dropdown-item guest_value">8</a>
-          <a class="dropdown-item guest_value">9</a>
         </div>
+      </nav>
 
-        <button class="btn btn-outline-danger" id="submit" type="button">
-          Search
-        </button>
+      <div class="search_container">
+        <div class="search_content">
+          <a class="btn" id="location_button" role="button">
+            <strong>Location</strong>
+            <div>
+              <input
+                type="text"
+                id="location"
+                placeholder="Where are you going?"
+              />
+            </div>
+          </a>
+
+          <a class="btn btn-default dates" id="btn_check_in">
+            <strong class="dates"> Check in</strong>
+            <div class="dates" id="check_in_short_date">Add dates</div>
+          </a>
+
+          <a class="btn dates" id="btn_check_out">
+            <strong class="dates"> Check out</strong>
+            <div class="dates" id="check_out_short_date">Add dates</div>
+          </a>
+
+          <a
+            class="btn"
+            id="guest_select"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <strong>Guests</strong>
+            <div id="nb_selected">Add guests</div>
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="guest_select">
+            <a class="dropdown-item guest_value">1</a>
+            <a class="dropdown-item guest_value">2</a>
+            <a class="dropdown-item guest_value">3</a>
+            <a class="dropdown-item guest_value">5</a>
+            <a class="dropdown-item guest_value">6</a>
+            <a class="dropdown-item guest_value">7</a>
+            <a class="dropdown-item guest_value">8</a>
+            <a class="dropdown-item guest_value">9</a>
+          </div>
+
+          <button class="btn btn-outline-danger" id="submit" type="button">
+            Search
+          </button>
+        </div>
+      </div>
+
+      <div class="datepicker check_in"></div>
+      <div class="datepicker check_out"></div>
+
+      <div class="homepage-text">
+        <h1 class="top">Relax</h1>
+        <h1 class="bottom">Anytime,</h1>
+        <h1 class="center">Anywhere</h1>
+      </div>
+
+      <div class="explore">
+        <button class="btn btn-light">Explore our best stays</button>
       </div>
     </div>
-
-    <div id="datepicker-container">
-      <div id="datepicker-center">
-        <div class="datepicker check_in"></div>
-        <div class="datepicker check_out"></div>
-      </div>
-    </div>
-
-    <h1><strong>Go Anywhere,</strong></h1>
-    <h1><strong>Anytime</strong></h1>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
