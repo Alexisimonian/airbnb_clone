@@ -41,27 +41,12 @@
   text-transform: capitalize;
 }
 
-.search_container {
-  position: relative;
-  left: 31%;
-  width: 40%;
-  height: 80px;
-  margin-top: 10px;
-  border-radius: 25px;
-  background: white;
-  box-shadow: 0px 1px 1px #929292;
-}
-
-.search_content {
-  position: absolute;
-}
-
 .datepicker {
   position: absolute;
   left: 35%;
 }
 
-.first-content {
+body {
   height: 100vh;
   background-image: url("./images/pool_background.jpg");
 }
@@ -79,4 +64,40 @@ h1 {
 .explore {
   margin-top: 40px;
   margin-left: 5.5%;
+}
+
+#search {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  background-color: white;
+  width: 80vh;
+  border-radius: 15px;
+  border-collapse: collapse;
+}
+
+.search-item {
+  text-align: center;
+  border: 1px solid #eaedf0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.search-item:hover {
+  background-color: #eaedf0;
+  border-left: 0;
+  border-radius: 15px;
+}
+
+.search-item:hover + td {
+  border-left: 0;
+}
+
+.search-item:first-child {
+  border-left: 0;
+}
+
+.search-item #guest_select {
+  margin-right: 10px;
 }

@@ -18,9 +18,3 @@ $.ajax({
     }
   },
 });
-
-$.ajax({
-  type: "get",
-  url: "/",
-  complete: function (xhr) {},
-});
