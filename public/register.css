@@ -24,6 +24,39 @@ h1 {
   font-size: 60px;
 }
 
+h2,
+h4 {
+  font-weight: bold;
+}
+
+h4 {
+  margin-top: 8px;
+  text-align: left;
+  transform: translate(45px, 0);
+  width: 20em;
+}
+
 .bg-custom {
   background-color: antiquewhite;
+}
+
+.reg_image {
+  margin: auto;
+  border-radius: 15px;
+}
+
+#reg_details {
+  position: relative;
+  width: 100%;
+  top: 2em;
+}
+
+#reg_title {
+  margin-left: 45px;
+  margin-bottom: 35px;
+}
+
+#second_row {
+  position: relative;
+  text-align: center;
 }

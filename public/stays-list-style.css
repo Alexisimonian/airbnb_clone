@@ -38,3 +38,8 @@
 h2 {
   font-weight: bold;
 }
+
+#signup_inv {
+  position: absolute;
+  left: 15px;
+}

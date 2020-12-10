@@ -24,11 +24,7 @@ staysRoutes.get("/stays", async (req, res) => {
 });
 
 staysRoutes.get("/stays/new", (req, res) => {
-  if (req.session.loggedin === true) {
-    res.sendFile("new-stay.html", { root: "public" });
-  } else {
-    res.redirect("/login");
-  }
+  res.sendFile("new-stay.html", { root: "public" });
 });
 
 staysRoutes.post("/stays/new", async (req, res) => {

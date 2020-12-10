@@ -26,6 +26,7 @@ $.ajax({
     let logbtn = xhr.getResponseHeader("logbtn");
     $("#logbtn").text(`${logbtn}`);
     if (logbtn == "login") {
+      $("#logbtn").attr("href", "#");
       $("#logbtn").attr("data-toggle", "modal");
       $("#logbtn").attr("data-target", "#logmodal");
       $("#logbtn").after(
