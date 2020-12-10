@@ -18,10 +18,15 @@ accountRoutes.get("/register", (req, res) => {
 });
 
 accountRoutes.get("/account", (req, res) => {
+  let logbtn = "login";
+  if (req.session.loggedin) {
+    logbtn = "logout";
+  }
   let options = {
     root: "public",
     headers: {
       username: req.session.username,
+      logbtn: logbtn,
     },
   };
   res.sendFile("account.html", options);

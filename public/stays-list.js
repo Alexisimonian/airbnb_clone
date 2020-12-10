@@ -22,6 +22,7 @@ $.ajax({
 
     let logbtn = xhr.getResponseHeader("logbtn");
     $("#logbtn").text(`${logbtn}`);
+    $("#logbtn").attr("href", `/${logbtn}`);
     if (logbtn == "login") {
       $("#logbtn").after(
         "<a class='dropdown-item' href='/register'> Sign up </a>"

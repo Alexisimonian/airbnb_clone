@@ -4,11 +4,6 @@ $(".guest_value").on("click", function () {
   document.getElementById("guests").value = $(this).text();
 });
 
-//Redirect to login page
-$("#logbtn").click(function () {
-  window.location.href = "http://localhost:3000/" + logbtn;
-});
-
 //Complete location even if clicked on frame button
 $("#location_button").on("click", function () {
   $("#location").focus();
@@ -23,18 +18,14 @@ $("#submit").click(function () {
   }
 });
 
-//Pages's buttons and personalised messages
-let logbtn;
-
 //Determines if connected
 $.ajax({
   type: "get",
   url: "/",
   complete: function (xhr) {
-    let welcomeMsg = xhr.getResponseHeader("welcomeMsg");
-    logbtn = xhr.getResponseHeader("logbtn");
-    $("#welcome_msg").text(welcomeMsg);
+    let logbtn = xhr.getResponseHeader("logbtn");
     $("#logbtn").text(`${logbtn}`);
+    $("#logbtn").attr("href", `/${logbtn}`);
     if (logbtn == "login") {
       $("#logbtn").after(
         "<a class='dropdown-item' href='/register'> Sign up </a>"
