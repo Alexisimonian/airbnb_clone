@@ -87,23 +87,6 @@ $.ajax({
   },
 });
 
-// Redirect to the new-stay form
-$("#createHome").click(function (e) {
-  $.ajax({
-    type: "get",
-    url: "/stays",
-    complete: function (xhr) {
-      if (xhr.getResponseHeader("logbtn") == "logout") {
-        window.location.href = "http://localhost:3000/stays/new";
-      } else {
-        $("#warning").html(
-          "<div class='alert alert-warning' role='alert'>You must login to continue</div>"
-        );
-      }
-    },
-  });
-});
-
 //Map implementation
 let map;
 let service;

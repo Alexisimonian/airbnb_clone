@@ -71,7 +71,7 @@ h1 {
   left: 50%;
   transform: translate(-50%, 0%);
   background-color: white;
-  width: 80vh;
+  width: 50em;
   border-radius: 15px;
   border-collapse: collapse;
 }
@@ -100,4 +100,9 @@ h1 {
 
 .search-item #guest_select {
   margin-right: 10px;
+}
+
+#signup_inv {
+  position: absolute;
+  left: 15px;
 }

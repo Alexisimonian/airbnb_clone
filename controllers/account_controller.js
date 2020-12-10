@@ -9,10 +9,6 @@ const user = new User();
 
 const accountRoutes = express.Router();
 
-accountRoutes.get("/login", (req, res) => {
-  res.sendFile("login.html", { root: "public" });
-});
-
 accountRoutes.get("/register", (req, res) => {
   res.sendFile("register.html", { root: "public" });
 });
