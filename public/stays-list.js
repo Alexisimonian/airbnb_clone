@@ -21,7 +21,21 @@ $.ajax({
     });
 
     let logbtn = xhr.getResponseHeader("logbtn");
-    $("#logbtn").html(`<a href='/${logbtn}'>${logbtn}</a>`);
+    $("#logbtn").text(`${logbtn}`);
+    if (logbtn == "login") {
+      $("#logbtn").attr("href", "#");
+      $("#logbtn").attr("data-toggle", "modal");
+      $("#logbtn").attr("data-target", "#logmodal");
+      $("#logbtn").after(
+        "<a class='dropdown-item' href='/register'> Sign up </a>"
+      );
+    } else {
+      $("#logbtn").attr("href", "/logout");
+      $("#logbtn").after(
+        "<div class='dropdown-divider'></div><a class='dropdown-item' href='/account'> Account </a>"
+      );
+    }
+
     let homesList = JSON.parse(xhr.getResponseHeader("listing"));
     $.each(homesList, function (index, offer) {
       //Filters according to search params
@@ -76,21 +90,44 @@ $.ajax({
   },
 });
 
-// Redirect to the new-stay form
-$("#createHome").click(function (e) {
-  $.ajax({
-    type: "get",
-    url: "/stays",
-    complete: function (xhr) {
-      if (xhr.getResponseHeader("logbtn") == "logout") {
-        window.location.href = "http://localhost:3000/stays/new";
-      } else {
-        $("#warning").html(
-          "<div class='alert alert-warning' role='alert'>You must login to continue</div>"
-        );
-      }
-    },
+//Login implementation
+$("#login").click(function () {
+  $("#login-form").submit();
+});
+
+$(".form-control").on("input", function () {
+  $(this).removeClass("is-invalid");
+});
+
+$("#login-form").on("submit", function (e) {
+  e.preventDefault();
+  let data = $(this).serialize();
+  $(":input").each(function () {
+    if ($(this).val() == "") {
+      $(this).addClass("is-invalid");
+    }
   });
+
+  if ($(this).find(".is-invalid").length == 0) {
+    $.ajax({
+      type: "post",
+      url: "/login",
+      data: data,
+      dataType: "text",
+      success: function () {
+        window.location.href = "http://localhost:3000/";
+      },
+      error: function (data) {
+        if (data.responseText == "email incorrect") {
+          $("#email_input").addClass("is-invalid");
+          $("#invalid-email").text("No account with this email address.");
+        } else if (data.responseText == "password incorrect") {
+          $("#password_input").addClass("is-invalid");
+          $("#invalid-password").text("Password incorrect.");
+        }
+      },
+    });
+  }
 });
 
 //Map implementation

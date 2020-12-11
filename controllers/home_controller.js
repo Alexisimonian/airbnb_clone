@@ -4,25 +4,17 @@ const bodyParser = require("body-parser");
 const homeRoutes = express.Router();
 
 homeRoutes.get("/", (req, res) => {
+  let logbtn = "login";
   if (req.session.loggedin) {
-    let options = {
-      root: "public",
-      headers: {
-        logbtn: "logout",
-        welcomeMsg: "Welcome " + req.session.username,
-      },
-    };
-    res.sendFile("home.html", options);
-  } else {
-    let options = {
-      root: "public",
-      headers: {
-        logbtn: "login",
-        welcomeMsg: "Welcome to Airbnb",
-      },
-    };
-    res.sendFile("home.html", options);
+    logbtn = "logout";
   }
+  let options = {
+    root: "public",
+    headers: {
+      logbtn: logbtn,
+    },
+  };
+  res.sendFile("home.html", options);
 });
 
 homeRoutes.post("/", (req, res) => {

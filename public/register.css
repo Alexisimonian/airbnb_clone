@@ -1,0 +1,62 @@
+.form-placement {
+  position: relative;
+  height: 60vh;
+  background-color: antiquewhite;
+}
+
+.form-container {
+  position: absolute;
+  background-color: white;
+  width: 35%;
+  height: 90%;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0px 1px 2px 2px #acabab;
+  left: 55%;
+  top: 10px;
+}
+
+h1 {
+  position: absolute;
+  top: 40%;
+  left: 8%;
+  font-weight: bold;
+  font-size: 60px;
+}
+
+h2,
+h4 {
+  font-weight: bold;
+}
+
+h4 {
+  margin-top: 8px;
+  text-align: left;
+  transform: translate(45px, 0);
+  width: 20em;
+}
+
+.bg-custom {
+  background-color: antiquewhite;
+}
+
+.reg_image {
+  margin: auto;
+  border-radius: 15px;
+}
+
+#reg_details {
+  position: relative;
+  width: 100%;
+  top: 2em;
+}
+
+#reg_title {
+  margin-left: 45px;
+  margin-bottom: 35px;
+}
+
+#second_row {
+  position: relative;
+  text-align: center;
+}

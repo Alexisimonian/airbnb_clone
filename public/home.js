@@ -4,46 +4,81 @@ $(".guest_value").on("click", function () {
   document.getElementById("guests").value = $(this).text();
 });
 
-//Redirect to login page
-$("#logbtn").click(function () {
-  window.location.href = "http://localhost:3000/" + logbtn;
-});
-
 //Complete location even if clicked on frame button
 $("#location_button").on("click", function () {
   $("#location").focus();
 });
 
 $("#submit").click(function () {
-  if ($("#locality").text() == "") {
+  console.log($("#locality").val());
+  if ($("#locality").val() === "") {
     $("#location").focus();
   } else {
     $("#search_stay").submit();
   }
 });
 
-//Pages's buttons and personalised messages
-let logbtn;
-
 //Determines if connected
 $.ajax({
   type: "get",
   url: "/",
   complete: function (xhr) {
-    let welcomeMsg = xhr.getResponseHeader("welcomeMsg");
-    logbtn = xhr.getResponseHeader("logbtn");
-    $("#welcome_msg").text(welcomeMsg);
+    let logbtn = xhr.getResponseHeader("logbtn");
     $("#logbtn").text(`${logbtn}`);
     if (logbtn == "login") {
+      $("#logbtn").attr("href", "#");
+      $("#logbtn").attr("data-toggle", "modal");
+      $("#logbtn").attr("data-target", "#logmodal");
       $("#logbtn").after(
         "<a class='dropdown-item' href='/register'> Sign up </a>"
       );
     } else {
+      $("#logbtn").attr("href", "/logout");
       $("#logbtn").after(
         "<div class='dropdown-divider'></div><a class='dropdown-item' href='/account'> Account </a>"
       );
     }
   },
+});
+
+//Login implementation
+$("#login").click(function () {
+  $("#login-form").submit();
+});
+
+$(".form-control").on("input", function () {
+  $(this).removeClass("is-invalid");
+});
+
+$("#login-form").on("submit", function (e) {
+  e.preventDefault();
+  let data = $(this).serialize();
+  $(":input").each(function () {
+    if ($(this).val() == "") {
+      $(this).addClass("is-invalid");
+    }
+  });
+
+  if ($(this).find(".is-invalid").length == 0) {
+    $.ajax({
+      type: "post",
+      url: "/login",
+      data: data,
+      dataType: "text",
+      success: function () {
+        window.location.href = "http://localhost:3000/";
+      },
+      error: function (data) {
+        if (data.responseText == "email incorrect") {
+          $("#email_input").addClass("is-invalid");
+          $("#invalid-email").text("No account with this email address.");
+        } else if (data.responseText == "password incorrect") {
+          $("#password_input").addClass("is-invalid");
+          $("#invalid-password").text("Password incorrect.");
+        }
+      },
+    });
+  }
 });
 
 //Autocomplete setup

@@ -9,19 +9,23 @@ const user = new User();
 
 const accountRoutes = express.Router();
 
-accountRoutes.get("/login", (req, res) => {
-  res.sendFile("login.html", { root: "public" });
-});
-
 accountRoutes.get("/register", (req, res) => {
   res.sendFile("register.html", { root: "public" });
 });
 
-accountRoutes.get("/account", (req, res) => {
+accountRoutes.get("/account", async (req, res) => {
+  let userinf = await user.getUser(req.session.userId);
+  let email = userinf[0].email;
+  let logbtn = "login";
+  if (req.session.loggedin) {
+    logbtn = "logout";
+  }
   let options = {
     root: "public",
     headers: {
       username: req.session.username,
+      logbtn: logbtn,
+      email: email,
     },
   };
   res.sendFile("account.html", options);

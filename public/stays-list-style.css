@@ -11,6 +11,35 @@
 }
 
 #map {
-  width: 500px;
-  height: 400px;
+  height: 100vh;
+}
+
+#logbtn {
+  text-transform: capitalize;
+}
+
+.split {
+  height: 100vh;
+  width: 50%;
+  overflow-x: hidden;
+  position: fixed;
+}
+
+.right {
+  right: 0;
+}
+
+.left {
+  margin-top: 10px;
+  left: 0;
+  text-align: center;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+#signup_inv {
+  position: absolute;
+  left: 15px;
 }
