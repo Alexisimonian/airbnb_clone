@@ -59,10 +59,23 @@
     </nav>
 
     <div id="account_box">
-      <div id="avatar"></div>
       <h2 id="account_header"></h2>
-      <h4 id="information">Your information</h4>
-      <h4 id="stays">Your stays</h4>
+      <div id="avatar"></div>
+      <div id="info">
+        <div id="emailinf">
+          <h4 id="information">Your information</h4>
+          <label for="modemail">Email:</label>
+          <input type="text" id="modemail" name="modemail" disabled />
+        </div>
+        <div id="passwordinf">
+          <label for="modpassword">Password:</label>
+          <input type="password" id="modpassword" name="modpassword" disabled />
+        </div>
+      </div>
+      <div id="stays">
+        <h4 id="stays_title">Your stays</h4>
+        <div id="staylist"></div>
+      </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

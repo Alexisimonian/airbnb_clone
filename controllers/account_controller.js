@@ -13,7 +13,9 @@ accountRoutes.get("/register", (req, res) => {
   res.sendFile("register.html", { root: "public" });
 });
 
-accountRoutes.get("/account", (req, res) => {
+accountRoutes.get("/account", async (req, res) => {
+  let userinf = await user.getUser(req.session.userId);
+  let email = userinf[0].email;
   let logbtn = "login";
   if (req.session.loggedin) {
     logbtn = "logout";
@@ -23,6 +25,7 @@ accountRoutes.get("/account", (req, res) => {
     headers: {
       username: req.session.username,
       logbtn: logbtn,
+      email: email,
     },
   };
   res.sendFile("account.html", options);

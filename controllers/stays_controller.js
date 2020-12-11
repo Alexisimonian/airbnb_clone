@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const upload = require("../middlewares/upload");
+const upload = require("../middlewares/photo_upload");
 const { Stays } = require("../src/stays");
 
 const stays = new Stays();
