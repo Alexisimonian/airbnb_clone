@@ -128,7 +128,6 @@ $("#new-stay-form").on("submit", function (e) {
     $("#image-files").removeClass("is-invalid");
   }
 
-  console.log($(this).find(".is-invalid"));
   if ($(this).find(".is-invalid").length === 1) {
     $.each(fileCollection, function (i, image) {
       formData.append("files", fileCollection[i]);

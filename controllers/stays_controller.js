@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const upload = require("../middlewares/photo_upload");
 const { Stays } = require("../src/stays");
+const stay = require("../src/stay");
 
 const stays = new Stays();
 const staysRoutes = express.Router();
@@ -69,5 +70,9 @@ staysRoutes.post("/stays/new", async (req, res) => {
     res.status(422).send(`error trying to upload your file(s): ${error}`);
   }
 });
+
+staysRoutes.post("/change/stays/infos", async (req, res) => {});
+
+staysRoutes.post("/change/stays/photos", async (req, res) => {});
 
 module.exports = { StaysRoutes: staysRoutes };

@@ -2,8 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const session = require("express-session");
+const fs = require("fs");
 const bcrypt = require("bcrypt");
 const { User } = require("../src/user");
+const upload = require("../middlewares/avatar_upload");
 
 const user = new User();
 
@@ -14,8 +16,8 @@ accountRoutes.get("/register", (req, res) => {
 });
 
 accountRoutes.get("/account", async (req, res) => {
-  let userinf = await user.getUser(req.session.userId);
-  let email = userinf[0].email;
+  let user_details = await user.getUser(req.session.userId);
+  let userinf = JSON.stringify(user_details);
   let logbtn = "login";
   if (req.session.loggedin) {
     logbtn = "logout";
@@ -23,12 +25,29 @@ accountRoutes.get("/account", async (req, res) => {
   let options = {
     root: "public",
     headers: {
-      username: req.session.username,
+      user: userinf,
       logbtn: logbtn,
-      email: email,
     },
   };
   res.sendFile("account.html", options);
+});
+
+accountRoutes.get("/change/account/remove", async (req, res) => {
+  let userid = req.session.userId;
+  let user_details = await user.getUser(userid);
+  if (user_details[0].avatar != "neutral_avatar.png") {
+    console.log(user_details[0].avatar);
+    let location = path.join(`${__dirname}/../uploads/photosOffers`);
+    fs.unlink(location, (err) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log("done");
+    });
+  }
+  user.deleteUser(userid);
+  res.redirect("/logout");
 });
 
 accountRoutes.post("/username-validation", async (req, res) => {
@@ -88,6 +107,53 @@ accountRoutes.post("/register", async (req, res) => {
 accountRoutes.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect("/");
+});
+
+accountRoutes.post("/change/account/infos", async (req, res) => {
+  let userid = req.session.userId;
+  let modtype = req.body.type;
+  let modelem = req.body[modtype];
+  if (modtype == "email" || modtype == "password") {
+    let user_details = await user.getUser(userid);
+    let password = req.body.password;
+    if (bcrypt.compareSync(password, user_details[0].password)) {
+      if (modtype == "email") {
+        user.modify(userid, modtype, modelem);
+      } else if (modtype == "password") {
+        password = req.body.newpassword;
+        const passwordHash = bcrypt.hashSync(password, 10);
+        user.modify(userid, modtype, passwordHash);
+      }
+    } else {
+      res.status(422).send("password incorrect").end();
+    }
+  }
+  if (modtype == "username") {
+    user.modify(userid, modtype, modelem);
+  }
+  res.status(200).end();
+});
+
+accountRoutes.post("/change/account/avatar", async (req, res) => {
+  try {
+    await upload(req, res);
+    let userid = req.session.userId;
+    let name = req.file.filename;
+    let user_details = await user.getUser(userid);
+    if (user_details[0].avatar != "neutral_avatar.png") {
+      let location = path.join(`${__dirname}/../uploads/photosOffers`);
+      fs.unlink(location, (err) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+      });
+    }
+    user.modify(userid, "avatar", name);
+    res.status(200).end();
+  } catch (error) {
+    res.status(422).send(`error uploading your file: ${error}`).end();
+  }
 });
 
 module.exports = { AccountRoutes: accountRoutes };

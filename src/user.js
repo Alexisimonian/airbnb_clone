@@ -27,6 +27,12 @@ class User {
     let query = dbQuery(
       `UPDATE users SET ${type}='${corrected}' WHERE id='${id}'`
     );
+    return query;
+  }
+
+  deleteUser(id) {
+    let query = dbQuery(`DELETE FROM users WHERE id='${id}'`);
+    return query;
   }
 
   async getID(username) {
