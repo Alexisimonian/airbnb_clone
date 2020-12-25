@@ -74,7 +74,7 @@ accountRoutes.get("/change/account/remove", async (req, res) => {
 });
 
 accountRoutes.post("/username-validation", async (req, res) => {
-  let username = req.body.username;
+  let username = req.body.name;
   let existingUsernames = await user.existingUsernames(username);
   if (existingUsernames.length == 0) {
     res.send("username free").end();
@@ -84,7 +84,7 @@ accountRoutes.post("/username-validation", async (req, res) => {
 });
 
 accountRoutes.post("/email-validation", async (req, res) => {
-  let email = req.body.email_input;
+  let email = req.body.email;
   let existingEmails = await user.existingEmails(email);
   if (existingEmails.length == 0) {
     res.send("email free").end();
@@ -94,7 +94,7 @@ accountRoutes.post("/email-validation", async (req, res) => {
 });
 
 accountRoutes.post("/login", async (req, res) => {
-  let email = req.body.email_input;
+  let email = req.body.email;
   let password = req.body.password_input;
   if (email && password) {
     let user_details = await user.existingEmails(email);
@@ -114,8 +114,8 @@ accountRoutes.post("/login", async (req, res) => {
 });
 
 accountRoutes.post("/register", async (req, res) => {
-  let username = req.body.username;
-  let email = req.body.email_input;
+  let username = req.body.name;
+  let email = req.body.email;
   let password = req.body.password_input;
   if (username && email && password) {
     const passwordHash = bcrypt.hashSync(password, 10);

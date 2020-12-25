@@ -176,6 +176,47 @@ $("input").on("input", function () {
   $(this).removeClass("is-invalid");
 });
 
+$("#name").on("input", function () {
+  let input = $(this)[0];
+  let inputData = $(this);
+  if (input.checkValidity()) {
+    $.ajax({
+      type: "post",
+      url: "/username-validation",
+      data: inputData,
+      complete: function (data) {
+        if (data.responseText === "username taken") {
+          $("#name").addClass("is-invalid");
+          $("#invalid-username").text("Username already taken.");
+        }
+      },
+    });
+  } else {
+    $("#name").addClass("is-invalid");
+  }
+});
+
+//Verify email validity and change input status after user input
+$("#email").on("change", function () {
+  let input = $(this)[0];
+  let inputData = $(this);
+  if (input.checkValidity()) {
+    $.ajax({
+      type: "post",
+      url: "/email-validation",
+      data: inputData,
+      complete: function (data) {
+        if (data.responseText === "email taken") {
+          $("#email").addClass("is-invalid");
+          $("#invalid-email").text("Email already taken.");
+        }
+      },
+    });
+  } else {
+    $(this).addClass("is-invalid");
+  }
+});
+
 $(".modtext").on("submit", function (e) {
   e.preventDefault();
   let modtype = $(this).find("input").filter(":visible:first").attr("name");
