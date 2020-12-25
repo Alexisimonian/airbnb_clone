@@ -35,8 +35,9 @@
   text-align: center;
 }
 
-h2 {
-  font-weight: bold;
+table {
+  width: 100%;
+  border: 1px solid black;
 }
 
 #signup_inv {

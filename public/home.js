@@ -10,8 +10,7 @@ $("#location_button").on("click", function () {
 });
 
 $("#submit").click(function () {
-  console.log($("#locality").val());
-  if ($("#locality").val() === "") {
+  if ($("#country").val() === "") {
     $("#location").focus();
   } else {
     $("#search_stay").submit();
@@ -50,6 +49,7 @@ $(".form-control").on("input", function () {
   $(this).removeClass("is-invalid");
 });
 
+//Submit form
 $("#login-form").on("submit", function (e) {
   e.preventDefault();
   let data = $(this).serialize();

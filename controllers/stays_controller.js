@@ -24,6 +24,28 @@ staysRoutes.get("/stays", async (req, res) => {
   res.sendFile("stays-list.html", options);
 });
 
+staysRoutes.post("/stays", async (req, res) => {
+  let locality = req.body.locality;
+  let country = req.body.country;
+  let start_date = req.body.check_in;
+  let end_date = req.body.check_out;
+  let guests = req.body.guests;
+  let url = `?country=${country}`;
+  if (locality) {
+    url += `&locality=${locality}`;
+  }
+  if (start_date) {
+    url += `&start_date=${start_date}`;
+  }
+  if (end_date) {
+    url += `&end_date=${end_date}`;
+  }
+  if (guests) {
+    url += `&guests=${guests}`;
+  }
+  res.redirect("/stays" + url);
+});
+
 staysRoutes.get("/stays/new", (req, res) => {
   res.sendFile("new-stay.html", { root: "public" });
 });

@@ -104,8 +104,13 @@ $.ajax({
     }
 
     //Stays information
+    if (stays.length == 0) {
+      $("#stays").after(
+        "<tr class='field'><td>Nothing to show. Become a host !</td></tr>"
+      );
+    }
     $.each(stays, function (index, element) {
-      $("#stays").after(`<tr>
+      $("#stays").after(`<tr class='field'>
           <td>
             <div id='offer${index}'>
               <table>
