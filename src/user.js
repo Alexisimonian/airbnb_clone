@@ -35,6 +35,16 @@ class User {
     return query;
   }
 
+  getUploadedStays(id) {
+    let query = dbQuery(`SELECT * FROM stays WHERE user='${id}'`);
+    return query;
+  }
+
+  getBooked(id) {
+    let query = dbQuery(`SELECT * FROM bookings WHERE user='${id}'`);
+    return query;
+  }
+
   async getID(username) {
     let query = await dbQuery(`SELECT id FROM users WHERE name='${username}'`);
     return query[0].id;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!-- Head -->
   <head>
     <meta charset="utf-8" />
     <meta
@@ -17,7 +18,10 @@
     <link rel="stylesheet" href="./account.css" />
     <title>Your profile</title>
   </head>
+
+  <!-- Body -->
   <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/">
         <img
@@ -28,6 +32,7 @@
         />
       </a>
 
+      <!-- Navbar buttons -->
       <div class="ml-auto mr-5 pl-auto pr-5">
         <ul class="navbar-nav">
           <li class="nav-item pr-5">
@@ -58,14 +63,18 @@
       </div>
     </nav>
 
+    <!-- Account information -->
     <div id="#account-infos">
       <table id="userinfo">
+        <!-- Avatar section collapsed -->
         <tr class="field expand">
           <td>
             <div class="preclick">
               <div class="identifier">PHOTO</div>
               <div class="info" id="account_photo">IMG</div>
             </div>
+
+            <!-- Avatar section expanded -->
             <div class="postclick" hidden>
               <form
                 class="modav needs-validation"
@@ -80,16 +89,21 @@
               </form>
             </div>
           </td>
+
           <td class="modlink-box">
             <a href="#" class="modlink">Edit</a>
           </td>
         </tr>
+
+        <!-- Username section collapsed -->
         <tr class="field expand">
           <td>
             <div class="preclick">
               <div class="identifier">USERNAME</div>
               <div class="info" id="account_name">NAME</div>
             </div>
+
+            <!-- Username section expanded -->
             <div class="postclick" hidden>
               <form
                 class="modtext needs-validation"
@@ -102,8 +116,8 @@
                   <input
                     class="form-control"
                     type="text"
-                    name="username"
-                    id="username"
+                    name="name"
+                    id="name"
                     pattern=".{4,}"
                     required
                   />
@@ -111,20 +125,26 @@
                     Username must be 4 characters or more
                   </div>
                 </div>
+
                 <button type="submit">Save Changes</button>
               </form>
             </div>
           </td>
+
           <td class="modlink-box">
             <a href="#" class="modlink">Edit</a>
           </td>
         </tr>
+
+        <!-- Email address section collapsed -->
         <tr class="field expand">
           <td>
             <div class="preclick">
               <div class="identifier">EMAIL ADDRESS</div>
               <div class="info" id="account_email">EMAIL</div>
             </div>
+
+            <!-- Email section expanded -->
             <div class="postclick" hidden>
               <form
                 class="modtext needs-validation"
@@ -146,6 +166,7 @@
                     Must be a valid email address.
                   </div>
                 </div>
+
                 <div class="form-group">
                   <label for="password">Password</label>
                   <input
@@ -156,20 +177,26 @@
                   />
                   <div class="invalid-feedback">Password incorrect</div>
                 </div>
+
                 <button type="submit">Save Changes</button>
               </form>
             </div>
           </td>
+
           <td class="modlink-box">
             <a href="#" class="modlink">Edit</a>
           </td>
         </tr>
+
+        <!-- Password section collapsed -->
         <tr class="field expand">
           <td>
             <div class="preclick">
               <div class="identifier">PASSWORD</div>
               <div class="info" id="password">**********</div>
             </div>
+
+            <!-- Password section expanded -->
             <div class="postclick" id="passwordchange" hidden>
               <form
                 class="modtext needs-validation"
@@ -188,6 +215,7 @@
                   />
                   <div class="invalid-feedback">Password incorrect</div>
                 </div>
+
                 <div class="form-group">
                   <label for="confirmpassword">New password</label>
                   <input
@@ -203,6 +231,7 @@
                     and lowercase letter.
                   </div>
                 </div>
+
                 <div class="form-group">
                   <label for="currentpassword">Confirm new password</label>
                   <input
@@ -214,40 +243,36 @@
                   />
                   <div class="invalid-feedback">Passwords must match</div>
                 </div>
+
                 <button type="submit">Save Changes</button>
               </form>
             </div>
           </td>
+
           <td class="modlink-box">
             <a href="#" class="modlink">Edit</a>
           </td>
         </tr>
       </table>
 
+      <!-- Stays user posted -->
       <table id="userstays">
         <tr class="field">
           <th>Added houses:</th>
         </tr>
-        <tr class="field">
-          <td>No stays to display</td>
-        </tr>
       </table>
 
+      <!-- Previous and incoming trips -->
       <table id="userbookings">
-        <tr class="field">
+        <tr class="field" id="incomingtrip">
           <th>Incoming holidays:</th>
         </tr>
-        <tr class="field">
-          <td>Nothing for the moment</td>
-        </tr>
-        <tr class="field">
+        <tr class="field" id="previoustrip">
           <th>Stays you went:</th>
-        </tr>
-        <tr class="field">
-          <td>Nothing for the moment</td>
         </tr>
       </table>
 
+      <!-- Delete account button -->
       <table id="delete-account">
         <tr class="field">
           <td id="delete-account-box">
@@ -263,6 +288,7 @@
       </table>
     </div>
 
+    <!-- Are you sure? delete modal -->
     <div
       class="modal fade"
       id="delete-confirmation"
@@ -275,8 +301,13 @@
         <div class="modal-content">
           <div class="modal-header">
             <h3><strong> Are you sure ? </strong></h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            ></button>
+            <span aria-hidden="true">&times;</span>
           </div>
           <div class="modal-body">
             All your data will be <strong>permanently</strong> lost. <br />
@@ -284,12 +315,15 @@
           </div>
           <div class="modal-footer">
             <button class="btn btn-default" data-dismiss="modal">Close</button>
-            <button class="btn btn-danger" id="delete-account-btn">Delete</button>
+            <button class="btn btn-danger" id="delete-account-btn">
+              Delete
+            </button>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- External sources -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

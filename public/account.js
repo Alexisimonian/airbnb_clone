@@ -2,10 +2,13 @@ $.ajax({
   type: "GET",
   url: "/account",
   complete: function (xhr) {
-    let email = xhr.getResponseHeader("email");
-    let username = xhr.getResponseHeader("username");
+    let user = JSON.parse(xhr.getResponseHeader("user"));
+    user = user[0];
+    let bookings = JSON.parse(xhr.getResponseHeader("bookings"));
+    let stays = JSON.parse(xhr.getResponseHeader("stays"));
     let logbtn = xhr.getResponseHeader("logbtn");
-    $("#account_header").text(`Hi, I'm ${username}`);
+
+    //Log button
     $("#logbtn").text(`${logbtn}`);
     $("#logbtn").attr("href", `/${logbtn}`);
     if (logbtn == "login") {
@@ -17,9 +20,97 @@ $.ajax({
         "<div class='dropdown-divider'></div><a class='dropdown-item' href='/account'> Account </a>"
       );
     }
+
+    //Account information
+    $("#account_name").text(user.name);
+    $("#account_email").text(user.email);
+    $("#account_photo").html(
+      `<img src='/avatars/${user.avatar}' width='90' height='90'>`
+    );
+
+    //Bookings information
+    if (bookings.length == 0) {
+      $("#incomingtrip, #previoustrip").each(function () {
+        $(this).after(
+          "<tr class='field'><td>Nothing to show. Book your next holidays !</td></tr>"
+        );
+      });
+    } else {
+      let now = new Date();
+      now = Date.parse(now);
+      $.each(bookings, function (index, element) {
+        data = { id: element.stay };
+        $.ajax({
+          type: "post",
+          url: "/booking/stays",
+          data: data,
+          complete: function (xhr) {
+            let stay = JSON.parse(xhr.getResponseHeader("stay"));
+            stay = stay[0];
+            let full_offer = `<div id='offer${index}'>
+            <table>
+              <tr>
+                <td>
+                <div id='carousel-nb${index}' class='carousel slide' data-interval='false' data-ride='carousel'>
+                  <div class='carousel-inner' id='carousel-inner-nb${index}'></div>
+                    <a class='carousel-control-prev' href='#carousel-nb${index}' role='button' data-slide='prev'>
+                      <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+                      <span class='sr-only'>Previous</span>
+                    </a>
+                    <a class='carousel-control-next' href='#carousel-nb${index}' role='button' data-slide='next'>
+                      <span class='carousel-control-next-icon' aria-hidden='true'></span>
+                      <span class='sr-only'>Next</span>
+                    </a>
+                  </div>
+                </td>
+                <td>
+                  <div id='offer-text'>
+                    <h4>${stay.title}</h4>
+                    <p>${stay.price}€ /night</p>
+                  </div>
+                </td>
+              </tr>
+            </table>
+            </div>`;
+
+            if (now >= Date.parse(e.start)) {
+              $("#previoustrip").after(
+                `<tr class="field">
+                  <td>${full_offer}</td>
+                </tr>`
+              );
+            } else {
+              $("#incomingtrip").after(
+                `<tr class="field">
+                  <td>${full_offer}</td>
+                </tr>`
+              );
+            }
+
+            $.each(stay.images, function (i, e) {
+              let active = "";
+              if (i === 0) {
+                active = " active";
+              }
+              $("#carousel-inner-nb" + index).append(
+                `<div class='carousel-item${active}'>
+                <img src='/photosOffers/${stay.images[i]}' class='d-block w-100'>
+                </div>`
+              );
+            });
+          },
+        });
+      });
+    }
+
+    //Stays information
+    $.each(stays, function (index, element) {
+      $("#stays").after(`<tr><td></td></tr>`);
+    });
   },
 });
 
+//Show user details on click
 $(document).on("click", ".expand", function () {
   $(".field").addClass("expand");
   $(".modlink").text("Edit").removeClass("cancel");
@@ -40,6 +131,7 @@ $(document).on("click", ".cancel", function () {
   $("input").removeClass("is-invalid");
 });
 
+//Prevent from sending form if information isn't correct
 $("input").on("input", function () {
   $(this).removeClass("is-invalid");
 });
@@ -61,6 +153,7 @@ $(".modtext").on("submit", function (e) {
       }
     });
 
+  //Submit account changes
   if ($(this).find(".is-invalid").length === 0) {
     $.ajax({
       type: "post",
@@ -81,6 +174,7 @@ $(".modtext").on("submit", function (e) {
   }
 });
 
+//Save avatar changes
 $(".modav").on("submit", function (e) {
   e.preventDefault();
   let formData = new FormData(this);
@@ -99,6 +193,7 @@ $(".modav").on("submit", function (e) {
   });
 });
 
+//Delete account
 $("#delete-account-btn").on("click", function () {
   window.location.href = "http://localhost:3000/change/account/remove";
 });

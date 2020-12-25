@@ -71,6 +71,14 @@ staysRoutes.post("/stays/new", async (req, res) => {
   }
 });
 
+staysRoutes.post("/booking/stays", async (req, res) => {
+  let id = req.body.id;
+  let stay = await stays.findStay(id);
+  stay = JSON.stringify(stay);
+  let options = { stay: stay };
+  res.writeHead(200, { options }).end();
+});
+
 staysRoutes.post("/change/stays/infos", async (req, res) => {});
 
 staysRoutes.post("/change/stays/photos", async (req, res) => {});

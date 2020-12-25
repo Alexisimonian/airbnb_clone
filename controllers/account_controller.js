@@ -16,7 +16,12 @@ accountRoutes.get("/register", (req, res) => {
 });
 
 accountRoutes.get("/account", async (req, res) => {
-  let user_details = await user.getUser(req.session.userId);
+  let userid = req.session.userId;
+  let user_details = await user.getUser(userid);
+  let user_stays = await user.getUploadedStays(userid);
+  let user_books = await user.getBooked(userid);
+  let bookings = JSON.stringify(user_books);
+  let stays = JSON.stringify(user_stays);
   let userinf = JSON.stringify(user_details);
   let logbtn = "login";
   if (req.session.loggedin) {
@@ -25,6 +30,8 @@ accountRoutes.get("/account", async (req, res) => {
   let options = {
     root: "public",
     headers: {
+      bookings: bookings,
+      stays: stays,
       user: userinf,
       logbtn: logbtn,
     },
@@ -36,14 +43,30 @@ accountRoutes.get("/change/account/remove", async (req, res) => {
   let userid = req.session.userId;
   let user_details = await user.getUser(userid);
   if (user_details[0].avatar != "neutral_avatar.png") {
-    console.log(user_details[0].avatar);
-    let location = path.join(`${__dirname}/../uploads/photosOffers`);
+    let location = path.join(
+      `${__dirname}/../uploads/avatars/${user_details[0].avatar}`
+    );
     fs.unlink(location, (err) => {
       if (err) {
         console.log(err);
         return;
       }
-      console.log("done");
+    });
+  }
+  let uploaded_stays = await user.getUploadedStays(userid);
+  if (uploaded_stays.length >= 1) {
+    uploaded_stays.forEach((stay) => {
+      stay.images.forEach((image) => {
+        let location = path.join(
+          `${__dirname}/../uploads/photosOffers/${image}`
+        );
+        fs.unlink(location, (err) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+        });
+      });
     });
   }
   user.deleteUser(userid);
@@ -128,7 +151,7 @@ accountRoutes.post("/change/account/infos", async (req, res) => {
       res.status(422).send("password incorrect").end();
     }
   }
-  if (modtype == "username") {
+  if (modtype == "name") {
     user.modify(userid, modtype, modelem);
   }
   res.status(200).end();
@@ -141,7 +164,9 @@ accountRoutes.post("/change/account/avatar", async (req, res) => {
     let name = req.file.filename;
     let user_details = await user.getUser(userid);
     if (user_details[0].avatar != "neutral_avatar.png") {
-      let location = path.join(`${__dirname}/../uploads/photosOffers`);
+      let location = path.join(
+        `${__dirname}/../uploads/avatars/${user_details[0].avatar}`
+      );
       fs.unlink(location, (err) => {
         if (err) {
           console.log(err);
