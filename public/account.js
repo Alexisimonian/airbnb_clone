@@ -105,7 +105,47 @@ $.ajax({
 
     //Stays information
     $.each(stays, function (index, element) {
-      $("#stays").after(`<tr><td></td></tr>`);
+      $("#stays").after(`<tr>
+          <td>
+            <div id='offer${index}'>
+              <table>
+                <tr>
+                  <td>
+                  <div id='carousel-nb${index}' class='carousel slide' data-interval='false' data-ride='carousel'>
+                    <div class='carousel-inner' id='carousel-inner-nb${index}'></div>
+                      <a class='carousel-control-prev' href='#carousel-nb${index}' role='button' data-slide='prev'>
+                        <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+                        <span class='sr-only'>Previous</span>
+                      </a>
+                      <a class='carousel-control-next' href='#carousel-nb${index}' role='button' data-slide='next'>
+                        <span class='carousel-control-next-icon' aria-hidden='true'></span>
+                        <span class='sr-only'>Next</span>
+                      </a>
+                    </div>
+                  </td>
+                  <td>
+                    <div id='offer-text'>
+                      <h4>${element.title}</h4>
+                      <p>${element.price}€ /night</p>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>;
+          </td>
+        </tr>`);
+
+      $.each(element.images, function (i, e) {
+        let active = "";
+        if (i === 0) {
+          active = " active";
+        }
+        $("#carousel-inner-nb" + index).append(
+          `<div class='carousel-item${active}'>
+            <img src='/photosOffers/${element.images[i]}' class='d-block w-100'>
+          </div>`
+        );
+      });
     });
   },
 });
