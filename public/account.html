@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!-- Head -->
   <head>
     <meta charset="utf-8" />
     <meta
@@ -17,7 +18,10 @@
     <link rel="stylesheet" href="./account.css" />
     <title>Your profile</title>
   </head>
+
+  <!-- Body -->
   <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/">
         <img
@@ -28,6 +32,7 @@
         />
       </a>
 
+      <!-- Navbar buttons -->
       <div class="ml-auto mr-5 pl-auto pr-5">
         <ul class="navbar-nav">
           <li class="nav-item pr-5">
@@ -58,26 +63,267 @@
       </div>
     </nav>
 
-    <div id="account_box">
-      <h2 id="account_header"></h2>
-      <div id="avatar"></div>
-      <div id="info">
-        <div id="emailinf">
-          <h4 id="information">Your information</h4>
-          <label for="modemail">Email:</label>
-          <input type="text" id="modemail" name="modemail" disabled />
+    <!-- Account information -->
+    <div id="#account-infos">
+      <table id="userinfo">
+        <!-- Avatar section collapsed -->
+        <tr class="field expand">
+          <td>
+            <div class="preclick">
+              <div class="identifier">PHOTO</div>
+              <div class="info" id="account_photo">IMG</div>
+            </div>
+
+            <!-- Avatar section expanded -->
+            <div class="postclick" hidden>
+              <form
+                class="modav needs-validation"
+                action="/change/account/avatar"
+                method="POST"
+                novalidate
+              >
+                <div class="form-group">
+                  <input type="file" name="avatar" id="avatar" required />
+                </div>
+                <button type="submit">Save Changes</button>
+              </form>
+            </div>
+          </td>
+
+          <td class="modlink-box">
+            <a href="#" class="modlink">Edit</a>
+          </td>
+        </tr>
+
+        <!-- Username section collapsed -->
+        <tr class="field expand">
+          <td>
+            <div class="preclick">
+              <div class="identifier">USERNAME</div>
+              <div class="info" id="account_name">NAME</div>
+            </div>
+
+            <!-- Username section expanded -->
+            <div class="postclick" hidden>
+              <form
+                class="modtext needs-validation"
+                action="/change/account/infos"
+                method="POST"
+                novalidate
+              >
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="name"
+                    id="name"
+                    pattern=".{4,}"
+                    required
+                  />
+                  <div class="invalid-feedback" id="invalid-username">
+                    Username must be 4 characters or more
+                  </div>
+                </div>
+
+                <button type="submit">Save Changes</button>
+              </form>
+            </div>
+          </td>
+
+          <td class="modlink-box">
+            <a href="#" class="modlink">Edit</a>
+          </td>
+        </tr>
+
+        <!-- Email address section collapsed -->
+        <tr class="field expand">
+          <td>
+            <div class="preclick">
+              <div class="identifier">EMAIL ADDRESS</div>
+              <div class="info" id="account_email">EMAIL</div>
+            </div>
+
+            <!-- Email section expanded -->
+            <div class="postclick" hidden>
+              <form
+                class="modtext needs-validation"
+                action="/change/account/infos"
+                method="post"
+                novalidate
+              >
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="email"
+                    id="email"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    required
+                  />
+                  <div class="invalid-feedback" id="invalid-email">
+                    Must be a valid email address.
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    class="form-control"
+                    type="password"
+                    name="password"
+                    id="password"
+                  />
+                  <div class="invalid-feedback">Password incorrect</div>
+                </div>
+
+                <button type="submit">Save Changes</button>
+              </form>
+            </div>
+          </td>
+
+          <td class="modlink-box">
+            <a href="#" class="modlink">Edit</a>
+          </td>
+        </tr>
+
+        <!-- Password section collapsed -->
+        <tr class="field expand">
+          <td>
+            <div class="preclick">
+              <div class="identifier">PASSWORD</div>
+              <div class="info" id="password">**********</div>
+            </div>
+
+            <!-- Password section expanded -->
+            <div class="postclick" id="passwordchange" hidden>
+              <form
+                class="modtext needs-validation"
+                action="/change/account/infos"
+                method="POST"
+                novalidate
+              >
+                <div class="form-group">
+                  <label for="password">Current password</label>
+                  <input
+                    class="form-control"
+                    type="password"
+                    name="password"
+                    id="password"
+                    required
+                  />
+                  <div class="invalid-feedback">Password incorrect</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="confirmpassword">New password</label>
+                  <input
+                    class="form-control"
+                    type="password"
+                    name="newpassword"
+                    id="newpassword"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Must contain at least 8 characters, 1 number and 1 uppercase
+                    and lowercase letter.
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="currentpassword">Confirm new password</label>
+                  <input
+                    class="form-control"
+                    type="password"
+                    name="confirmpassword"
+                    id="confirmpassword"
+                    required
+                  />
+                  <div class="invalid-feedback">Passwords must match</div>
+                </div>
+
+                <button type="submit">Save Changes</button>
+              </form>
+            </div>
+          </td>
+
+          <td class="modlink-box">
+            <a href="#" class="modlink">Edit</a>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Previous and incoming trips -->
+      <table id="userbookings">
+        <tr class="field" id="incomingtrip">
+          <th>Incoming holidays:</th>
+        </tr>
+        <tr class="field" id="previoustrip">
+          <th>Stays you went:</th>
+        </tr>
+      </table>
+
+      <!-- Stays user posted -->
+      <table id="userstays">
+        <tr class="field" id="stays">
+          <th>Added houses:</th>
+        </tr>
+      </table>
+
+      <!-- Delete account button -->
+      <table id="delete-account">
+        <tr class="field">
+          <td id="delete-account-box">
+            <button
+              class="btn btn-danger"
+              data-toggle="modal"
+              data-target="#delete-confirmation"
+            >
+              Delete account
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Are you sure? delete modal -->
+    <div
+      class="modal fade"
+      id="delete-confirmation"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="delete-account-modal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><strong> Are you sure ? </strong></h3>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            ></button>
+            <span aria-hidden="true">&times;</span>
+          </div>
+          <div class="modal-body">
+            All your data will be <strong>permanently</strong> lost. <br />
+            We don't keep anything !
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal">Close</button>
+            <button class="btn btn-danger" id="delete-account-btn">
+              Delete
+            </button>
+          </div>
         </div>
-        <div id="passwordinf">
-          <label for="modpassword">Password:</label>
-          <input type="password" id="modpassword" name="modpassword" disabled />
-        </div>
-      </div>
-      <div id="stays">
-        <h4 id="stays_title">Your stays</h4>
-        <div id="staylist"></div>
       </div>
     </div>
 
+    <!-- External sources -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

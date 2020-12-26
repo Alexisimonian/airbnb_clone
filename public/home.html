@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!-- Head -->
   <head>
     <meta charset="utf-8" />
     <meta
@@ -21,8 +22,11 @@
     <link rel="stylesheet" href="./home.css" />
     <title>Welcome to Airbnb</title>
   </head>
+
+  <!-- Body -->
   <body>
-    <form id="search_stay" action="/" method="POST">
+    <!-- Hidden search form -->
+    <form id="search_stay" action="/stays" method="POST">
       <input type="hidden" id="locality" name="locality" />
       <input type="hidden" id="country" name="country" />
       <input type="hidden" id="check_in" name="check_in" />
@@ -30,6 +34,8 @@
       <input type="hidden" id="guests" name="guests" />
     </form>
 
+    <!-- Navbar -->
+    <!-- Navbar logo -->
     <nav class="navbar navbar-expand-lg navbar-transparent">
       <a class="navbar-brand">
         <img
@@ -39,6 +45,8 @@
           height="35"
         />
       </a>
+
+      <!-- Navbar buttons -->
       <div class="ml-auto mr-5 pl-auto pr-5">
         <ul class="navbar-nav">
           <li class="nav-item pr-5">
@@ -69,9 +77,11 @@
       </div>
     </nav>
 
+    <!-- Search box in the middle for stays -->
     <div class="search_container">
       <table id="search">
         <tr>
+          <!-- Search location -->
           <td class="search-item">
             <a class="btn" id="location_button" role="button">
               <strong>Location</strong>
@@ -85,6 +95,7 @@
             </a>
           </td>
 
+          <!-- Search check-in -->
           <td class="search-item">
             <a class="btn btn-default dates" id="btn_check_in">
               <strong class="dates"> Check in</strong>
@@ -92,6 +103,7 @@
             </a>
           </td>
 
+          <!-- Search check-out -->
           <td class="search-item">
             <a class="btn dates" id="btn_check_out">
               <strong class="dates"> Check out</strong>
@@ -99,6 +111,7 @@
             </a>
           </td>
 
+          <!-- Search stay size -->
           <td class="search-item">
             <a
               class="btn"
@@ -111,6 +124,7 @@
               <div id="nb_selected">Add guests</div>
             </a>
 
+            <!-- Dropdown menu stay size -->
             <div class="dropdown-menu" aria-labelledby="guest_select">
               <a class="dropdown-item guest_value">1</a>
               <a class="dropdown-item guest_value">2</a>
@@ -122,6 +136,7 @@
               <a class="dropdown-item guest_value">9</a>
             </div>
 
+            <!-- Search button -->
             <button class="btn btn-outline-danger" id="submit" type="button">
               Search
             </button>
@@ -130,19 +145,23 @@
       </table>
     </div>
 
+    <!-- Datepicker -->
     <div class="datepicker check_in"></div>
     <div class="datepicker check_out"></div>
 
+    <!-- Home page message -->
     <div class="homepage-text">
       <h1 class="top">Relax</h1>
       <h1 class="bottom">Anytime,</h1>
       <h1 class="center">Anywhere</h1>
     </div>
 
+    <!-- Explore button -->
     <div class="explore">
       <button class="btn btn-light">Explore our best stays</button>
     </div>
 
+    <!-- Login modal -->
     <div
       class="modal fade"
       id="logmodal"
@@ -177,7 +196,7 @@
                   type="email"
                   class="form-control"
                   id="email_input"
-                  name="email_input"
+                  name="email"
                   aria-describedby="emailHelp"
                   required
                 />
@@ -218,6 +237,7 @@
       </div>
     </div>
 
+    <!-- External scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const upload = require("../middlewares/photo_upload");
 const { Stays } = require("../src/stays");
+const stay = require("../src/stay");
 
 const stays = new Stays();
 const staysRoutes = express.Router();
@@ -21,6 +22,28 @@ staysRoutes.get("/stays", async (req, res) => {
     },
   };
   res.sendFile("stays-list.html", options);
+});
+
+staysRoutes.post("/stays", async (req, res) => {
+  let locality = req.body.locality;
+  let country = req.body.country;
+  let start_date = req.body.check_in;
+  let end_date = req.body.check_out;
+  let guests = req.body.guests;
+  let url = `?country=${country}`;
+  if (locality) {
+    url += `&locality=${locality}`;
+  }
+  if (start_date) {
+    url += `&start_date=${start_date}`;
+  }
+  if (end_date) {
+    url += `&end_date=${end_date}`;
+  }
+  if (guests) {
+    url += `&guests=${guests}`;
+  }
+  res.redirect("/stays" + url);
 });
 
 staysRoutes.get("/stays/new", (req, res) => {
@@ -69,5 +92,17 @@ staysRoutes.post("/stays/new", async (req, res) => {
     res.status(422).send(`error trying to upload your file(s): ${error}`);
   }
 });
+
+staysRoutes.post("/booking/stays", async (req, res) => {
+  let id = req.body.id;
+  let stay = await stays.findStay(id);
+  stay = JSON.stringify(stay);
+  let options = { stay: stay };
+  res.writeHead(200, { options }).end();
+});
+
+staysRoutes.post("/change/stays/infos", async (req, res) => {});
+
+staysRoutes.post("/change/stays/photos", async (req, res) => {});
 
 module.exports = { StaysRoutes: staysRoutes };

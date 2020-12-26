@@ -1,3 +1,20 @@
 #logbtn {
   text-transform: capitalize;
 }
+
+.field {
+  border: 1px solid black;
+}
+
+table {
+  margin-bottom: 20px;
+  width: 50vw;
+}
+
+.modlink-box {
+  text-align: right;
+}
+
+#delete-account-box {
+  text-align: center;
+}

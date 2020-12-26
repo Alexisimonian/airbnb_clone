@@ -3,6 +3,24 @@ $.ajax({
   type: "get",
   url: "/stays",
   complete: function (xhr) {
+    //Sets navbar btn
+    let logbtn = xhr.getResponseHeader("logbtn");
+    $("#logbtn").text(`${logbtn}`);
+    if (logbtn == "login") {
+      $("#logbtn").attr("href", "#");
+      $("#logbtn").attr("data-toggle", "modal");
+      $("#logbtn").attr("data-target", "#logmodal");
+      $("#logbtn").after(
+        "<a class='dropdown-item' href='/register'> Sign up </a>"
+      );
+    } else {
+      $("#logbtn").attr("href", "/logout");
+      $("#logbtn").after(
+        "<div class='dropdown-divider'></div><a class='dropdown-item' href='/account'> Account </a>"
+      );
+    }
+
+    //Determins search params
     let search_infos = window.location.href.split("?")[1].split("&");
     const search_params = {
       locality: "",
@@ -20,28 +38,14 @@ $.ajax({
       }
     });
 
-    let logbtn = xhr.getResponseHeader("logbtn");
-    $("#logbtn").text(`${logbtn}`);
-    if (logbtn == "login") {
-      $("#logbtn").attr("href", "#");
-      $("#logbtn").attr("data-toggle", "modal");
-      $("#logbtn").attr("data-target", "#logmodal");
-      $("#logbtn").after(
-        "<a class='dropdown-item' href='/register'> Sign up </a>"
-      );
-    } else {
-      $("#logbtn").attr("href", "/logout");
-      $("#logbtn").after(
-        "<div class='dropdown-divider'></div><a class='dropdown-item' href='/account'> Account </a>"
-      );
-    }
-
     let homesList = JSON.parse(xhr.getResponseHeader("listing"));
+    let foundsmth = 0;
     $.each(homesList, function (index, offer) {
       //Filters according to search params
       if (
-        offer.locality == search_params["locality"] &&
         offer.country == search_params["country"] &&
+        (search_params["locality"] === "" ||
+          offer.locality == search_params["locality"]) &&
         (search_params["start_date"] === "" ||
           offer.availableFrom <= search_params["start_date"]) &&
         (search_params["end_date"] === "" ||
@@ -49,21 +53,34 @@ $.ajax({
         (search_params["guests"] === "" ||
           offer.size >= search_params["guests"])
       ) {
+        foundsmth += 1;
         //Offer frame
-        $("#content").append(
-          `<div id='offer${index}'>
-        <div id='carousel-nb${index}' class='carousel slide' data-interval='false' data-ride='carousel'>
-          <div class='carousel-inner' id='carousel-inner-nb${index}'></div>
-            <a class='carousel-control-prev' href='#carousel-nb${index}' role='button' data-slide='prev'>
-              <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-              <span class='sr-only'>Previous</span>
-            </a>
-            <a class='carousel-control-next' href='#carousel-nb${index}' role='button' data-slide='next'>
-              <span class='carousel-control-next-icon' aria-hidden='true'></span>
-              <span class='sr-only'>Next</span>
-            </a>
+        $("#headrow").after(
+          `<tr>
+          <div id='offer${index}'>
+            <table>
+              <td>
+                <div id='carousel-nb${index}' class='carousel slide' data-interval='false' data-ride='carousel'>
+                  <div class='carousel-inner' id='carousel-inner-nb${index}'></div>
+                  <a class='carousel-control-prev' href='#carousel-nb${index}' role='button' data-slide='prev'>
+                    <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+                    <span class='sr-only'>Previous</span>
+                  </a>
+                  <a class='carousel-control-next' href='#carousel-nb${index}' role='button' data-slide='next'>
+                    <span class='carousel-control-next-icon' aria-hidden='true'></span>
+                    <span class='sr-only'>Next</span>
+                  </a>
+                </div>
+              </td>
+              <td>
+                <div id='offer-text'>
+                  <h4>${offer.title}</h4>
+                  <p>${offer.price}€ /night</p>
+                </div>
+              </td>
+            </table>
           </div>
-        </div>`
+        </tr>`
         );
 
         //Offer image
@@ -78,15 +95,13 @@ $.ajax({
           </div>`
           );
         });
-
-        //Offer text
-        $("#offer" + index).append(
-          `<div id='offer-text'>
-          <h4>${offer.title}</h4>
-          <p>${offer.price}€ /night</p>`
-        );
       }
     });
+    if (foundsmth == 0) {
+      $("#headrow").after(
+        `<tr><td>We're sorry, there's currently no stay at that destination :( </td></tr>`
+      );
+    }
   },
 });
 
@@ -109,6 +124,7 @@ $("#login-form").on("submit", function (e) {
   });
 
   if ($(this).find(".is-invalid").length == 0) {
+    let data = $(this).serialize();
     $.ajax({
       type: "post",
       url: "/login",

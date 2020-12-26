@@ -27,6 +27,22 @@ class User {
     let query = dbQuery(
       `UPDATE users SET ${type}='${corrected}' WHERE id='${id}'`
     );
+    return query;
+  }
+
+  deleteUser(id) {
+    let query = dbQuery(`DELETE FROM users WHERE id='${id}'`);
+    return query;
+  }
+
+  getUploadedStays(id) {
+    let query = dbQuery(`SELECT * FROM stays WHERE user='${id}'`);
+    return query;
+  }
+
+  getBooked(id) {
+    let query = dbQuery(`SELECT * FROM bookings WHERE user='${id}'`);
+    return query;
   }
 
   async getID(username) {

@@ -32,39 +32,20 @@ class Stays {
     dbQuery(`DELETE FROM stays WHERE id='${stayId}'`);
   }
 
+  findStay(id) {
+    let query = `SELECT * FROM stays WHERE id='${id}'`;
+    return query;
+  }
+
+  book(userid, stayid, price, start, end) {
+    dbQuery(
+      `INSERT INTO bookings (user, stay, price, start, end) VALUES ('${userid}', '${stayid}', '${price}', '${start}', '${end}')`
+    );
+  }
+
   async listingStays() {
     this.houses = [];
     let query = await dbQuery("SELECT * FROM stays");
-    for (let i = 0; i < query.length; i++) {
-      let images = query[i].images.split(",");
-      this.houses.push(
-        new Stay(
-          query[i].id,
-          query[i].user,
-          query[i].type,
-          query[i].size,
-          query[i].title,
-          query[i].address,
-          query[i].postcode,
-          query[i].locality,
-          query[i].country,
-          query[i].latlng,
-          query[i].price,
-          query[i].availablefrom,
-          query[i].availableto,
-          images,
-          query[i].description
-        )
-      );
-    }
-    return this.houses;
-  }
-
-  async searchStays(locality, country) {
-    this.houses = [];
-    let query = await dbQuery(
-      `SELECT * FROM stays WHERE locality = '${locality}' AND country = '${country}'`
-    );
     for (let i = 0; i < query.length; i++) {
       let images = query[i].images.split(",");
       this.houses.push(
