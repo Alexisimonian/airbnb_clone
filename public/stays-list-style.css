@@ -40,6 +40,10 @@ table {
   border: 1px solid black;
 }
 
+tr {
+  border: 1px solid rgb(194, 194, 194);
+}
+
 #signup_inv {
   position: absolute;
   left: 15px;
