@@ -88,9 +88,9 @@ $("#image-files").on("change", function (e) {
       reader.readAsDataURL(file);
 
       reader.onload = function (e) {
-        let template = `<span class= 'pip'>
-          <img id='image' src='${e.target.result}'>
-          <span class='remove'>Remove</span>
+        let template = `<span class='pip'>
+          <img id='image' src='${e.target.result}' width='90px'>
+          <button class='btn btn-light remove'><span class='fa fa-times'></span></button>
         </span>`;
 
         $("#preview-images").append(template);
@@ -100,6 +100,7 @@ $("#image-files").on("change", function (e) {
             return value != file;
           });
           $(this).parent(".pip").remove();
+          $("#errors").text("");
         });
       };
     } else {

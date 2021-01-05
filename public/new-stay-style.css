@@ -1,10 +1,61 @@
-#image {
-  width: 200px;
-  height: 150px;
-  overflow: hidden;
+.input-box {
+  position: relative;
+  width: 27vw;
+  text-align: center;
+  border: 1px solid black;
+  border-collapse: separate;
+  border-radius: 13px;
+  margin: auto;
+  background-color: white;
 }
 
-#description {
-  width: 300px;
-  height: 150px;
+.input-col-3 {
+  width: 33%;
+}
+
+#global-design {
+  text-align: center;
+  width: 100%;
+}
+
+#errors {
+  color: red;
+}
+
+#image {
+  position: relative;
+  border-radius: 5px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  transform: translate(10px, -20px);
+}
+
+.remove {
+  position: absolute;
+  transform: translate(-30px, -30px);
+  border-radius: 50px;
+}
+
+.imagebox {
+  position: relative;
+}
+
+#selectbtn {
+  margin-top: 10px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.td-input {
+  border-top: 1px solid #d8d6d6;
 }
