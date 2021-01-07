@@ -1,3 +1,50 @@
+//Map implementation
+let map;
+let marker;
+let homesList;
+
+function initMap() {
+  const center = new google.maps.LatLng(48.862725, 2.287592);
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: center,
+    zoom: 15,
+  });
+  marker = new google.maps.Marker({ map: map });
+}
+
+//Place markers and change map center
+function changeCenter(center) {
+  map.setCenter(center);
+  marker.setPosition(center);
+}
+
+$(document).on("mouseover", ".offer", function () {
+  let offer_id = this.id.split("offer")[1];
+  let latlng = homesList[offer_id].latlng.split(",");
+  let center = { lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1]) };
+  changeCenter(center);
+});
+
+//Determins search params
+let search_infos = window.location.href.split("?")[1].split("&");
+
+const search_params = {
+  locality: "",
+  country: "",
+  start_date: "",
+  end_date: "",
+  guests: "",
+};
+
+$.each(search_infos, function (i, info) {
+  let val = info.split("=");
+  for (const param in search_params) {
+    if (param == val[0]) {
+      search_params[param] = val[1];
+    }
+  }
+});
+
 // Display each offers w/ corresponding images in a carousel
 $.ajax({
   type: "get",
@@ -20,25 +67,7 @@ $.ajax({
       );
     }
 
-    //Determins search params
-    let search_infos = window.location.href.split("?")[1].split("&");
-    const search_params = {
-      locality: "",
-      country: "",
-      start_date: "",
-      end_date: "",
-      guests: "",
-    };
-    $.each(search_infos, function (i, info) {
-      let val = info.split("=");
-      for (const param in search_params) {
-        if (param == val[0]) {
-          search_params[param] = val[1];
-        }
-      }
-    });
-
-    let homesList = JSON.parse(xhr.getResponseHeader("listing"));
+    homesList = JSON.parse(xhr.getResponseHeader("listing"));
     let foundsmth = 0;
     $.each(homesList, function (index, offer) {
       //Filters according to search params
@@ -54,34 +83,40 @@ $.ajax({
           offer.size >= search_params["guests"])
       ) {
         foundsmth += 1;
+
         //Offer frame
         $("#headrow").after(
-          `<tr>
-          <div id='offer${index}'>
-            <table>
-              <td>
-                <div id='carousel-nb${index}' class='carousel slide' data-interval='false' data-ride='carousel'>
-                  <div class='carousel-inner' id='carousel-inner-nb${index}'></div>
-                  <a class='carousel-control-prev' href='#carousel-nb${index}' role='button' data-slide='prev'>
-                    <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-                    <span class='sr-only'>Previous</span>
-                  </a>
-                  <a class='carousel-control-next' href='#carousel-nb${index}' role='button' data-slide='next'>
-                    <span class='carousel-control-next-icon' aria-hidden='true'></span>
-                    <span class='sr-only'>Next</span>
-                  </a>
-                </div>
-              </td>
-              <td>
-                <div id='offer-text'>
-                  <h4>${offer.title}</h4>
-                  <p>${offer.price}€ /night</p>
-                </div>
-              </td>
-            </table>
-          </div>
-        </tr>`
+          `<tr><td class='offer' id='offer${index}'>
+            <table id='offer'><tr><td id='image-col' rowspan='3'>
+              <div id='carousel-nb${index}' class='carousel slide' data-interval='false' data-ride='carousel'>
+              <div class='carousel-inner' id='carousel-inner-nb${index}'></div>
+                <a class='carousel-control-prev' id='prev-control${index}' href='#carousel-nb${index}' role='button' data-slide='prev'>
+                  <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+                  <span class='sr-only'>Previous</span>
+                </a>
+                <a class='carousel-control-next' id='next-control${index}' href='#carousel-nb${index}' role='button' data-slide='next'>
+                  <span class='carousel-control-next-icon' aria-hidden='true'></span>
+                  <span class='sr-only'>Next</span>
+                </a>
+              </div>
+            </td><td id='title' colspan='3'>
+              <h4>${offer.title}</h4>
+            </td></tr><tr><td>
+              <p>${offer.price}€ /night</p>
+            </td><td>
+              <p>${offer.type}</p>
+            </td><td>
+              <p>${offer.size} guests</p>
+            </tr><tr><td id='description' colspan='3'>
+              <p>${offer.description}</p>
+            </td></tr></table></td></a></tr>`
         );
+
+        //Get rid of carousel controls if only one image
+        if (offer.images.length == 1) {
+          $("#prev-control" + index).remove();
+          $("#next-control" + index).remove();
+        }
 
         //Offer image
         $.each(offer.images, function (i, image) {
@@ -145,41 +180,3 @@ $("#login-form").on("submit", function (e) {
     });
   }
 });
-
-//Map implementation
-let map;
-let service;
-let infowindow;
-
-function initMap() {
-  const paris = new google.maps.LatLng(48.856697, 2.351462);
-  infowindow = new google.maps.InfoWindow();
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: paris,
-    zoom: 15,
-  });
-  const request = {
-    query: "Tour Eiffel",
-    fields: ["name", "geometry"],
-  };
-  service = new google.maps.places.PlacesService(map);
-  service.findPlaceFromQuery(request, (results, status) => {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      for (let i = 0; i < results.length; i++) {
-        createMarker(results[i]);
-      }
-      map.setCenter(results[0].geometry.location);
-    }
-  });
-}
-
-function createMarker(place) {
-  const marker = new google.maps.Marker({
-    map,
-    position: place.geometry.location,
-  });
-  google.maps.event.addListener(marker, "click", () => {
-    infowindow.setContent(place.name);
-    infowindow.open(map);
-  });
-}

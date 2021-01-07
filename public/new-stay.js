@@ -2,6 +2,10 @@ $(".form-control").on("input", function () {
   $(this).removeClass("is-invalid");
 });
 
+$("#available_from, #available_to").on("click", function () {
+  $(this).removeClass("is-invalid");
+});
+
 // Autocomplete setup
 let placeSearch;
 let autocomplete;
@@ -80,6 +84,7 @@ $("#available_to").datepicker({
 let fileCollection = new Array();
 
 $("#image-files").on("change", function (e) {
+  $(this).removeClass("is-invalid");
   let files = e.target.files;
   $.each(files, function (i, file) {
     if (fileCollection.length < 5) {
@@ -114,6 +119,8 @@ $("#new-stay-form").on("submit", function (e) {
   e.preventDefault();
   let form = $(this)[0];
   let formData = new FormData(form);
+  formData.append("available_from", $("#available_from").val());
+  formData.append("available_to", $("#available_to").val());
 
   $(":input").each(function () {
     if ($(this).val() == "") {
@@ -125,11 +132,13 @@ $("#new-stay-form").on("submit", function (e) {
     $("#autocomplete").addClass("is-invalid");
   }
 
-  if (fileCollection.length >= 1) {
-    $("#image-files").removeClass("is-invalid");
+  if (fileCollection.length == 0) {
+    $("#image-files").addClass("is-invalid");
   }
 
-  if ($(this).find(".is-invalid").length === 1) {
+  $(".btn").removeClass("is-invalid");
+
+  if (document.getElementsByClassName("is-invalid").length == 0) {
     $.each(fileCollection, function (i, image) {
       formData.append("files", fileCollection[i]);
     });
