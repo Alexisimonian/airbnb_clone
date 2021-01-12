@@ -85,8 +85,8 @@ $("#login-form").on("submit", function (e) {
 let placeSearch;
 let autocomplete;
 const componentForm = {
-  locality: "short_name",
-  country: "short_name",
+  locality: "long_name",
+  country: "long_name",
 };
 
 function resetAutoComplete() {

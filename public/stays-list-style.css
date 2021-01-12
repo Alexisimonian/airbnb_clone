@@ -1,11 +1,11 @@
-.carousel {
+.small-carousel {
   width: 230px;
   height: 200px;
   overflow: hidden;
   border-radius: 15px;
 }
 
-.carousel-item img {
+#small-image img {
   width: 230px;
   height: 200px;
   overflow: hidden;
@@ -73,7 +73,8 @@
 
 #offer p,
 #offer h4 {
-  text-align: center;
+  margin-left: 30px;
+  text-align: left;
 }
 
 #offer td:not(#description, #title, :last-child) {
@@ -87,4 +88,39 @@
 
 #offer:hover {
   background-color: #eaedf0;
+}
+
+#big-image img {
+  width: 600px;
+  height: 600px;
+  overflow: hidden;
+}
+
+#carouseloffer {
+  width: 600px;
+  height: 600px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+#offertitle {
+  font-size: 30px;
+}
+
+#bigoffertable {
+  width: 100%;
+}
+
+#big-carousel {
+  width: 600px;
+  border-right: 1px solid rgb(241, 241, 241);
+}
+
+#bigoffertable td {
+  text-align: left;
+  padding-left: 30px;
+}
+
+#bigoffertable td:not(#offerdescription, :nth-last-child(2)) {
+  border-bottom: 1px solid rgb(241, 241, 241);
 }

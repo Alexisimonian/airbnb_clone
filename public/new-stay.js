@@ -13,7 +13,7 @@ const componentForm = {
   street_number: "short_name",
   route: "long_name",
   locality: "long_name",
-  country: "short_name",
+  country: "long_name",
   postal_code: "short_name",
 };
 

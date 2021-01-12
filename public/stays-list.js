@@ -1,29 +1,9 @@
 //Map implementation
 let map;
 let marker;
+let geocoder;
 let homesList;
-
-function initMap() {
-  const center = new google.maps.LatLng(48.862725, 2.287592);
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: center,
-    zoom: 15,
-  });
-  marker = new google.maps.Marker({ map: map });
-}
-
-//Place markers and change map center
-function changeCenter(center) {
-  map.setCenter(center);
-  marker.setPosition(center);
-}
-
-$(document).on("mouseover", ".offer", function () {
-  let offer_id = this.id.split("offer")[1];
-  let latlng = homesList[offer_id].latlng.split(",");
-  let center = { lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1]) };
-  changeCenter(center);
-});
+let center;
 
 //Determins search params
 let search_infos = window.location.href.split("?")[1].split("&");
@@ -42,6 +22,93 @@ $.each(search_infos, function (i, info) {
     if (param == val[0]) {
       search_params[param] = val[1];
     }
+  }
+});
+
+function initMap() {
+  const center = new google.maps.LatLng(48.862725, 2.287592);
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: center,
+    zoom: 13,
+  });
+  marker = new google.maps.Marker({ map: map });
+  geocoder = new google.maps.Geocoder();
+  setFirstCenter();
+}
+
+function setFirstCenter() {
+  if (search_params["locality"] === "") {
+    geocoder.geocode(
+      { address: search_params["country"].replace("%20", " ") },
+      function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+        }
+      }
+    );
+  } else {
+    geocoder.geocode(
+      { address: search_params["locality"].replace("%20", " ") },
+      function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+        }
+      }
+    );
+  }
+}
+
+//Place markers and change map center
+function changeCenter(center) {
+  map.setCenter(center);
+  marker.setPosition(center);
+}
+
+$(document).on("mouseover", ".offer", function () {
+  let offer_id = this.id.split("offer")[1];
+  let latlng = homesList[offer_id].latlng.split(",");
+  let newcenter = { lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1]) };
+  changeCenter(newcenter);
+});
+
+$(document).on("mouseout", ".offer", function () {
+  map.setCenter({ lat: 48.862725, lng: 2.287592 });
+  marker.setPosition(null);
+});
+
+$(document).on("click", ".offer", function (e) {
+  if (
+    !$(e.target).hasClass("carousel-control-prev-icon") &&
+    !$(e.target).hasClass("carousel-control-next-icon") &&
+    !$(e.target).hasClass("carousel-control-next") &&
+    !$(e.target).hasClass("carousel-control-prev")
+  ) {
+    let offer_id = this.id.split("offer")[1];
+    let fulloffer = homesList[offer_id];
+    $("#offertitle").text(fulloffer.title);
+    let offerimages = fulloffer.images;
+    $("#big-image").empty();
+    $.each(offerimages, function (index, element) {
+      let active = "";
+      if (index === 0) {
+        active = " active";
+      }
+      $("#big-image").append(
+        `<div class='carousel-item${active}'>
+          <img src='/photosOffers/${element}'/>
+        </div>`
+      );
+    });
+    $("#offeraddress").html(
+      `<strong>Address:</strong> ${fulloffer.address}, ${fulloffer.postcode}, ${fulloffer.locality}, ${fulloffer.country}`
+    );
+    $("#offerprice").html(`<strong>price:</strong> ${fulloffer.price}€/night`);
+    $("#offersize").html(`<strong>Size:</strong> ${fulloffer.size} guests`);
+    $("#offertype").html(`<strong>Place type:</strong> ${fulloffer.type}`);
+    $("#offerdescription").html(
+      `<strong>Descritption:</strong> ${fulloffer.description}`
+    );
+    $("#offermodal").modal();
   }
 });
 
@@ -88,7 +155,7 @@ $.ajax({
         $("#headrow").after(
           `<tr><td class='offer' id='offer${index}'>
             <table id='offer'><tr><td id='image-col' rowspan='3'>
-              <div id='carousel-nb${index}' class='carousel slide' data-interval='false' data-ride='carousel'>
+              <div id='carousel-nb${index}' class='carousel slide small-carousel' data-interval='false' data-ride='carousel'>
               <div class='carousel-inner' id='carousel-inner-nb${index}'></div>
                 <a class='carousel-control-prev' id='prev-control${index}' href='#carousel-nb${index}' role='button' data-slide='prev'>
                   <span class='carousel-control-prev-icon' aria-hidden='true'></span>
@@ -125,8 +192,8 @@ $.ajax({
             active = " active";
           }
           $("#carousel-inner-nb" + index).append(
-            `<div class='carousel-item${active}'>
-            <img src='/photosOffers/${offer.images[i]}' class='d-block w-100'>
+            `<div class='carousel-item${active}' id='small-image'>
+            <img src='/photosOffers/${offer.images[i]}'>
           </div>`
           );
         });
@@ -151,7 +218,6 @@ $(".form-control").on("input", function () {
 
 $("#login-form").on("submit", function (e) {
   e.preventDefault();
-  let data = $(this).serialize();
   $(":input").each(function () {
     if ($(this).val() == "") {
       $(this).addClass("is-invalid");
