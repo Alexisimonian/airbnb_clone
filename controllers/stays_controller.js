@@ -1,9 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const upload = require("../middlewares/photo_upload");
+const { User } = require("../src/user");
 const { Stays } = require("../src/stays");
 const stay = require("../src/stay");
 
+const user = new User();
 const stays = new Stays();
 const staysRoutes = express.Router();
 
@@ -13,10 +15,13 @@ staysRoutes.get("/stays", async (req, res) => {
     logbtn = "logout";
   }
   let listing = await stays.listingStays();
+  let booked = await user.getBooked(req.session.userId);
+  let bookedlist = JSON.stringify(booked);
   let fullListing = JSON.stringify(listing);
   let options = {
     root: "public",
     headers: {
+      booked: bookedlist,
       logbtn: logbtn,
       listing: fullListing,
     },
@@ -47,7 +52,11 @@ staysRoutes.post("/stays", async (req, res) => {
 });
 
 staysRoutes.get("/stays/new", (req, res) => {
-  res.sendFile("new-stay.html", { root: "public" });
+  if (req.session.loggedin === true) {
+    res.sendFile("new-stay.html", { root: "public" });
+  } else {
+    res.redirect("/");
+  }
 });
 
 staysRoutes.post("/stays/new", async (req, res) => {
@@ -99,6 +108,17 @@ staysRoutes.post("/booking/stays", async (req, res) => {
   stay = JSON.stringify(stay);
   let options = { stay: stay };
   res.writeHead(200, { options }).end();
+});
+
+staysRoutes.post("/stays/book", (req, res) => {
+  console.log("here");
+  let user_id = req.session.userId;
+  let stay_id = req.body.stayid;
+  let price = req.body.price;
+  let start = req.body.start.split("T")[0];
+  let end = req.body.end.split("T")[0];
+  stays.book(user_id, stay_id, price, start, end);
+  res.end();
 });
 
 module.exports = { StaysRoutes: staysRoutes };

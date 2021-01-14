@@ -3,12 +3,20 @@
 }
 
 .field {
-  border: 1px solid black;
+  border: 1px solid rgb(189, 189, 189);
+}
+
+.field:hover {
+  background-color: #eaedf0;
 }
 
 table {
+  position: relative;
   margin-bottom: 20px;
+  top: 50px;
   width: 50vw;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .modlink-box {
@@ -17,4 +25,22 @@ table {
 
 #delete-account-box {
   text-align: center;
+}
+
+td,
+th {
+  padding: 15px;
+}
+
+.identifier,
+label {
+  font-weight: bold;
+}
+
+#account_photo img {
+  border-radius: 10px;
+}
+
+.identifier {
+  margin-bottom: 10px;
 }

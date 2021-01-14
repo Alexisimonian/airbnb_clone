@@ -38,69 +38,6 @@ $.ajax({
     } else {
       let now = new Date();
       now = Date.parse(now);
-      $.each(bookings, function (index, element) {
-        data = { id: element.stay };
-        $.ajax({
-          type: "post",
-          url: "/booking/stays",
-          data: data,
-          complete: function (xhr) {
-            let stay = JSON.parse(xhr.getResponseHeader("stay"));
-            stay = stay[0];
-            let full_offer = `<div id='offer${index}'>
-            <table>
-              <tr>
-                <td>
-                <div id='carousel-nb${index}' class='carousel slide' data-interval='false' data-ride='carousel'>
-                  <div class='carousel-inner' id='carousel-inner-nb${index}'></div>
-                    <a class='carousel-control-prev' href='#carousel-nb${index}' role='button' data-slide='prev'>
-                      <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-                      <span class='sr-only'>Previous</span>
-                    </a>
-                    <a class='carousel-control-next' href='#carousel-nb${index}' role='button' data-slide='next'>
-                      <span class='carousel-control-next-icon' aria-hidden='true'></span>
-                      <span class='sr-only'>Next</span>
-                    </a>
-                  </div>
-                </td>
-                <td>
-                  <div id='offer-text'>
-                    <h4>${stay.title}</h4>
-                    <p>${stay.price}€ /night</p>
-                  </div>
-                </td>
-              </tr>
-            </table>
-            </div>`;
-
-            if (now >= Date.parse(e.start)) {
-              $("#previoustrip").after(
-                `<tr class="field">
-                  <td>${full_offer}</td>
-                </tr>`
-              );
-            } else {
-              $("#incomingtrip").after(
-                `<tr class="field">
-                  <td>${full_offer}</td>
-                </tr>`
-              );
-            }
-
-            $.each(stay.images, function (i, e) {
-              let active = "";
-              if (i === 0) {
-                active = " active";
-              }
-              $("#carousel-inner-nb" + index).append(
-                `<div class='carousel-item${active}'>
-                <img src='/photosOffers/${stay.images[i]}' class='d-block w-100'>
-                </div>`
-              );
-            });
-          },
-        });
-      });
     }
   },
 });

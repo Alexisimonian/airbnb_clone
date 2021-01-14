@@ -4,6 +4,9 @@ let marker;
 let geocoder;
 let homesList;
 let center;
+let fulloffer;
+let booked;
+let bookedids = new Array();
 
 //Determins search params
 let search_infos = window.location.href.split("?")[1].split("&");
@@ -46,6 +49,7 @@ function setFirstCenter() {
         }
       }
     );
+    map.setZoom(6);
   } else {
     geocoder.geocode(
       { address: search_params["locality"].replace("%20", " ") },
@@ -83,11 +87,15 @@ $(document).on("click", ".offer", function (e) {
     !$(e.target).hasClass("carousel-control-next") &&
     !$(e.target).hasClass("carousel-control-prev")
   ) {
+    $(".bigcarousel-controls").show();
     let offer_id = this.id.split("offer")[1];
-    let fulloffer = homesList[offer_id];
+    fulloffer = homesList[offer_id];
     $("#offertitle").text(fulloffer.title);
     let offerimages = fulloffer.images;
     $("#big-image").empty();
+    if (offerimages.length == 1) {
+      $(".bigcarousel-controls").hide();
+    }
     $.each(offerimages, function (index, element) {
       let active = "";
       if (index === 0) {
@@ -125,7 +133,7 @@ $.ajax({
       $("#logbtn").attr("data-toggle", "modal");
       $("#logbtn").attr("data-target", "#logmodal");
       $("#logbtn").after(
-        "<a class='dropdown-item' href='/register'> Sign up </a>"
+        "<div class='dropdown-divider'></div><a class='dropdown-item' href='/register'> Sign up </a>"
       );
     } else {
       $("#logbtn").attr("href", "/logout");
@@ -135,13 +143,17 @@ $.ajax({
     }
 
     homesList = JSON.parse(xhr.getResponseHeader("listing"));
+    booked = JSON.parse(xhr.getResponseHeader("booked"));
     let foundsmth = 0;
+    $.each(booked, function (indx, elem) {
+      bookedids.push(elem.stay);
+    });
     $.each(homesList, function (index, offer) {
       //Filters according to search params
       if (
-        offer.country == search_params["country"] &&
+        offer.country == search_params["country"].replace("%20", " ") &&
         (search_params["locality"] === "" ||
-          offer.locality == search_params["locality"]) &&
+          offer.locality == search_params["locality"].replace("%20", " ")) &&
         (search_params["start_date"] === "" ||
           offer.availableFrom <= search_params["start_date"]) &&
         (search_params["end_date"] === "" ||
@@ -151,9 +163,10 @@ $.ajax({
       ) {
         foundsmth += 1;
 
-        //Offer frame
-        $("#headrow").after(
-          `<tr><td class='offer' id='offer${index}'>
+        if ($.inArray(offer.id, bookedids) == -1) {
+          //Offer frame
+          $("#headrow").after(
+            `<tr><td class='offer' id='offer${index}'>
             <table id='offer'><tr><td id='image-col' rowspan='3'>
               <div id='carousel-nb${index}' class='carousel slide small-carousel' data-interval='false' data-ride='carousel'>
               <div class='carousel-inner' id='carousel-inner-nb${index}'></div>
@@ -177,31 +190,39 @@ $.ajax({
             </tr><tr><td id='description' colspan='3'>
               <p>${offer.description}</p>
             </td></tr></table></td></a></tr>`
-        );
+          );
 
-        //Get rid of carousel controls if only one image
-        if (offer.images.length == 1) {
-          $("#prev-control" + index).remove();
-          $("#next-control" + index).remove();
-        }
-
-        //Offer image
-        $.each(offer.images, function (i, image) {
-          let active = "";
-          if (i === 0) {
-            active = " active";
+          //Get rid of carousel controls if only one image
+          if (offer.images.length == 1) {
+            $("#prev-control" + index).remove();
+            $("#next-control" + index).remove();
           }
-          $("#carousel-inner-nb" + index).append(
-            `<div class='carousel-item${active}' id='small-image'>
+
+          //Offer image
+          $.each(offer.images, function (i, image) {
+            let active = "";
+            if (i === 0) {
+              active = " active";
+            }
+            $("#carousel-inner-nb" + index).append(
+              `<div class='carousel-item${active}' id='small-image'>
             <img src='/photosOffers/${offer.images[i]}'>
           </div>`
-          );
-        });
+            );
+          });
+        }
       }
     });
     if (foundsmth == 0) {
       $("#headrow").after(
-        `<tr><td>We're sorry, there's currently no stay at that destination :( </td></tr>`
+        `<tr><td>We're sorry, there's currently no stay at that destination.
+        <br/>To see some stay example, please add a stay or search for either Paris or France between January and March.
+        </td></tr>`
+      );
+    }
+    if (bookedids.length == homesList.length) {
+      $("#headrow").after(
+        `<tr><td>You booked all the example stays. You can unbook them on your account page.</td></tr>`
       );
     }
   },
@@ -232,7 +253,7 @@ $("#login-form").on("submit", function (e) {
       data: data,
       dataType: "text",
       success: function () {
-        window.location.href = "http://localhost:3000/";
+        location.reload();
       },
       error: function (data) {
         if (data.responseText == "email incorrect") {
@@ -242,6 +263,42 @@ $("#login-form").on("submit", function (e) {
           $("#password_input").addClass("is-invalid");
           $("#invalid-password").text("Password incorrect.");
         }
+      },
+    });
+  }
+});
+
+//Become host btn only available to loggedin users
+$("#becomehostbtn").click(function (e) {
+  e.preventDefault();
+  if ($("#logbtn").text() == "login") {
+    $("#logmodal").modal();
+  } else {
+    window.location.href = "/stays/new";
+  }
+});
+
+$("#bookingbtn").click(function () {
+  if ($("#logbtn").text() == "login") {
+    $("#offermodal").modal("hide");
+    $("#logmodal").modal();
+  } else {
+    let data = {
+      stayid: fulloffer.id,
+      price: fulloffer.price,
+      start: fulloffer.availableFrom,
+      end: fulloffer.availableTo,
+    };
+    $.ajax({
+      type: "POST",
+      url: "/stays/book",
+      data: data,
+      complete: function () {
+        $("#offermodal").modal("hide");
+        alert(
+          "Stay successfully booked. You can see or cancel your bookings on your account's page"
+        );
+        location.reload();
       },
     });
   }

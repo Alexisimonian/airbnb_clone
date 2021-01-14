@@ -29,7 +29,7 @@ $.ajax({
       $("#logbtn").attr("data-toggle", "modal");
       $("#logbtn").attr("data-target", "#logmodal");
       $("#logbtn").after(
-        "<a class='dropdown-item' href='/register'> Sign up </a>"
+        "<div class='dropdown-divider'></div><a class='dropdown-item' href='/register'> Sign up </a>"
       );
     } else {
       $("#logbtn").attr("href", "/logout");
@@ -317,4 +317,14 @@ $(document).on("click", function (e) {
 
 $("#guest_select").on("click", function () {
   $(".datepicker").hide();
+});
+
+//Become host btn only available to loggedin users
+$("#becomehostbtn").click(function (e) {
+  e.preventDefault();
+  if ($("#logbtn").text() == "login") {
+    $("#logmodal").modal();
+  } else {
+    window.location.href = "/stays/new";
+  }
 });

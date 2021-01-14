@@ -37,6 +37,12 @@ class Stays {
     return query;
   }
 
+  book(userid, stayid, price, start, end) {
+    dbQuery(
+      `INSERT INTO bookings (user, stay, price, start, end) VALUES ('${userid}', '${stayid}', '${price}', '${start}', '${end}')`
+    );
+  }
+
   async listingStays() {
     this.houses = [];
     let query = await dbQuery("SELECT * FROM stays");
