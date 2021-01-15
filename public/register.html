@@ -14,87 +14,93 @@
     <title>Airbnb: Sign-Up</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-custom">
-      <a class="navbar-brand" href="/">
-        <img
-          src="./images/simple_logo_black.png"
-          alt="airbnb logo black"
-          width="40"
-          height="40"
-        />
-      </a>
-    </nav>
     <div class="form-placement">
-      <div class="form-container">
-        <form id="register-form" action="/register" method="POST" novalidate>
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input
-              type="text"
-              class="form-control"
-              id="username"
-              name="name"
-              pattern=".{4,}"
-              required
-            />
-            <div class="invalid-feedback" id="invalid-username">
-              Username must be 4 characters or more.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="email_input">Email address</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email_input"
-              name="email"
-              aria-describedby="emailHelp"
-              placeholder="name@example.com"
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              required
-            />
-            <div class="invalid-feedback" id="email-invalid">
-              Must be a valid email address.
-            </div>
-            <small id="emailHelp" class="form-text text-muted"
-              >We'll never share your email with anyone else</small
+      <nav class="navbar navbar-expand-lg bg-custom">
+        <a class="navbar-brand" href="/">
+          <img
+            src="./images/simple_logo_black.png"
+            alt="airbnb logo black"
+            width="40"
+            height="40"
+          />
+        </a>
+      </nav>
+      <table id="toptable">
+        <tr>
+          <td class="slogan">Your adventure awaits.</td>
+          <td class="form-container">
+            <form
+              id="register-form"
+              action="/register"
+              method="POST"
+              novalidate
             >
-          </div>
-          <div class="form-group">
-            <label for="password_input">Password</label>
-            <input
-              type="password"
-              class="form-control psw"
-              id="password_input"
-              name="password_input"
-              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-              required
-            />
-            <div class="invalid-feedback">
-              Must contain at least 8 characters, 1 number and 1 uppercase and
-              lowercase letter.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="password_confirm">Password confirmation</label>
-            <input
-              type="password"
-              class="form-control psw"
-              id="password_confirm"
-              name="password_confirm"
-              required
-            />
-            <div class="invalid-feedback">Passwords must match.</div>
-          </div>
-          <button type="submit" class="btn btn-dark btn-block">Register</button>
-        </form>
-
-        <div>
-          <p>Already an account? Please <a href="/login">login</a></p>
-        </div>
-      </div>
-
-      <div class="slogan"><h1>Your adventure awaits.</h1></div>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  name="name"
+                  pattern=".{4,}"
+                  required
+                />
+                <div class="invalid-feedback" id="invalid-username">
+                  Username must be 4 characters or more.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email_input">Email address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email_input"
+                  name="email"
+                  aria-describedby="emailHelp"
+                  placeholder="name@example.com"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                  required
+                />
+                <div class="invalid-feedback" id="email-invalid">
+                  Must be a valid email address.
+                </div>
+                <small id="emailHelp" class="form-text text-muted"
+                  >We'll never share your email with anyone else</small
+                >
+              </div>
+              <div class="form-group">
+                <label for="password_input">Password</label>
+                <input
+                  type="password"
+                  class="form-control psw"
+                  id="password_input"
+                  name="password_input"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Must contain at least 8 characters, 1 number and 1 uppercase
+                  and lowercase letter.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password_confirm">Password confirmation</label>
+                <input
+                  type="password"
+                  class="form-control psw"
+                  id="password_confirm"
+                  name="password_confirm"
+                  required
+                />
+                <div class="invalid-feedback">Passwords must match.</div>
+              </div>
+              <button type="submit" class="btn btn-dark btn-block">
+                Register
+              </button>
+            </form>
+          </td>
+        </tr>
+      </table>
     </div>
 
     <div id="reg_details_placement">

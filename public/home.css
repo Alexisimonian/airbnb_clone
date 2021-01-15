@@ -83,7 +83,7 @@ body {
 
 .homepage-text {
   margin-top: 5%;
-  margin-left: 5%;
+  margin-left: 100px;
 }
 
 h1 {
@@ -93,7 +93,7 @@ h1 {
 
 .explore {
   margin-top: 40px;
-  margin-left: 5.5%;
+  margin-left: 120px;
 }
 
 #search {
@@ -135,4 +135,8 @@ h1 {
 #signup_inv {
   position: absolute;
   left: 15px;
+}
+
+.dropdown-menu {
+  margin-top: 10px;
 }

@@ -150,7 +150,10 @@ $("#new-stay-form").on("submit", function (e) {
       processData: false,
       contentType: false,
       success: function () {
-        window.location.href = "/stays";
+        alert(
+          "Stay successfully uploaded.\n\nYou will be redirected to the home page.\nYou can now search for your stay from there."
+        );
+        window.location.href = "/";
       },
       error: function (data) {
         $("#errors").text(data.responseText);

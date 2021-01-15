@@ -1,6 +1,6 @@
 //Set number of guests in search
 $(".guest_value").on("click", function () {
-  $("#nb_selected").text($(this).text());
+  $("#nb_selected").text($(this).text() + " guests");
   document.getElementById("guests").value = $(this).text();
 });
 

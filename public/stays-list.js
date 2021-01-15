@@ -1,3 +1,8 @@
+//Redirect if arrived through search bar
+if (window.location.href.indexOf("?") == -1) {
+  window.location.href = "/stays?country=France&locality=Paris";
+}
+
 //Map implementation
 let map;
 let marker;
@@ -68,15 +73,15 @@ function changeCenter(center) {
   marker.setPosition(center);
 }
 
-$(document).on("mouseover", ".offer", function () {
+$(document).on("mouseenter", ".offer", function () {
   let offer_id = this.id.split("offer")[1];
   let latlng = homesList[offer_id].latlng.split(",");
   let newcenter = { lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1]) };
   changeCenter(newcenter);
 });
 
-$(document).on("mouseout", ".offer", function () {
-  map.setCenter({ lat: 48.862725, lng: 2.287592 });
+$(document).on("mouseleave", ".offer", function () {
+  setFirstCenter();
   marker.setPosition(null);
 });
 
@@ -296,7 +301,7 @@ $("#bookingbtn").click(function () {
       complete: function () {
         $("#offermodal").modal("hide");
         alert(
-          "Stay successfully booked! <br/> <br/> You can see or cancel your bookings on your account's page"
+          "Stay successfully booked!\n\nYou can see or cancel your bookings on your account's page"
         );
         location.reload();
       },
