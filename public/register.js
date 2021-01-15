@@ -5,6 +5,7 @@ $(".form-control").on("input", function () {
 
 //Verify username validity and change input status after user input
 $("#username").on("input", function () {
+  $("#invalid-username").text("Username must be 4 characters or more.");
   let input = $(this)[0];
   let inputData = $(this);
   if (input.checkValidity()) {
@@ -26,6 +27,7 @@ $("#username").on("input", function () {
 
 //Verify email validity and change input status after user input
 $("#email_input").on("change", function () {
+  $("#email-invalid").text("Must be a valid email address.");
   let input = $(this)[0];
   let inputData = $(this);
   if (input.checkValidity()) {
