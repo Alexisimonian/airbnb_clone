@@ -1,9 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const upload = require("../middlewares/photo_upload");
+const { User } = require("../src/user");
 const { Stays } = require("../src/stays");
 const stay = require("../src/stay");
 
+const user = new User();
 const stays = new Stays();
 const staysRoutes = express.Router();
 
@@ -13,10 +15,13 @@ staysRoutes.get("/stays", async (req, res) => {
     logbtn = "logout";
   }
   let listing = await stays.listingStays();
+  let booked = await user.getBooked(req.session.userId);
+  let bookedlist = JSON.stringify(booked);
   let fullListing = JSON.stringify(listing);
   let options = {
     root: "public",
     headers: {
+      booked: bookedlist,
       logbtn: logbtn,
       listing: fullListing,
     },
@@ -47,7 +52,11 @@ staysRoutes.post("/stays", async (req, res) => {
 });
 
 staysRoutes.get("/stays/new", (req, res) => {
-  res.sendFile("new-stay.html", { root: "public" });
+  if (req.session.loggedin === true) {
+    res.sendFile("new-stay.html", { root: "public" });
+  } else {
+    res.redirect("/");
+  }
 });
 
 staysRoutes.post("/stays/new", async (req, res) => {
@@ -96,13 +105,25 @@ staysRoutes.post("/stays/new", async (req, res) => {
 staysRoutes.post("/booking/stays", async (req, res) => {
   let id = req.body.id;
   let stay = await stays.findStay(id);
-  stay = JSON.stringify(stay);
-  let options = { stay: stay };
-  res.writeHead(200, { options }).end();
+  let staylist = JSON.stringify(stay);
+  res.setHeader("stay", staylist);
+  res.status(200).end();
 });
 
-staysRoutes.post("/change/stays/infos", async (req, res) => {});
+staysRoutes.post("/stays/book", (req, res) => {
+  let user_id = req.session.userId;
+  let stay_id = req.body.stayid;
+  let price = req.body.price;
+  let start = req.body.start.split("T")[0];
+  let end = req.body.end.split("T")[0];
+  stays.book(user_id, stay_id, price, start, end);
+  res.end();
+});
 
-staysRoutes.post("/change/stays/photos", async (req, res) => {});
+staysRoutes.post("/stays/unbook", (req, res) => {
+  let bookingid = req.body.id;
+  stays.unbook(bookingid);
+  res.end();
+});
 
 module.exports = { StaysRoutes: staysRoutes };

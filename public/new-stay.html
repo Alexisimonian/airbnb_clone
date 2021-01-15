@@ -25,161 +25,295 @@
 
   <!-- Body -->
   <body>
-    <div class="new-listing">
-      <p>Tell us about your place</p>
-      <form
-        class="needs-validation"
-        id="new-stay-form"
-        action="/stays/new"
-        method="POST"
-        novalidate
-      >
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            name="title"
-            placeholder="i.e. Nice house next to the beach"
-            required
+    <!-- Top of the page -->
+    <div id="top">
+      <!-- navbar -->
+      <nav class="navbar navbar-expand-lg bg-custom">
+        <a class="navbar-brand" href="/">
+          <img
+            src="../images/simple_logo_black.png"
+            alt="airbnb logo black"
+            width="40"
+            height="40"
           />
-          <div class="invalid-feedback">Please enter a title.</div>
-        </div>
-        <label for="address">Address</label>
-        <div class="form-group" id="location-field">
-          <input
-            type="text"
-            class="form-control"
-            id="autocomplete"
-            name="address"
-            placeholder="Enter the place's address."
-            required
-          />
-          <div class="invalid-feedback">Please enter a valid address.</div>
-        </div>
-        <div id="address">
-          <input
-            type="hidden"
-            class="form-control field"
-            id="street_number"
-            name="street_number"
-          />
-          <input type="hidden" class="form-control" id="route" name="route" />
-          <input
-            type="hidden"
-            class="form-control field"
-            id="locality"
-            name="locality"
-          />
-          <input
-            type="hidden"
-            class="form-control field"
-            id="postal_code"
-            name="postal_code"
-          />
-          <input
-            type="hidden"
-            class="form-control field"
-            id="country"
-            name="country"
-          />
-          <input type="hidden" class="form-control" id="latitude" name="lat" />
-          <input type="hidden" class="form-control" id="longitude" name="lng" />
-        </div>
-        <div class="form-row">
-          <div class="form-group col">
-            <select class="form-control" id="place_type" name="place_type">
-              <option selected>Entire place</option>
-              <option>Private room</option>
-              <option>Shared room</option>
-            </select>
-          </div>
-          <div class="form-group col">
-            <select class="form-control" id="place_size" name="place_size">
-              <option>1 guest</option>
-              <option>2 guests</option>
-              <option>3 guests</option>
-              <option>4 guests</option>
-              <option>5 guests</option>
-              <option>6 guests</option>
-              <option>7 guests</option>
-              <option>8 guests</option>
-              <option>9 guests</option>
-              <option>10 guests</option>
-              <option>11 guests</option>
-              <option>12 guests</option>
-            </select>
-          </div>
-          <div class="form-group col">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">€</div>
-              </div>
-              <input
-                class="form-control"
-                type="number"
-                name="price"
-                min="0"
-                max="9999"
-                required
-              />
-              <div class="input-group-append">
-                <div class="input-group-text">per night</div>
-              </div>
-              <div class="invalid-feedback">Please enter a valid price.</div>
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col">
-            <label for="available_from">Available from</label>
-            <input
-              type="button"
-              class="form-control"
-              id="available_from"
-              name="available_from"
-              required
-            />
-            <div class="invalid-feedback">Please enter a valid start date.</div>
-          </div>
-          <div class="col">
-            <label for="available_to">Available until</label>
-            <input
-              type="button"
-              class="form-control"
-              id="available_to"
-              name="available_to"
-              required
-            />
-            <div class="invalid-feedback">Please enter a valid end date.</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="image-files">Select at least one photo</label>
-          <input
-            type="file"
-            class="form-control-file"
-            id="image-files"
-            multiple
-            required
-          />
-          <div class="invalid-feedback">Please select at least one file.</div>
-          <div id="errors"></div>
-        </div>
-        <div id="preview-images"></div>
-        <div class="form-group">
-          <textarea
-            class="form-control"
-            id="description"
-            name="description"
-            rows="4"
-            cols="50"
-            required
-          ></textarea>
-        </div>
-        <button type="submit" class="btn btn-dark">Host your home</button>
-      </form>
+        </a>
+      </nav>
+      <!-- Title -->
+      <table id="global-design">
+        <tr class="glbl-tr">
+          <th id="page-title" colspan="3">Upload your stay !</th>
+        </tr>
+
+        <form
+          class="needs-validation"
+          id="new-stay-form"
+          action="/stays/new"
+          method="POST"
+          novalidate
+        >
+          <tr>
+            <td>
+              <!-- Basic information -->
+              <table class="input-box">
+                <tr class="tr-input">
+                  <th class="input-title" colspan="4">
+                    Tell us about your place
+                  </th>
+                </tr>
+                <!-- Stay title -->
+                <tr class="tr-input">
+                  <td class="td-input" colspan="4">
+                    <div class="form-group">
+                      <label for="title">Title</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        name="title"
+                        placeholder="i.e. Nice house next to the beach"
+                        required
+                      />
+                      <div class="invalid-feedback">Please enter a title.</div>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Stay address -->
+                <tr class="tr-input">
+                  <td class="td-input" colspan="4">
+                    <div class="form-group" id="location-field">
+                      <label for="address">Address</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="autocomplete"
+                        name="address"
+                        placeholder="Enter the place's address."
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please enter a valid address.
+                      </div>
+                    </div>
+                  </td>
+                  <div id="address">
+                    <input
+                      type="hidden"
+                      class="form-control field"
+                      id="street_number"
+                      name="street_number"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="route"
+                      name="route"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control field"
+                      id="locality"
+                      name="locality"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control field"
+                      id="postal_code"
+                      name="postal_code"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control field"
+                      id="country"
+                      name="country"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="latitude"
+                      name="lat"
+                    />
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="longitude"
+                      name="lng"
+                    />
+                  </div>
+                </tr>
+                <!-- Stay type, size and price -->
+                <tr class="tr-input">
+                  <td class="input-col-3 td-input">
+                    <!-- Type -->
+                    <div class="form-group">
+                      <select
+                        class="form-control"
+                        id="place_type"
+                        name="place_type"
+                      >
+                        <option selected>Entire place</option>
+                        <option>Private room</option>
+                        <option>Shared room</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td class="input-col-3 td-input" colspan="2">
+                    <!-- Size -->
+                    <div class="form-group">
+                      <select
+                        class="form-control"
+                        id="place_size"
+                        name="place_size"
+                      >
+                        <option>1 guest</option>
+                        <option>2 guests</option>
+                        <option>3 guests</option>
+                        <option>4 guests</option>
+                        <option>5 guests</option>
+                        <option>6 guests</option>
+                        <option>7 guests</option>
+                        <option>8 guests</option>
+                        <option>9 guests</option>
+                        <option>10 guests</option>
+                        <option>11 guests</option>
+                        <option>12 guests</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td class="input-col-3 td-input">
+                    <!-- Price -->
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input
+                          class="form-control"
+                          type="number"
+                          name="price"
+                          min="0"
+                          max="9999"
+                          required
+                        />
+                        <div class="input-group-append">
+                          <div class="input-group-text">€/night</div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Stay dates -->
+                <tr class="tr-input">
+                  <td class="input-col-2 td-input" colspan="2">
+                    <!-- Available from -->
+                    <div class="form-group">
+                      <label for="available_from">Available from</label>
+                      <input
+                        type="button"
+                        class="form-control"
+                        id="available_from"
+                        name="available_from"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please enter a valid start date.
+                      </div>
+                    </div>
+                  </td>
+                  <td class="input-col-2 td-input" colspan="2">
+                    <!-- Available until -->
+                    <div class="form-group">
+                      <label for="available_to">Available until</label>
+                      <input
+                        type="button"
+                        class="form-control"
+                        id="available_to"
+                        name="available_to"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please enter a valid end date.
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table class="input-box">
+                <tr>
+                  <th class="input-title">
+                    Select at least one picture for your stay
+                  </th>
+                </tr>
+                <!-- Stay photos -->
+                <tr class="tr-input">
+                  <td class="td-input imagebox">
+                    <div class="form-group">
+                      <label
+                        class="btn btn-warning"
+                        id="selectbtn"
+                        for="image-files"
+                        >Select photo</label
+                      >
+                      <input
+                        type="file"
+                        class="form-control-file"
+                        id="image-files"
+                        style="visibility: hidden"
+                        accept="image/png, image/jpeg"
+                        multiple
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please select at least one file.
+                      </div>
+                    </div>
+                    <div id="preview-images"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div id="errors"></div></td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table class="input-box">
+                <tr>
+                  <th class="input-title">
+                    Stays with descriptions are waaay more popular
+                  </th>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-group">
+                      <textarea
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        rows="4"
+                        cols="50"
+                        style="border: none"
+                        required
+                      ></textarea>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="glbl-tr">
+            <td colspan="3">
+              <button type="submit" class="btn btn-warning" id="hostbtn">
+                Host your home
+              </button>
+            </td>
+          </tr>
+        </form>
+      </table>
+    </div>
+    <!-- Bottom of the page -->
+    <div id="bottom">
+      <h2 id="bottom-title">
+        Share your beautiful house and earn money
+        <span id="easily">easily</span>!
+      </h2>
     </div>
 
     <!-- External scripts -->

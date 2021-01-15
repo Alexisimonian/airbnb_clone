@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const cors = require("cors");
 const app = express();
+const favicon = require("serve-favicon");
+const path = require("path");
 
 const HomeRoutes = require("./controllers/home_controller");
 const StaysRoutes = require("./controllers/stays_controller");
@@ -21,6 +23,7 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 app.use("/", HomeRoutes.HomeRoutes);
 app.use("/", StaysRoutes.StaysRoutes);
 app.use("/", AccountRoutes.AccountRoutes);

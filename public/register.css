@@ -1,25 +1,22 @@
+#toptable {
+  width: 85%;
+  border-collapse: separate;
+}
+
 .form-placement {
-  position: relative;
-  height: 60vh;
   background-color: antiquewhite;
+  padding-bottom: 50px;
 }
 
 .form-container {
-  position: absolute;
   background-color: white;
-  width: 35%;
-  height: 90%;
-  padding: 15px;
+  padding: 20px;
   border-radius: 15px;
-  box-shadow: 0px 1px 2px 2px #acabab;
-  left: 55%;
-  top: 10px;
+  border: 1px solid rgb(141, 141, 141);
 }
 
-h1 {
-  position: absolute;
-  top: 40%;
-  left: 8%;
+.slogan {
+  padding-left: 60px;
   font-weight: bold;
   font-size: 60px;
 }

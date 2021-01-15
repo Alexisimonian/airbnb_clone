@@ -2,6 +2,10 @@ $(".form-control").on("input", function () {
   $(this).removeClass("is-invalid");
 });
 
+$("#available_from, #available_to").on("click", function () {
+  $(this).removeClass("is-invalid");
+});
+
 // Autocomplete setup
 let placeSearch;
 let autocomplete;
@@ -9,7 +13,7 @@ const componentForm = {
   street_number: "short_name",
   route: "long_name",
   locality: "long_name",
-  country: "short_name",
+  country: "long_name",
   postal_code: "short_name",
 };
 
@@ -80,6 +84,7 @@ $("#available_to").datepicker({
 let fileCollection = new Array();
 
 $("#image-files").on("change", function (e) {
+  $(this).removeClass("is-invalid");
   let files = e.target.files;
   $.each(files, function (i, file) {
     if (fileCollection.length < 5) {
@@ -88,9 +93,9 @@ $("#image-files").on("change", function (e) {
       reader.readAsDataURL(file);
 
       reader.onload = function (e) {
-        let template = `<span class= 'pip'>
-          <img id='image' src='${e.target.result}'>
-          <span class='remove'>Remove</span>
+        let template = `<span class='pip'>
+          <img id='image' src='${e.target.result}' width='90px'>
+          <button class='btn btn-light remove'><span class='fa fa-times'></span></button>
         </span>`;
 
         $("#preview-images").append(template);
@@ -100,6 +105,7 @@ $("#image-files").on("change", function (e) {
             return value != file;
           });
           $(this).parent(".pip").remove();
+          $("#errors").text("");
         });
       };
     } else {
@@ -113,6 +119,8 @@ $("#new-stay-form").on("submit", function (e) {
   e.preventDefault();
   let form = $(this)[0];
   let formData = new FormData(form);
+  formData.append("available_from", $("#available_from").val());
+  formData.append("available_to", $("#available_to").val());
 
   $(":input").each(function () {
     if ($(this).val() == "") {
@@ -124,11 +132,13 @@ $("#new-stay-form").on("submit", function (e) {
     $("#autocomplete").addClass("is-invalid");
   }
 
-  if (fileCollection.length >= 1) {
-    $("#image-files").removeClass("is-invalid");
+  if (fileCollection.length == 0) {
+    $("#image-files").addClass("is-invalid");
   }
 
-  if ($(this).find(".is-invalid").length === 1) {
+  $(".btn").removeClass("is-invalid");
+
+  if (document.getElementsByClassName("is-invalid").length == 0) {
     $.each(fileCollection, function (i, image) {
       formData.append("files", fileCollection[i]);
     });
@@ -140,7 +150,10 @@ $("#new-stay-form").on("submit", function (e) {
       processData: false,
       contentType: false,
       success: function () {
-        window.location.href = "http://localhost:3000/stays";
+        alert(
+          "Stay successfully uploaded.\n\nYou will be redirected to the home page.\nYou can now search for your stay from there."
+        );
+        window.location.href = "/";
       },
       error: function (data) {
         $("#errors").text(data.responseText);

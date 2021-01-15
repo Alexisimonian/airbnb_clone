@@ -1,3 +1,5 @@
+let booking_ordered = new Array();
+
 $.ajax({
   type: "GET",
   url: "/account",
@@ -30,128 +32,62 @@ $.ajax({
 
     //Bookings information
     if (bookings.length == 0) {
-      $("#incomingtrip, #previoustrip").each(function () {
-        $(this).after(
-          "<tr class='field'><td>Nothing to show. Book your next holidays !</td></tr>"
-        );
-      });
+      $("#incomingtrip").after(
+        "<tr class='field'><td>Nothing to show. Book your next holidays !</td></tr>"
+      );
     } else {
-      let now = new Date();
-      now = Date.parse(now);
-      $.each(bookings, function (index, element) {
-        data = { id: element.stay };
+      $.each(bookings, function (i, elem) {
+        booking_ordered.push(elem);
+        data = {
+          id: elem.stay,
+        };
         $.ajax({
-          type: "post",
+          type: "POST",
           url: "/booking/stays",
           data: data,
           complete: function (xhr) {
-            let stay = JSON.parse(xhr.getResponseHeader("stay"));
-            stay = stay[0];
-            let full_offer = `<div id='offer${index}'>
-            <table>
-              <tr>
-                <td>
-                <div id='carousel-nb${index}' class='carousel slide' data-interval='false' data-ride='carousel'>
-                  <div class='carousel-inner' id='carousel-inner-nb${index}'></div>
-                    <a class='carousel-control-prev' href='#carousel-nb${index}' role='button' data-slide='prev'>
-                      <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-                      <span class='sr-only'>Previous</span>
-                    </a>
-                    <a class='carousel-control-next' href='#carousel-nb${index}' role='button' data-slide='next'>
-                      <span class='carousel-control-next-icon' aria-hidden='true'></span>
-                      <span class='sr-only'>Next</span>
-                    </a>
-                  </div>
-                </td>
-                <td>
-                  <div id='offer-text'>
-                    <h4>${stay.title}</h4>
-                    <p>${stay.price}€ /night</p>
-                  </div>
-                </td>
-              </tr>
-            </table>
-            </div>`;
+            let stay = JSON.parse(xhr.getResponseHeader("stay"))[0];
+            let images = stay.images.split(",");
+            $("#incomingtrip").after(
+              `<tr><td><table class='bookingstable' id='bookingstable${i}'><tr>
+              <td id='offerbox' rowspan='3'><div id='carousel${i}' class='carousel slide small-carousel' data-interval='false' data-ride='carousel'>
+                <div class='carousel-inner' id='inner${i}'></div>
+                <a class="carousel-control-prev" id='prev-control${i}' href="#carousel${i}" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" id='next-control${i}' href="#carousel${i}" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+                </div></td>
+              <td colspan='2' id='bookingtitle'>${stay.title}</td>
+              <td id='unbooklink'><a href='#' style='color: #FF0000;'>Unbook</a></td></tr>
+              <tr><td>${stay.price} €/night</td>
+              <td>${stay.type}</td>
+              <td>${stay.size} guests</td></tr>
+              <tr><td colspan='3'> ${stay.description}</td></tr></table></td></tr>`
+            );
 
-            if (now >= Date.parse(e.start)) {
-              $("#previoustrip").after(
-                `<tr class="field">
-                  <td>${full_offer}</td>
-                </tr>`
-              );
-            } else {
-              $("#incomingtrip").after(
-                `<tr class="field">
-                  <td>${full_offer}</td>
-                </tr>`
-              );
+            if (images.length == 1) {
+              $("#prev-control" + i).remove();
+              $("#next-control" + i).remove();
             }
 
-            $.each(stay.images, function (i, e) {
+            $.each(images, function (index, elem) {
               let active = "";
-              if (i === 0) {
+              if (index === 0) {
                 active = " active";
               }
-              $("#carousel-inner-nb" + index).append(
-                `<div class='carousel-item${active}'>
-                <img src='/photosOffers/${stay.images[i]}' class='d-block w-100'>
-                </div>`
-              );
+              $("#inner" + i).append(`
+              <div class='carousel-item${active}' id='small-image'>
+              <img src='/photosOffers/${elem}'>
+              </div>`);
             });
           },
         });
       });
     }
-
-    //Stays information
-    if (stays.length == 0) {
-      $("#stays").after(
-        "<tr class='field'><td>Nothing to show. Become a host !</td></tr>"
-      );
-    }
-    $.each(stays, function (index, element) {
-      $("#stays").after(`<tr class='field'>
-          <td>
-            <div id='offer${index}'>
-              <table>
-                <tr>
-                  <td>
-                  <div id='carousel-nb${index}' class='carousel slide' data-interval='false' data-ride='carousel'>
-                    <div class='carousel-inner' id='carousel-inner-nb${index}'></div>
-                      <a class='carousel-control-prev' href='#carousel-nb${index}' role='button' data-slide='prev'>
-                        <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-                        <span class='sr-only'>Previous</span>
-                      </a>
-                      <a class='carousel-control-next' href='#carousel-nb${index}' role='button' data-slide='next'>
-                        <span class='carousel-control-next-icon' aria-hidden='true'></span>
-                        <span class='sr-only'>Next</span>
-                      </a>
-                    </div>
-                  </td>
-                  <td>
-                    <div id='offer-text'>
-                      <h4>${element.title}</h4>
-                      <p>${element.price}€ /night</p>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>;
-          </td>
-        </tr>`);
-
-      $.each(element.images, function (i, e) {
-        let active = "";
-        if (i === 0) {
-          active = " active";
-        }
-        $("#carousel-inner-nb" + index).append(
-          `<div class='carousel-item${active}'>
-            <img src='/photosOffers/${element.images[i]}' class='d-block w-100'>
-          </div>`
-        );
-      });
-    });
   },
 });
 
@@ -246,7 +182,7 @@ $(".modtext").on("submit", function (e) {
       url: "/change/account/infos",
       data: data,
       success: function () {
-        window.location.href = "http://localhost:3000/account";
+        window.location.href = "/account";
       },
       error: function (data) {
         let errormsg = data.responseText;
@@ -271,7 +207,7 @@ $(".modav").on("submit", function (e) {
     processData: false,
     contentType: false,
     success: function () {
-      window.location.href = "http://localhost:3000/account";
+      window.location.href = "/account";
     },
     error: function () {
       alert("Something went wrong uploading your file");
@@ -281,5 +217,31 @@ $(".modav").on("submit", function (e) {
 
 //Delete account
 $("#delete-account-btn").on("click", function () {
-  window.location.href = "http://localhost:3000/change/account/remove";
+  window.location.href = "/change/account/remove";
+});
+
+$("#createHome").click(function () {
+  window.location.href = "/stays/new";
+});
+
+let unbookingid;
+//Unbook stay
+$(document).on("click", "#unbooklink", function (e) {
+  e.preventDefault();
+  order = $(this).parents(".bookingstable")[0].id.split("table")[1];
+  unbookingid = booking_ordered[order].id;
+  $("#unbook-confirmation").modal();
+});
+
+$(document).on("click", "#unbook-btn", function (e) {
+  e.preventDefault();
+  let data = { id: unbookingid };
+  $.ajax({
+    type: "POST",
+    url: "/stays/unbook",
+    data: data,
+    complete: function () {
+      location.reload();
+    },
+  });
 });

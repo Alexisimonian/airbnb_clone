@@ -16,27 +16,31 @@ accountRoutes.get("/register", (req, res) => {
 });
 
 accountRoutes.get("/account", async (req, res) => {
-  let userid = req.session.userId;
-  let user_details = await user.getUser(userid);
-  let user_stays = await user.getUploadedStays(userid);
-  let user_books = await user.getBooked(userid);
-  let bookings = JSON.stringify(user_books);
-  let stays = JSON.stringify(user_stays);
-  let userinf = JSON.stringify(user_details);
-  let logbtn = "login";
-  if (req.session.loggedin) {
-    logbtn = "logout";
+  if (req.session.loggedin == true) {
+    let userid = req.session.userId;
+    let user_details = await user.getUser(userid);
+    let user_stays = await user.getUploadedStays(userid);
+    let user_books = await user.getBooked(userid);
+    let bookings = JSON.stringify(user_books);
+    let stays = JSON.stringify(user_stays);
+    let userinf = JSON.stringify(user_details);
+    let logbtn = "login";
+    if (req.session.loggedin) {
+      logbtn = "logout";
+    }
+    let options = {
+      root: "public",
+      headers: {
+        bookings: bookings,
+        stays: stays,
+        user: userinf,
+        logbtn: logbtn,
+      },
+    };
+    res.sendFile("account.html", options);
+  } else {
+    res.redirect("/");
   }
-  let options = {
-    root: "public",
-    headers: {
-      bookings: bookings,
-      stays: stays,
-      user: userinf,
-      logbtn: logbtn,
-    },
-  };
-  res.sendFile("account.html", options);
 });
 
 accountRoutes.get("/change/account/remove", async (req, res) => {
@@ -129,7 +133,7 @@ accountRoutes.post("/register", async (req, res) => {
 
 accountRoutes.get("/logout", (req, res) => {
   req.session.destroy();
-  res.redirect("/");
+  res.redirect("back");
 });
 
 accountRoutes.post("/change/account/infos", async (req, res) => {

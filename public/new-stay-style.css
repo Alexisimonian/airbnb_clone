@@ -1,10 +1,154 @@
-#image {
-  width: 200px;
-  height: 150px;
-  overflow: hidden;
+.input-box {
+  position: relative;
+  width: 27vw;
+  border: 1px solid gray;
+  border-collapse: separate;
+  border-radius: 13px;
+  margin: auto;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0px 1px 2px 2px #acabab;
 }
 
-#description {
-  width: 300px;
+.input-col-3 {
+  width: 33%;
+}
+
+#global-design {
+  width: 100%;
+}
+
+#errors {
+  color: red;
+}
+
+#image {
+  position: relative;
+  border-radius: 5px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  transform: translate(10px, -20px);
+}
+
+.remove {
+  position: absolute;
+  transform: translate(-30px, -30px);
+  border-radius: 50px;
+}
+
+.imagebox {
+  position: relative;
+  text-align: center;
+}
+
+#selectbtn {
+  margin-top: 10px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.input-title {
+  position: relative;
+  height: 50px;
+  text-align: center;
+  top: -6px;
+  border-bottom: 1px solid #dedede;
+  font-size: 18px;
+}
+
+.td-input {
+  padding: 5px;
+}
+
+.glbl-tr {
+  text-align: center;
   height: 150px;
+}
+
+#page-title {
+  font-size: 50px;
+  margin-bottom: 50px;
+  font-weight: bold;
+  transform: translate(0, -50px);
+}
+
+#hostbtn {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+label {
+  font-weight: bold;
+}
+
+#top {
+  background-color: oldlace;
+}
+
+#bottom-title {
+  font-weight: bold;
+  font-size: 50px;
+  margin-top: 60px;
+  text-align: center;
+}
+
+#easily {
+  color: red;
+}
+
+.bg-custom {
+  background-color: oldlace;
+}
+nav {
+  z-index: 1;
+}
+
+/* datepicker */
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+.ui-datepicker .ui-state-highlight {
+  background: #f6f6f6;
+  border: 1px solid #c5c5c5;
+  color: #454545;
+}
+
+.dropdown-menu::before,
+.dropdown-menu::after {
+  border: none;
+  content: none;
+}
+
+.ui-datepicker-calendar a {
+  text-align: center !important ;
+  background-color: white !important;
+  border: none !important;
+  font-weight: bold !important;
+}
+
+.ui-datepicker td.ui-state-disabled > span {
+  text-align: center !important;
+  background-color: white !important;
+  border: none !important;
+}
+
+.ui-datepicker-header {
+  background-color: white;
+  border: none;
+}
+
+.ui-datepicker {
+  border-radius: 15px;
+  margin-top: 10px;
+  transform: translate(-20px, 0);
 }

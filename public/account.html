@@ -54,8 +54,6 @@
               </button>
               <div class="dropdown-menu" aria-labelledby="logdropdown">
                 <a class="dropdown-item" id="logbtn"></a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#"> Help </a>
               </div>
             </div>
           </li>
@@ -68,9 +66,9 @@
       <table id="userinfo">
         <!-- Avatar section collapsed -->
         <tr class="field expand">
-          <td>
+          <td class="first-row">
             <div class="preclick">
-              <div class="identifier">PHOTO</div>
+              <div class="identifier">PHOTO:</div>
               <div class="info" id="account_photo">IMG</div>
             </div>
 
@@ -99,7 +97,7 @@
         <tr class="field expand">
           <td>
             <div class="preclick">
-              <div class="identifier">USERNAME</div>
+              <div class="identifier">USERNAME:</div>
               <div class="info" id="account_name">NAME</div>
             </div>
 
@@ -140,7 +138,7 @@
         <tr class="field expand">
           <td>
             <div class="preclick">
-              <div class="identifier">EMAIL ADDRESS</div>
+              <div class="identifier">EMAIL ADDRESS:</div>
               <div class="info" id="account_email">EMAIL</div>
             </div>
 
@@ -192,7 +190,7 @@
         <tr class="field expand">
           <td>
             <div class="preclick">
-              <div class="identifier">PASSWORD</div>
+              <div class="identifier">PASSWORD:</div>
               <div class="info" id="password">**********</div>
             </div>
 
@@ -258,23 +256,13 @@
       <!-- Previous and incoming trips -->
       <table id="userbookings">
         <tr class="field" id="incomingtrip">
-          <th>Incoming holidays:</th>
-        </tr>
-        <tr class="field" id="previoustrip">
-          <th>Stays you went:</th>
-        </tr>
-      </table>
-
-      <!-- Stays user posted -->
-      <table id="userstays">
-        <tr class="field" id="stays">
-          <th>Added houses:</th>
+          <th>INCOMING TRIPS:</th>
         </tr>
       </table>
 
       <!-- Delete account button -->
       <table id="delete-account">
-        <tr class="field">
+        <tr>
           <td id="delete-account-box">
             <button
               class="btn btn-danger"
@@ -318,6 +306,38 @@
             <button class="btn btn-danger" id="delete-account-btn">
               Delete
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Are you sure? unbook modal -->
+    <div
+      class="modal fade"
+      id="unbook-confirmation"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="unbook-modal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><strong> Are you sure ? </strong></h3>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            ></button>
+            <span aria-hidden="true">&times;</span>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to cancel this booking?
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal">Close</button>
+            <button class="btn btn-danger" id="unbook-btn">unbook</button>
           </div>
         </div>
       </div>

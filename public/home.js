@@ -1,6 +1,6 @@
 //Set number of guests in search
 $(".guest_value").on("click", function () {
-  $("#nb_selected").text($(this).text());
+  $("#nb_selected").text($(this).text() + " guests");
   document.getElementById("guests").value = $(this).text();
 });
 
@@ -29,7 +29,7 @@ $.ajax({
       $("#logbtn").attr("data-toggle", "modal");
       $("#logbtn").attr("data-target", "#logmodal");
       $("#logbtn").after(
-        "<a class='dropdown-item' href='/register'> Sign up </a>"
+        "<div class='dropdown-divider'></div><a class='dropdown-item' href='/register'> Sign up </a>"
       );
     } else {
       $("#logbtn").attr("href", "/logout");
@@ -66,7 +66,7 @@ $("#login-form").on("submit", function (e) {
       data: data,
       dataType: "text",
       success: function () {
-        window.location.href = "http://localhost:3000/";
+        window.location.href = "/";
       },
       error: function (data) {
         if (data.responseText == "email incorrect") {
@@ -85,8 +85,8 @@ $("#login-form").on("submit", function (e) {
 let placeSearch;
 let autocomplete;
 const componentForm = {
-  locality: "short_name",
-  country: "short_name",
+  locality: "long_name",
+  country: "long_name",
 };
 
 function resetAutoComplete() {
@@ -317,4 +317,14 @@ $(document).on("click", function (e) {
 
 $("#guest_select").on("click", function () {
   $(".datepicker").hide();
+});
+
+//Become host btn only available to loggedin users
+$("#becomehostbtn").click(function (e) {
+  e.preventDefault();
+  if ($("#logbtn").text() == "login") {
+    $("#logmodal").modal();
+  } else {
+    window.location.href = "/stays/new";
+  }
 });
