@@ -105,19 +105,24 @@ staysRoutes.post("/stays/new", async (req, res) => {
 staysRoutes.post("/booking/stays", async (req, res) => {
   let id = req.body.id;
   let stay = await stays.findStay(id);
-  stay = JSON.stringify(stay);
-  let options = { stay: stay };
-  res.writeHead(200, { options }).end();
+  let staylist = JSON.stringify(stay);
+  res.setHeader("stay", staylist);
+  res.status(200).end();
 });
 
 staysRoutes.post("/stays/book", (req, res) => {
-  console.log("here");
   let user_id = req.session.userId;
   let stay_id = req.body.stayid;
   let price = req.body.price;
   let start = req.body.start.split("T")[0];
   let end = req.body.end.split("T")[0];
   stays.book(user_id, stay_id, price, start, end);
+  res.end();
+});
+
+staysRoutes.post("/stays/unbook", (req, res) => {
+  let bookingid = req.body.id;
+  stays.unbook(bookingid);
   res.end();
 });
 

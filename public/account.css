@@ -10,7 +10,9 @@
   background-color: #eaedf0;
 }
 
-table {
+#userinfo,
+#userbookings,
+#delete-account {
   position: relative;
   margin-bottom: 20px;
   top: 50px;
@@ -43,4 +45,44 @@ label {
 
 .identifier {
   margin-bottom: 10px;
+}
+
+#small-image img {
+  width: 230px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.small-carousel {
+  width: 230px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+#offerbox {
+  width: 240px;
+  height: 210px;
+}
+
+.bookingstable {
+  width: 100%;
+}
+
+#bookingtitle {
+  font-weight: bold;
+  border-right: none !important;
+}
+
+.bookingstable td {
+  border: 1px solid rgb(189, 189, 189);
+}
+
+.bookingstable:hover {
+  background-color: #eaedf0;
+}
+
+#unbooklink {
+  text-align: right !important;
+  border-left: none !important;
 }

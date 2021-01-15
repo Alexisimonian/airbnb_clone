@@ -33,7 +33,12 @@ class Stays {
   }
 
   findStay(id) {
-    let query = `SELECT * FROM stays WHERE id='${id}'`;
+    let query = dbQuery(`SELECT * FROM stays WHERE id='${id}'`);
+    return query;
+  }
+
+  unbook(bookingid) {
+    let query = dbQuery(`DELETE FROM bookings WHERE id='${bookingid}'`);
     return query;
   }
 

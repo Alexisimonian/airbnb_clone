@@ -125,3 +125,8 @@
 #bigoffertable td:not(#offerdescription, :nth-last-child(2)) {
   border-bottom: 1px solid rgb(241, 241, 241);
 }
+
+.msgbox {
+  height: 15vh;
+  border: 1px solid rgb(241, 241, 241);
+}

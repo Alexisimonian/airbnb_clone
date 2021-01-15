@@ -80,7 +80,7 @@ $("#register-form").submit(function (e) {
       url: "/register",
       data: formData,
       success: function () {
-        window.location.href = "http://localhost:3000/";
+        window.location.href = "/";
       },
     });
   }

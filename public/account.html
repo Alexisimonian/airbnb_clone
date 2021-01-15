@@ -313,6 +313,38 @@
       </div>
     </div>
 
+    <!-- Are you sure? unbook modal -->
+    <div
+      class="modal fade"
+      id="unbook-confirmation"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="unbook-modal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><strong> Are you sure ? </strong></h3>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            ></button>
+            <span aria-hidden="true">&times;</span>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to cancel this booking?
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal">Close</button>
+            <button class="btn btn-danger" id="unbook-btn">unbook</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- External sources -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

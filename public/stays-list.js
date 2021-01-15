@@ -215,14 +215,14 @@ $.ajax({
     });
     if (foundsmth == 0) {
       $("#headrow").after(
-        `<tr><td>We're sorry, there's currently no stay at that destination.
-        <br/>To see some stay example, please add a stay or search for either Paris or France between January and March.
+        `<tr><td class='msgbox'>We're sorry, there's currently no stay at that destination on this demo.
+        <br/><br/>To see some stay examples, please add a stay, or search for either Paris or France between January and March 2021.
         </td></tr>`
       );
     }
-    if (bookedids.length == homesList.length) {
+    if (bookedids.length == homesList.length && foundsmth > 0) {
       $("#headrow").after(
-        `<tr><td>You booked all the example stays. You can unbook them on your account page.</td></tr>`
+        `<tr><td class='msgbox'>You booked all the example stays.<br/><br/> You can unbook them on your account page.</td></tr>`
       );
     }
   },
@@ -296,7 +296,7 @@ $("#bookingbtn").click(function () {
       complete: function () {
         $("#offermodal").modal("hide");
         alert(
-          "Stay successfully booked. You can see or cancel your bookings on your account's page"
+          "Stay successfully booked! <br/> <br/> You can see or cancel your bookings on your account's page"
         );
         location.reload();
       },

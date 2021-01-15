@@ -150,7 +150,7 @@ $("#new-stay-form").on("submit", function (e) {
       processData: false,
       contentType: false,
       success: function () {
-        window.location.href = "http://localhost:3000/stays";
+        window.location.href = "/stays";
       },
       error: function (data) {
         $("#errors").text(data.responseText);

@@ -66,7 +66,7 @@ $("#login-form").on("submit", function (e) {
       data: data,
       dataType: "text",
       success: function () {
-        window.location.href = "http://localhost:3000/";
+        window.location.href = "/";
       },
       error: function (data) {
         if (data.responseText == "email incorrect") {
