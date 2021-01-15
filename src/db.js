@@ -1,11 +1,10 @@
-const credentials = require("./credentials.js");
 const mysql = require("mysql");
 
 let connection = mysql.createConnection({
-  host: "localhost",
-  user: credentials.sqlusername,
-  password: credentials.sqlpassword,
-  database: credentials.sqldb,
+  host: process.env.SQL_HOST,
+  user: process.env.SQL_USER,
+  password: process.env.SQL_PASSWORD,
+  database: process.env.SQL_DB,
 });
 
 function dbQuery(request) {
