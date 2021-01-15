@@ -11,7 +11,13 @@ const HomeRoutes = require("./controllers/home_controller");
 const StaysRoutes = require("./controllers/stays_controller");
 const AccountRoutes = require("./controllers/account_controller");
 
-let port = process.env.PORT || 8000;
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
 
 app.use(express.static("./public")).use(express.static("./uploads"));
 app.use(bodyParser.json());
@@ -27,5 +33,3 @@ app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 app.use("/", HomeRoutes.HomeRoutes);
 app.use("/", StaysRoutes.StaysRoutes);
 app.use("/", AccountRoutes.AccountRoutes);
-app.set("port", port);
-app.listen(port);
