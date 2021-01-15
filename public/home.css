@@ -80,8 +80,8 @@ div.ui-datepicker {
 body {
   background-image: url("./images/pool_background.jpg");
   background-repeat: no-repeat;
-  background-position: center center;
-  min-height: 100%;
+  background-position: center;
+  background-size: cover;
 }
 
 .homepage-text {
