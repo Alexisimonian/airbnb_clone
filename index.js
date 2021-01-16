@@ -20,8 +20,7 @@ app.listen(port, () => {
 
 app
   .use(express.static("./public"))
-  .use(express.static("./uploads"))
-  .use(express.static("./node_modules"));
+  .use(express.static("./node_modules/cloudinary-jquery"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
