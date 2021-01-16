@@ -1,3 +1,5 @@
+$.cloudinary.config({ cloud_name: "dpnbsfq95", secure: true });
+
 //Redirect if arrived through search bar
 if (window.location.href.indexOf("?") == -1) {
   window.location.href = "/stays?country=France&locality=Paris";
@@ -102,14 +104,13 @@ $(document).on("click", ".offer", function (e) {
       $(".bigcarousel-controls").hide();
     }
     $.each(offerimages, function (index, element) {
+      let image_tag = $.cloudinary.imageTag(`${element}`);
       let active = "";
       if (index === 0) {
         active = " active";
       }
       $("#big-image").append(
-        `<div class='carousel-item${active}'>
-          <img src='/photosOffers/${element}'/>
-        </div>`
+        `<div class='carousel-item${active}'>${image_tag}</div>`
       );
     });
     $("#offeraddress").html(
@@ -205,14 +206,13 @@ $.ajax({
 
           //Offer image
           $.each(offer.images, function (i, image) {
+            let image_tag = $.cloudinary.imageTag(`${image}`);
             let active = "";
             if (i === 0) {
               active = " active";
             }
             $("#carousel-inner-nb" + index).append(
-              `<div class='carousel-item${active}' id='small-image'>
-            <img src='/photosOffers/${offer.images[i]}'>
-          </div>`
+              `<div class='carousel-item${active}' id='small-image'>${image_tag}</div>`
             );
           });
         }

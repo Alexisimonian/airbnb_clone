@@ -45,34 +45,6 @@ accountRoutes.get("/account", async (req, res) => {
 
 accountRoutes.get("/change/account/remove", async (req, res) => {
   let userid = req.session.userId;
-  let user_details = await user.getUser(userid);
-  if (user_details[0].avatar != "neutral_avatar.png") {
-    let location = path.join(
-      `${__dirname}/../uploads/avatars/${user_details[0].avatar}`
-    );
-    fs.unlink(location, (err) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-    });
-  }
-  let uploaded_stays = await user.getUploadedStays(userid);
-  if (uploaded_stays.length >= 1) {
-    uploaded_stays.forEach((stay) => {
-      stay.images.forEach((image) => {
-        let location = path.join(
-          `${__dirname}/../uploads/photosOffers/${image}`
-        );
-        fs.unlink(location, (err) => {
-          if (err) {
-            console.log(err);
-            return;
-          }
-        });
-      });
-    });
-  }
   user.deleteUser(userid);
   res.redirect("/logout");
 });
@@ -166,18 +138,6 @@ accountRoutes.post("/change/account/avatar", async (req, res) => {
     await upload(req, res);
     let userid = req.session.userId;
     let name = req.file.filename;
-    let user_details = await user.getUser(userid);
-    if (user_details[0].avatar != "neutral_avatar.png") {
-      let location = path.join(
-        `${__dirname}/../uploads/avatars/${user_details[0].avatar}`
-      );
-      fs.unlink(location, (err) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-      });
-    }
     user.modify(userid, "avatar", name);
     res.status(200).end();
   } catch (error) {
