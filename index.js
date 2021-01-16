@@ -18,7 +18,10 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
-app.use(express.static("./public")).use(express.static("./uploads"));
+app
+  .use(express.static("./public"))
+  .use(express.static("./uploads"))
+  .use(express.static("./node_modules"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
