@@ -1,19 +1,22 @@
-const util = require("util");
-const path = require("path");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, path.join(`${__dirname}/../uploads/avatars`));
-  },
-  filename: function (req, file, callback) {
-    let match = ["image/png", "image/jpeg"];
-    if (match.indexOf(file.mimetype) === -1) {
-      let message = `${file.originalname} is invalid. Only accept png/jpeg.`;
-      return callback(message, null);
-    }
-    let filename = `${Date.now()}-${file.originalname}`;
-    callback(null, filename);
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "airbnb_clone_avatars",
+    allowedFormats: ["jpg", "png", "jpeg"],
+    filename: function (req, file, cb) {
+      let filenamevar = `${Date.now()}-${file.originalname}`;
+      cb(null, filenamevar);
+    },
   },
 });
 
