@@ -18,12 +18,7 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
-app
-  .use(express.static("./public"))
-  .use(
-    "scripts",
-    express.static(__dirname + "/node_modules/cloudinary-jquery/")
-  );
+app.use(express.static("./public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
