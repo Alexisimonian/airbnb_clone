@@ -139,8 +139,6 @@ accountRoutes.post(
   (req, res) => {
     let userid = req.session.userId;
     let name = req.file.key;
-    console.log(req.file);
-    console.log(name);
     user.modify(userid, "avatar", name);
     res.status(200).end();
   }

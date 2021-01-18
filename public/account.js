@@ -27,7 +27,7 @@ $.ajax({
     $("#account_name").text(user.name);
     $("#account_email").text(user.email);
     $("#account_photo").html(
-      `<img src='https://airbnbcloneavatarsas.s3.amazonaws.com/neutral_avatar.png'/>`
+      `<img src='https://airbnbcloneavatarsas.s3.amazonaws.com/${user.avatar}'/>`
     );
 
     //Bookings information
