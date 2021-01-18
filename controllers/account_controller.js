@@ -135,7 +135,7 @@ accountRoutes.post("/change/account/infos", async (req, res) => {
 
 accountRoutes.post(
   "/change/account/avatar",
-  upload.single("file"),
+  upload.single("avatar"),
   (req, res) => {
     let userid = req.session.userId;
     let name = req.file.filename;
