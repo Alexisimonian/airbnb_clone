@@ -81,7 +81,7 @@ $.ajax({
               }
               $("#inner" + i).append(`
               <div class='carousel-item${active}' id='small-image'>
-              <img src='https://airbnbclonehousesas.s3.amazonaws.com/${elem}/>
+              <img src='https://airbnbclonehousesas.s3.amazonaws.com/${elem}'/>
               </div>`);
             });
           },
