@@ -19,6 +19,9 @@ app.listen(port, () => {
 });
 
 app.use(express.static("./public"));
+app.use(express.static("./node_modules/blueimp-file-upload/js/vendor/"));
+app.use(express.static("./node_modules/blueimp-file-upload/js/"));
+app.use(express.static("./node_modules/cloudinary-jquery-file-upload/"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
