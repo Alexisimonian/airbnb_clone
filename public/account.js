@@ -1,3 +1,5 @@
+$.cloudinary.config({ cloud_name: "dpnbsfq95", secure: true });
+
 let booking_ordered = new Array();
 
 $.ajax({
@@ -24,9 +26,11 @@ $.ajax({
     }
 
     //Account information
+    let avatar_tag = $.cloudinary.imageTag(`${user.avatar}`);
+    let avatar_tag_sized = avatar_tag.crop("fit").width(90).toHtml();
     $("#account_name").text(user.name);
     $("#account_email").text(user.email);
-    $("#account_photo").html("");
+    $("#account_photo").html(avatar_tag_sized);
 
     //Bookings information
     if (bookings.length == 0) {
@@ -73,13 +77,13 @@ $.ajax({
             }
 
             $.each(images, function (index, elem) {
-              let image_tag = "";
+              let image_tag = $.cloudinary.imageTag(`${elem}`);
               let active = "";
               if (index === 0) {
                 active = " active";
               }
               $("#inner" + i).append(`
-              <div class='carousel-item${active}' id='small-image'>hi</div>`);
+              <div class='carousel-item${active}' id='small-image'>${image_tag}</div>`);
             });
           },
         });

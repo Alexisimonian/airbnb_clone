@@ -21,8 +21,6 @@ const storage = new CloudinaryStorage({
   },
 });
 
-console.log(storage);
-
 let uploadfiles = multer({ storage: storage }).single("avatar");
 let uploadFilesMiddleware = util.promisify(uploadfiles);
 module.exports = uploadFilesMiddleware;
