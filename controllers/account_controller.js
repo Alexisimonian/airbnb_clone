@@ -133,16 +133,15 @@ accountRoutes.post("/change/account/infos", async (req, res) => {
   res.status(200).end();
 });
 
-accountRoutes.post("/change/account/avatar", async (req, res) => {
-  try {
-    await upload(req, res);
+accountRoutes.post(
+  "/change/account/avatar",
+  upload.single("file"),
+  (req, res) => {
     let userid = req.session.userId;
     let name = req.file.filename;
     user.modify(userid, "avatar", name);
     res.status(200).end();
-  } catch (error) {
-    res.status(422).send(`error uploading your file: ${error}`).end();
   }
-});
+);
 
 module.exports = { AccountRoutes: accountRoutes };
