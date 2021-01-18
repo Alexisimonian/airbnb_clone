@@ -225,7 +225,7 @@ $.ajax({
         </td></tr>`
       );
     }
-    if (bookedids.length == homesList.length && foundsmth > 0) {
+    if (bookedids.length == foundsmth && foundsmth > 0) {
       $("#headrow").after(
         `<tr><td class='msgbox'>You booked all the example stays.<br/><br/> You can unbook them on your account page.</td></tr>`
       );
