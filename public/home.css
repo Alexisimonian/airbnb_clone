@@ -142,3 +142,7 @@ h1 {
 .dropdown-menu {
   margin-top: 10px;
 }
+
+#location {
+  border: 0px;
+}
