@@ -16,7 +16,7 @@ const uploadS3 = multer({
       cb(null, { fieldName: file.fieldname });
     },
     key: (req, file, cb) => {
-      cb(null, Date.now().toString() + "-" + file.originalname);
+      cb(null, `${Date.now()}-${file.originalname}`);
     },
   }),
 });
