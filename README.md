@@ -25,7 +25,6 @@ This app is a clone of the main features of Airbnb in JavaScript. You can access
 
 
 ## How it works
-<hr>
 
 Users can search for a stay from the search bar from homepage. The only field that is mandatory is the location field. The other ones can be left blank.
 
@@ -47,7 +46,6 @@ All adress fields are autocompleted/corrected by **google's map api** ensuring g
 <br>
 
 ## Tools used
-<hr>
 
 <table>
 	<tr>
