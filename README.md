@@ -25,7 +25,6 @@ This app is a clone of the main features of Airbnb in JavaScript. You can access
 
 
 ## How it works
-<hr>
 
 Users can search for a stay from the search bar from homepage. The only field that is mandatory is the location field. The other ones can be left blank.
 
@@ -47,58 +46,26 @@ All adress fields are autocompleted/corrected by **google's map api** ensuring g
 <br>
 
 ## Tools used
-<hr>
 
-<table>
-	<tr>
-		<th>Tool</th>
-		<th>Used for</th>
-	</tr>
-	<tr>
-		<td>[NodeJS](https://nodejs.org/en/), [ExpressJS](https://expressjs.com/)</td>
-		<td>* Backend controls</td>
-	</tr>
-	<tr>
-		<td>[JQuery](https://jquery.com/), [JQuery Datepicker]		(https://jqueryui.com/datepicker/)</td>
-		<td>
-			* Frontend controls
-			* Datepicker
-		</td>
-	</tr>
-	<tr>
-		<td>[Mysql](https://www.mysql.com/), [ClearDb](https://www.cleardb.com/)</td>
-		<td>
-			* Database management
-		</td>
-	</tr>
-	<tr>
-		<td>[Heroku](www.heroku.com)</td>
-		<td>
-			* Hosting
-			* Environment variables
-		</td>
-	</tr>
-	<tr>
-		<td>[Google MAP API](https://developers.google.com/maps/documentation/javascript/overview)</td>
-		<td>
-			* Map
-			* Geocoder
-			* Autocomplete
-			* Positionning markers
-			* Getting extra informations from addresses (e.g. latitude and longitude)
-		</td>
-	</tr>
-		<tr>
-		<td>[AWS-SDK](https://aws.amazon.com/sdk-for-javascript/), [Multer](https://github.com/expressjs/multer), [Multer-S3](https://www.npmjs.com/package/multer-s3)</td>
-		<td>
-			* Cloud file management
-		</td>
-	</tr>
-	<tr>
-		<td>[Bcrypt](https://www.npmjs.com/package/bcrypt)</td>
-		<td>
-			* Crypt passwords
-		</td>
-	</tr>
-	
-</table>
+| Tool | Used for |
+|---|---|
+| [NodeJS], [ExpressJS] | Backend controls |
+| [JQuery], [JQuery Datepicker] | Frontend controls + Base for datepicker |
+| [Mysql], [ClearDB] | Database management |
+| [Heroku] | Hosting + Environment variables |
+| [Google Map API] | Map + Geocoder + Autocomplete + Positioning markers + Extra information from addresses (e.g. latitude and longitude) |
+| [AWS-SDK], [Multer], [Multer-S3] | Cloud file management |
+| [Bcrypt] | Crypt users' passwords |
+
+[NodeJS]: https://nodejs.org/en/
+[ExpressJS]: https://expressjs.com/
+[JQuery]: https://jquery.com/
+[JQuery Datepicker]: https://jqueryui.com/datepicker/
+[Mysql]: https://www.mysql.com/
+[ClearDB]: https://www.cleardb.com/
+[Heroku]: www.heroku.com
+[Google Map API]: https://developers.google.com/maps/documentation/javascript/overview
+[AWS-SDK]: https://aws.amazon.com/sdk-for-javascript/
+[Multer]: https://github.com/expressjs/multer
+[Multer-S3]: https://www.npmjs.com/package/multer-s3
+[Bcrypt]: https://www.npmjs.com/package/bcrypt
