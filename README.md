@@ -3,7 +3,10 @@
 <img src='https://gitreposas.s3.amazonaws.com/index.png' align='right' alt='airbnb-logo' width='100px'/>
 
 This app is a clone of the main features of Airbnb in JavaScript. You can access it by following this link: [airbnb-clone-alexisimonian](https://airbnb-clone-alexissimonian.herokuapp.com/).<br>
-<u>**It includes:**</u>
+
+<br>
+
+**It includes:**
 
 * **Searching for stays**: users can see available stays according to search preferences.
 <p align='center'>
