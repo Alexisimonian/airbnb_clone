@@ -59,7 +59,7 @@ All adress fields are autocompleted/corrected by **google's map api** ensuring g
 | [Google Map API] | Map + Geocoder + Autocomplete + Positioning markers + Extra information from addresses (e.g. latitude and longitude) |
 | [AWS-SDK], [Multer], [Multer-S3] | Cloud file management |
 | [Bcrypt] | Crypt users' passwords |
-| [Boostrap 4] | General design + modals + image carousels |
+| [Bootstrap 4] | General design + modals + image carousels |
 
 [NodeJS]: https://nodejs.org/en/
 [ExpressJS]: https://expressjs.com/
