@@ -258,6 +258,7 @@ $("#login-form").on("submit", function (e) {
       data: data,
       dataType: "text",
       success: function () {
+        alert("Successfully connected !");
         location.reload();
       },
       error: function (data) {
