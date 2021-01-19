@@ -53,7 +53,7 @@ All adress fields are autocompleted/corrected by **google's map api** ensuring g
 		<th>Used for</th>
 	</tr>
 	<tr>
-		<td>[NodeJS](https://nodejs.org/en/), [ExpressJS](https://expressjs.com/)</td>
+		<td>[NodeJS], [ExpressJS](https://expressjs.com/)</td>
 		<td>* Backend controls</td>
 	</tr>
 	<tr>
@@ -100,3 +100,4 @@ All adress fields are autocompleted/corrected by **google's map api** ensuring g
 	</tr>
 	
 </table>
+[NodeJS]: https://nodejs.org/en/
