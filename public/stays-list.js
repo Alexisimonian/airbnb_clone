@@ -156,9 +156,9 @@ $.ajax({
     $.each(homesList, function (index, offer) {
       //Filters according to search params
       if (
-        offer.country == search_params["country"].replace("%20", " ") &&
+        offer.country == search_params["country"] &&
         (search_params["locality"] === "" ||
-          offer.locality == search_params["locality"].replace("%20", " ")) &&
+          offer.locality == search_params["locality"]) &&
         (search_params["start_date"] === "" ||
           offer.availableFrom <= search_params["start_date"]) &&
         (search_params["end_date"] === "" ||
