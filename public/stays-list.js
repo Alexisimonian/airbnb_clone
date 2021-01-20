@@ -115,7 +115,7 @@ $(document).on("click", ".offer", function (e) {
     $("#offeraddress").html(
       `<strong>Address:</strong> ${fulloffer.address}, ${fulloffer.postcode}, ${fulloffer.locality}, ${fulloffer.country}`
     );
-    $("#offerprice").html(`<strong>price:</strong> ${fulloffer.price}€/night`);
+    $("#offerprice").html(`<strong>Price:</strong> ${fulloffer.price}€/night`);
     $("#offersize").html(`<strong>Size:</strong> ${fulloffer.size} guests`);
     $("#offertype").html(`<strong>Place type:</strong> ${fulloffer.type}`);
     $("#offerdescription").html(
